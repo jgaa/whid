@@ -8,6 +8,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 }
 
+void MainWindow::initialize()
+{
+    db_ = std::make_unique<Database>();
+    nodeModel_ = std::make_unique<NodeModel>();
+    ui->nodeTree->setModel(nodeModel_.get());
+}
+
 MainWindow::~MainWindow()
 {
     delete ui;
