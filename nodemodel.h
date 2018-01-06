@@ -4,6 +4,7 @@
 #include <memory>
 #include <QStandardItemModel>
 #include <QDateTime>
+#include <QMenu>
 
 class Node : public std::enable_shared_from_this<Node> {
 public:
@@ -46,6 +47,8 @@ public:
         return nullptr;
     }
 
+    virtual QVariant getIcon(QSize size) const = 0;
+
     int getRow(const Node *node) const {
         for(size_t i = 0; i < children_.size(); ++i) {
             if (children_[i].get() == node) {
@@ -65,6 +68,19 @@ public:
         return -1;
     }
 
+    // Returns true if type equals this node or any parent
+    bool hasType(const Type type) const {
+        if (getType() == type) {
+            return true;
+        }
+
+        if (auto parent = parent_.lock()) {
+            return parent->hasType(type);
+        }
+
+        return false;
+    }
+
     int id = {};
     QString name;
     QString descr;
@@ -81,6 +97,11 @@ public:
         children_.clear();
     }
 
+    void addCustomer();
+
+protected:
+    QVariant getNodeIcon(QString name, QSize size) const;
+
 private:
     std::vector<std::shared_ptr<Node>> children_;
     std::weak_ptr<Node> parent_;
@@ -92,6 +113,10 @@ public:
 
     Type getType() const override {
         return Type::ROOT;
+    }
+
+    QVariant getIcon(QSize) const override {
+        return {};
     }
 };
 
@@ -105,6 +130,10 @@ public:
     Type getType() const override {
         return Type::FOLDER;
     }
+
+    QVariant getIcon(QSize size) const override {
+        return getNodeIcon("folder.svg", size);
+    }
 };
 
 class Customer : public Node {
@@ -116,6 +145,10 @@ public:
 
     Type getType() const override {
         return Type::CUSTOMER;
+    }
+
+    QVariant getIcon(QSize size) const override {
+        return getNodeIcon("customer.svg", size);
     }
 };
 
@@ -129,6 +162,10 @@ public:
     Type getType() const override {
         return Type::PROJECT;
     }
+
+    QVariant getIcon(QSize size) const override {
+        return getNodeIcon("project.svg", size);
+    }
 };
 
 class Task : public Node {
@@ -140,6 +177,10 @@ public:
 
     Type getType() const override {
         return Type::TASK;
+    }
+
+    QVariant getIcon(QSize size) const override {
+        return getNodeIcon("task.svg", size);
     }
 };
 
@@ -178,7 +219,11 @@ class NodeModel : public QStandardItemModel
 public:
     NodeModel();
 
-    std::shared_ptr<Root> root_;
+    QModelIndex addNode(const QModelIndex& parentIndex, std::shared_ptr<Node> node);
+
+    Node *getRootNode() const {
+        return root_.get();
+    }
 
     // QAbstractItemModel interface
 public:
@@ -188,15 +233,19 @@ public:
     int columnCount(const QModelIndex &parent) const override;
     bool hasChildren(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;
-    //bool setData(const QModelIndex &index, const QVariant &value, int role) override;
+    bool setData(const QModelIndex &index, const QVariant &value, int role) override;
     //bool insertRows(int row, int count, const QModelIndex &parent) override;
     //bool insertColumns(int column, int count, const QModelIndex &parent) override;
     //bool removeRows(int row, int count, const QModelIndex &parent) override;
     //bool removeColumns(int column, int count, const QModelIndex &parent) override;
+    Qt::ItemFlags flags(const QModelIndex &index) const override;
 
 private:
     void loadData();
     void fetchChildren(Node& node);
+    void flushNode(Node& node);
+
+    std::shared_ptr<Root> root_;
 };
 
 #endif // NODEMODEL_H

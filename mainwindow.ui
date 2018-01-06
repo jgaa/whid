@@ -30,7 +30,11 @@
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <widget class="QTreeView" name="nodeTree"/>
+       <widget class="QTreeView" name="nodeTree">
+        <attribute name="headerVisible">
+         <bool>false</bool>
+        </attribute>
+       </widget>
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
          <number>1</number>

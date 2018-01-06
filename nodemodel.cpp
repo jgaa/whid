@@ -12,6 +12,32 @@ NodeModel::NodeModel()
     loadData();
 }
 
+QModelIndex NodeModel::addNode(const QModelIndex &parentIndex, std::shared_ptr<Node> node)
+{
+    // Insert to database
+    try {
+        flushNode(*node);
+    } catch(const std::exception& ex) {
+        qWarning() << "Failed to add node with name " << node->name
+                   << ": " << ex.what();
+
+        // TODO: Add error dialog
+        return {};
+    }
+
+    // Update in-memory image of model
+    int children = rowCount(parentIndex);
+    beginInsertRows(parentIndex, children, children);
+    auto parent = static_cast<Node *>(parentIndex.internalPointer());
+    if (parent == nullptr) {
+        parent = getRootNode();
+    }
+    parent->addChild(move(node));
+    endInsertRows();
+
+    return index(children, 0, parentIndex);
+}
+
 QModelIndex NodeModel::index(int row, int column,
                              const QModelIndex &parent) const
 {
@@ -76,13 +102,53 @@ QVariant NodeModel::data(const QModelIndex &index, int role) const
         return {};
     }
 
-    if (role != Qt::DisplayRole) {
-        return {};
-    }
-
     const auto node = static_cast<const Node *>(index.internalPointer());
 
-    return node->name;
+    if (role == Qt::DisplayRole) {
+        return node->name;
+    }
+
+    if (role == Qt::DecorationRole) {
+        return node->getIcon({16,16});
+    }
+
+    return {};
+}
+
+bool NodeModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (role != Qt::EditRole)
+        return false;
+
+    const auto valueStr = value.toString();
+    if (valueStr.isEmpty()) {
+        return false;
+    }
+
+    auto node = static_cast<Node *>(index.internalPointer());
+    assert(node);
+    assert(node->getType() != Node::Type::ROOT);
+    node->name = valueStr;
+    try {
+        flushNode(*node);
+    } catch(const std::exception& ex) {
+        qWarning() << "Failed to reame node #" << node->id << " to "
+                   << valueStr << ". Error: " << ex.what();
+        return false;
+    }
+
+    // FIXME: If we emit, the application crash
+    //emit dataChanged(index, index);
+    return true;
+}
+
+Qt::ItemFlags NodeModel::flags(const QModelIndex &index) const
+{
+    if (!index.isValid()) {
+        return Qt::ItemIsEnabled;
+    }
+
+    return Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable;
 }
 
 void NodeModel::loadData()
@@ -140,5 +206,67 @@ void NodeModel::fetchChildren(Node &parent)
     }
 
     parent.isFetched = true;
+}
+
+void Node::addCustomer()
+{
+    auto node = std::make_shared<Customer>(shared_from_this());
+    node->name = "New Customer";
+
+    // Always add at end
+    addChild(move(node));
+}
+
+QVariant Node::getNodeIcon(QString name, QSize size) const
+{
+    QString path(":/res/icons/");
+    path += name;
+
+    return QIcon(path).pixmap(size);
+}
+
+void NodeModel::flushNode(Node &node)
+{
+    QSqlQuery query;
+    QString sql, fields;
+
+    const bool do_update = node.id != 0;
+
+    if (do_update) {
+        sql = "UPDATE node SET "
+              "name=:name, type=:type, descr=:descr, active=:active, charge=:charge, parent=:paremnt "
+              "WHERE id = :id";
+    } else {
+        sql = "INSERT INTO node (name, type, descr, active, charge, parent) "
+              "VALUES (:name, :type, :descr, :active, :charge, :parent)";
+    }
+
+    int parent_id = 0;
+    auto parent = node.getParent();
+    if (parent && (parent->getType() != Node::Type::ROOT)) {
+        parent_id = parent->id;
+    }
+
+    query.prepare(sql);
+    query.bindValue(":name", node.name);
+    query.bindValue(":type", node.getTypeId());
+    query.bindValue(":descr", node.descr);
+    query.bindValue(":active", node.active);
+    query.bindValue(":charge", node.charge);
+    query.bindValue(":parent", parent_id);
+
+    if (do_update) {
+        query.bindValue(":id", node.id);
+    }
+
+    if (!query.exec()) {
+        qWarning() << "flushNode failed. error:  " << query.lastError();
+        throw runtime_error("Failed to insert/update node");
+    } else {
+        if (!do_update) {
+            node.id = query.lastInsertId().toInt();
+        }
+        qDebug() << "Flushed node #" << node.id << " " << node.name;
+    }
 }
 

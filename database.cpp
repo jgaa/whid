@@ -56,7 +56,7 @@ void Database::createDatabase()
     try {
         exec(R"(CREATE TABLE "whid" ( `version` INTEGER NOT NULL ))");
         exec(R"(CREATE TABLE `charge` ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL UNIQUE, `rate` INTEGER NOT NULL DEFAULT 0, `currency` TEXT NOT NULL DEFAULT "eur", `roundup_sec` INTEGER NOT NULL DEFAULT 0, `minimun_time` INTEGER NOT NULL DEFAULT 0 ))");
-        exec(R"(CREATE TABLE "node" ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` INTEGER NOT NULL UNIQUE, `type` INTEGER NOT NULL, `descr` TEXT, `active` INTEGER NOT NULL DEFAULT 1, `charge` INTEGER, `parent` INTEGER, FOREIGN KEY(`charge`) REFERENCES `charge`(`id`), FOREIGN KEY(`parent`) REFERENCES node(id)))");
+        exec(R"(CREATE TABLE "node" ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` REAL NOT NULL, `type` INTEGER NOT NULL, `status` INTEGER NOT NULL DEFAULT 0, `descr` TEXT, `active` INTEGER NOT NULL DEFAULT 1, `charge` INTEGER, `parent` INTEGER, FOREIGN KEY(`charge`) REFERENCES `charge`(`id`), FOREIGN KEY(`parent`) REFERENCES node(id)))");
         exec(R"(CREATE TABLE "work" ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `start` INTEGER NOT NULL, `end` INTEGER NOT NULL DEFAULT 0, `paused` INTEGER NOT NULL DEFAULT 0, `status` INTEGER NOT NULL DEFAULT 0, `invoiced` INTEGER NOT NULL DEFAULT 0, `description` TEXT NOT NULL, `note` TEXT, `charge` INTEGER, `node` INTEGER NOT NULL, FOREIGN KEY(`charge`) REFERENCES charge(id), FOREIGN KEY(`node`) REFERENCES `node`(`id`) ))");
 
         QSqlQuery query(db_);
