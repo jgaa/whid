@@ -1,0 +1,1346 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: whid\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-08-04 17:31+0200\n"
+"PO-Revision-Date: 2007-11-01 10:54+0100\n"
+"Last-Translator: Jarle Aase <jgaa@jgaa.com>\n"
+"Language-Team: translators <jgaa@jgaa.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Country: NORWAY\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ../../src/client\n"
+
+#: ../../src/client/AboutDlg.cpp:132
+msgid "Homepage"
+msgstr "Hjemmeside"
+
+#: ../../src/client/AboutDlg.cpp:135
+msgid "Donate"
+msgstr "Doner"
+
+#: ../../src/client/AboutDlg.cpp:138
+msgid "&Close"
+msgstr "&Lukk"
+
+#: ../../src/client/AboutDlg.cpp:154
+msgid "version"
+msgstr "versjon"
+
+#: ../../src/client/AboutDlg.cpp:164
+msgid "is free software (as in free), published under the"
+msgstr "er fri programvare (som i FRI), publisert under"
+
+#: ../../src/client/AboutDlg.cpp:168
+msgid "There are no nags, no banners, no adware, no spyware."
+msgstr "Whid inneholder ikke spionprogramvare, virus, reklame eller andre ekle ting (som desverre er blitt altfor utbredt)."
+
+#: ../../src/client/AboutDlg.cpp:170
+msgid "The source-code is available for"
+msgstr "Kildekoden er tilgjengelig for"
+
+#: ../../src/client/AboutDlg.cpp:173
+msgid "download"
+msgstr "nedlasting"
+
+#: ../../src/client/AboutDlg.cpp:179
+msgid "is written by"
+msgstr "er skrevet av"
+
+#: ../../src/client/AboutDlg.cpp:182
+msgid "from Norway."
+msgstr "fra Norge."
+
+#: ../../src/client/AboutDlg.cpp:184
+msgid "Jarle has released free software since 1985."
+msgstr "Jarle har publisert gratisprogramvare siden 1985."
+
+#: ../../src/client/AboutDlg.cpp:188
+msgid "If you find this software useful, you may"
+msgstr "Dersom du synes dette programmet er nyttig kan du"
+
+#: ../../src/client/AboutDlg.cpp:191
+msgid "donate"
+msgstr "donere"
+
+#: ../../src/client/AboutDlg.cpp:193
+msgid "some money to the project. But you are free to use it anyway"
+msgstr "litt penger til prosjektet. Men du kan selvsagt bruke det fritt uansett."
+
+#: ../../src/client/AboutDlg.cpp:249
+msgid "http://whid.jgaa.com"
+msgstr ""
+
+#: ../../src/client/AboutDlg.cpp:260
+msgid "http://donate.jgaa.com"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:94
+msgid "Billing"
+msgstr "Regninger"
+
+#: ../../src/client/BillingWiz.cpp:298
+msgid "Projects with work that can be billed"
+msgstr "Prosjekter med ubehandlet betalbart arbeid"
+
+#: ../../src/client/BillingWiz.cpp:309
+msgid "Select All"
+msgstr "Velg alle"
+
+#: ../../src/client/BillingWiz.cpp:312
+msgid "Unselect All"
+msgstr "Velg bort alle"
+
+#: ../../src/client/BillingWiz.cpp:315
+#: ../../src/client/BillingWiz.cpp:910
+msgid "Toggle"
+msgstr "Bytt"
+
+#: ../../src/client/BillingWiz.cpp:371
+msgid "Fetching billable projects..."
+msgstr "Henter prosjekter med betalbart arbeid"
+
+#: ../../src/client/BillingWiz.cpp:472
+msgid "Calculating..."
+msgstr "Kalkulerer"
+
+#: ../../src/client/BillingWiz.cpp:574
+msgid "Calculated and aligned charges"
+msgstr "Kalkulerte og avrundede beløp"
+
+#: ../../src/client/BillingWiz.cpp:590
+#: ../../src/client/InvoiceUtil.cpp:210
+#: ../../src/client/TaskDlg.cpp:24
+msgid "Task"
+msgstr "Oppgave"
+
+#: ../../src/client/BillingWiz.cpp:591
+#: ../../src/client/InvoiceUtil.cpp:204
+#: ../../src/client/MainFrame.cpp:508
+#: ../../src/client/MainFrame.cpp:531
+msgid "From"
+msgstr "Fra"
+
+#: ../../src/client/BillingWiz.cpp:592
+#: ../../src/client/InvoiceUtil.cpp:205
+#: ../../src/client/MainFrame.cpp:509
+#: ../../src/client/MainFrame.cpp:532
+msgid "To"
+msgstr "Til"
+
+#: ../../src/client/BillingWiz.cpp:593
+#: ../../src/client/InvoiceUtil.cpp:206
+#: ../../src/client/MainFrame.cpp:522
+msgid "Hours"
+msgstr "Timer"
+
+#: ../../src/client/BillingWiz.cpp:594
+#: ../../src/client/ChooseRateDlg.cpp:106
+#: ../../src/client/InvoiceUtil.cpp:207
+#: ../../src/client/RateManager.cpp:107
+#: ../../src/client/RateDlg.h:42
+msgid "Rate"
+msgstr "Sats"
+
+#: ../../src/client/BillingWiz.cpp:595
+msgid "r/hr"
+msgstr "s/time"
+
+#: ../../src/client/BillingWiz.cpp:596
+msgid "Charge"
+msgstr "Sats"
+
+#: ../../src/client/BillingWiz.cpp:597
+#: ../../src/client/InvoiceUtil.cpp:209
+msgid "Discount"
+msgstr "Rabatt"
+
+#: ../../src/client/BillingWiz.cpp:641
+msgid "Updating data..."
+msgstr "Oppdaterer data..."
+
+#: ../../src/client/BillingWiz.cpp:648
+msgid "Companys"
+msgstr "Bedrifter"
+
+#: ../../src/client/BillingWiz.cpp:763
+#: ../../src/client/BillingWiz.cpp:766
+#: ../../src/client/BillingWiz.cpp:768
+#: ../../src/client/BillingWiz.cpp:770
+#: ../../src/client/BillingWiz.cpp:789
+#: ../../src/client/BillingWiz.cpp:792
+#: ../../src/client/BillingWiz.cpp:795
+#, c-format
+msgid "%1.2lf"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:787
+#: ../../src/client/InvoiceUtil.cpp:199
+msgid "Total"
+msgstr "Total"
+
+#: ../../src/client/BillingWiz.cpp:893
+#: ../../src/client/MainFrame.cpp:373
+#: ../../src/client/MainFrame.cpp:467
+msgid "Invoices"
+msgstr "Regninger"
+
+#: ../../src/client/BillingWiz.cpp:904
+msgid "Select all"
+msgstr "Velg alle"
+
+#: ../../src/client/BillingWiz.cpp:907
+msgid "Unselect all"
+msgstr "Velg bort alle"
+
+#: ../../src/client/BillingWiz.cpp:916
+msgid "Export to html"
+msgstr "Eksporter til html"
+
+#: ../../src/client/BillingWiz.cpp:919
+msgid "Export to xml"
+msgstr "Eksporer til xml"
+
+#: ../../src/client/BillingWiz.cpp:922
+msgid "Send on email"
+msgstr "Send som epostvedlegg"
+
+#: ../../src/client/BillingWiz.cpp:977
+msgid "Updating..."
+msgstr "Oppdaterer..."
+
+#: ../../src/client/BillingWiz.cpp:1027
+msgid "Creating invoices..."
+msgstr "Oppretter regninger..."
+
+#: ../../src/client/BillingWiz.cpp:1097
+#: ../../src/client/BillingWiz.cpp:1126
+#: ../../src/client/MainFrame.cpp:2367
+#: ../../src/client/MainFrame.cpp:2480
+#: ../../src/client/MainFrame.cpp:2513
+msgid "Save to XML file"
+msgstr "Lagre som XML fil"
+
+#: ../../src/client/BillingWiz.cpp:1098
+msgid "HTML files (*.html)|*.html"
+msgstr "HTML filer (*.html)|*.htm"
+
+#: ../../src/client/BillingWiz.cpp:1127
+#: ../../src/client/MainFrame.cpp:2368
+msgid "bill.xml"
+msgstr "regning.xml"
+
+#: ../../src/client/BillingWiz.cpp:1127
+#: ../../src/client/MainFrame.cpp:2368
+#: ../../src/client/MainFrame.cpp:2481
+#: ../../src/client/MainFrame.cpp:2514
+msgid "XML files (*.xml)|*.xml"
+msgstr "XML filer (*.xml)|*.xml"
+
+#: ../../src/client/BillingWiz.cpp:1266
+msgid "From Date"
+msgstr "Fra dato"
+
+#: ../../src/client/BillingWiz.cpp:1272
+msgid "To date"
+msgstr "Til dato"
+
+#: ../../src/client/ChooseRateDlg.cpp:104
+#: ../../src/client/NodeDlg.cpp:171
+#: ../../src/client/PropertiesDlg.cpp:275
+#: ../../src/client/RateDlg.cpp:219
+#: ../../src/client/RateManager.cpp:105
+#: ../../src/client/UserDlg.cpp:179
+#: ../../src/client/UserManager.cpp:108
+msgid "Name"
+msgstr "Navn"
+
+#: ../../src/client/ChooseRateDlg.cpp:105
+#: ../../src/client/RateDlg.cpp:231
+#: ../../src/client/RateManager.cpp:106
+msgid "Type"
+msgstr "Type"
+
+#: ../../src/client/ChooseRateDlg.cpp:136
+#: ../../src/client/NodeDlg.cpp:200
+#: ../../src/client/WorkDlg.cpp:282
+#: ../../src/client/ChooseRateDlg.h:41
+msgid "Rates"
+msgstr "Satser"
+
+#: ../../src/client/ChooseRateDlg.cpp:146
+msgid "Hide inactive rates"
+msgstr "Skjul inaktive satser"
+
+#: ../../src/client/ChooseRateDlg.cpp:150
+msgid "Add new"
+msgstr "Legg til"
+
+#: ../../src/client/ChooseRateDlg.cpp:156
+#: ../../src/client/EmailBillDlg.cpp:154
+#: ../../src/client/FirstUseDlg.cpp:156
+#: ../../src/client/HTMLReport.cpp:145
+#: ../../src/client/LogonDlg.cpp:149
+#: ../../src/client/NewPasswdDlg.cpp:141
+#: ../../src/client/NodeDlg.cpp:221
+#: ../../src/client/PropertiesDlg.cpp:420
+#: ../../src/client/RateDlg.cpp:384
+#: ../../src/client/SystemSettingsDlg.cpp:161
+#: ../../src/client/UserDlg.cpp:239
+#: ../../src/client/WorkDlg.cpp:289
+msgid "&OK"
+msgstr "&Ok"
+
+#: ../../src/client/ChooseRateDlg.cpp:159
+#: ../../src/client/EmailBillDlg.cpp:157
+#: ../../src/client/FirstUseDlg.cpp:159
+#: ../../src/client/HTMLReport.cpp:148
+#: ../../src/client/LogonDlg.cpp:152
+#: ../../src/client/NewPasswdDlg.cpp:144
+#: ../../src/client/NodeDlg.cpp:224
+#: ../../src/client/PropertiesDlg.cpp:423
+#: ../../src/client/RateDlg.cpp:387
+#: ../../src/client/SystemSettingsDlg.cpp:164
+#: ../../src/client/UserDlg.cpp:242
+#: ../../src/client/WorkDlg.cpp:292
+msgid "&Cancel"
+msgstr "&Avbryt"
+
+#: ../../src/client/ChooseRateDlg.cpp:276
+#: ../../src/client/MainFrame.cpp:1177
+#: ../../src/client/RateManager.cpp:220
+#, c-format
+msgid "%.0f"
+msgstr ""
+
+#: ../../src/client/ChooseRateDlg.cpp:281
+#: ../../src/client/RateManager.cpp:225
+msgid "Normal"
+msgstr "Normal"
+
+#: ../../src/client/ChooseRateDlg.cpp:284
+#: ../../src/client/RateManager.cpp:153
+#: ../../src/client/RateManager.cpp:228
+#: ../../src/client/UserManager.cpp:158
+msgid "Add"
+msgstr "Legg til"
+
+#: ../../src/client/ChooseRateDlg.cpp:287
+#: ../../src/client/RateManager.cpp:231
+msgid "Percent"
+msgstr "Prosent"
+
+#: ../../src/client/ChooseRateDlg.cpp:290
+#: ../../src/client/RateManager.cpp:234
+msgid "Fee"
+msgstr "Salær"
+
+#: ../../src/client/CustomerDlg.cpp:15
+#: ../../src/client/MainFrame.cpp:520
+msgid "Customer"
+msgstr "Kunde"
+
+#: ../../src/client/EmailBillDlg.cpp:133
+msgid "Email address"
+msgstr "Epost adresse"
+
+#: ../../src/client/EmailBillDlg.cpp:139
+msgid "Subject"
+msgstr "Emne"
+
+#: ../../src/client/EmailBillDlg.cpp:145
+msgid "Message"
+msgstr "Melding"
+
+#: ../../src/client/FirstUseDlg.cpp:119
+msgid ""
+"I cannot find a database. If this is the first time the program is used by you, that is normal.\n"
+"I can create a new database. Just provide the infromation  below and press OK."
+msgstr "Jeg finner ikke noen database. Dersom dette er den første gangen programmet startes av deg kan jeg opprette databasen. Fyll inn informasjonen under og trykk Ok"
+
+#: ../../src/client/FirstUseDlg.cpp:122
+msgid "If you /do/ have a database, press the cancel button to abort."
+msgstr "Dersom du allerede /har/ en database, trykk avbryt og kontakt support."
+
+#: ../../src/client/FirstUseDlg.cpp:128
+msgid "Login name"
+msgstr "Påloggingsnavn"
+
+#: ../../src/client/FirstUseDlg.cpp:130
+msgid "The login-name is normally composed from the users initials"
+msgstr "Påloggingsnavnet er vanligvis brukerens initialer (men det må være unikt for hver bruker)."
+
+#: ../../src/client/FirstUseDlg.cpp:136
+msgid "Your full name"
+msgstr "Ditt fulle navn"
+
+#: ../../src/client/FirstUseDlg.cpp:142
+msgid "What do you normally charge per hour?"
+msgstr "Hvilken betaling krever du vanligvis pr. time?"
+
+#: ../../src/client/FirstUseDlg.cpp:147
+msgid "Just insert the amout (not the currency)"
+msgstr "Skriv inn beløpet i hele kroner (kun tall)"
+
+#: ../../src/client/HTMLReport.cpp:135
+msgid "Choose report"
+msgstr "Velg rapport"
+
+#: ../../src/client/HTMLReport.cpp:158
+msgid "Invoice"
+msgstr "Regning"
+
+#: ../../src/client/HTMLReport.cpp:159
+msgid "Internal report with cost and profit"
+msgstr "Intern rapport med kostnad og fortjeneste"
+
+#: ../../src/client/InvoiceUtil.cpp:49
+#: ../../src/client/InvoiceUtil.cpp:163
+msgid "whid-bill"
+msgstr "whid-regning"
+
+#: ../../src/client/InvoiceUtil.cpp:71
+msgid "Sending message. Please wait..."
+msgstr "Sender epost. Vennligst vent..."
+
+#: ../../src/client/InvoiceUtil.cpp:158
+msgid "Exporting data. Please wait..."
+msgstr "Eksporterer data. Vennligst vent..."
+
+#: ../../src/client/InvoiceUtil.cpp:197
+msgid "Report Summary"
+msgstr "Rapport oppsummering"
+
+#: ../../src/client/InvoiceUtil.cpp:198
+msgid "Total hours"
+msgstr "Totalt antall timer"
+
+#: ../../src/client/InvoiceUtil.cpp:200
+msgid "Cost"
+msgstr "Kostnad"
+
+#: ../../src/client/InvoiceUtil.cpp:201
+#: ../../src/client/MainFrame.cpp:524
+msgid "Profit"
+msgstr "Fortjeneste"
+
+#: ../../src/client/InvoiceUtil.cpp:202
+msgid "Invoice #"
+msgstr "Bilag #"
+
+#: ../../src/client/InvoiceUtil.cpp:203
+#: ../../src/client/ProjectDlg.cpp:24
+msgid "Project"
+msgstr "Prosjekt"
+
+#: ../../src/client/InvoiceUtil.cpp:208
+#: ../../src/client/MainFrame.cpp:512
+#: ../../src/client/MainFrame.cpp:523
+msgid "Sum"
+msgstr "Sum"
+
+#: ../../src/client/InvoiceUtil.cpp:258
+#: ../../src/client/MainFrame.cpp:2307
+msgid "Access denied. You don't have permission to see invoices."
+msgstr "Ingen tilgang. Du har ikke rettigheter til å se regninger"
+
+#: ../../src/client/LogonDlg.cpp:134
+#: ../../src/client/UserDlg.cpp:185
+msgid "Login Name"
+msgstr "Påloggingsnavn"
+
+#: ../../src/client/LogonDlg.cpp:140
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:141
+#: ../../src/client/PropertiesDlg.cpp:313
+#: ../../src/client/PropertiesDlg.cpp:407
+#: ../../src/client/UserDlg.cpp:191
+#: ../../src/client/NewPasswdDlg.h:39
+msgid "Password"
+msgstr "Passord"
+
+#: ../../src/client/MainFrame.cpp:341
+msgid "&Quit"
+msgstr "&Avslutt"
+
+#: ../../src/client/MainFrame.cpp:342
+msgid "&Properties"
+msgstr "&Egenskaper"
+
+#: ../../src/client/MainFrame.cpp:343
+msgid "&Users"
+msgstr "&Brukere"
+
+#: ../../src/client/MainFrame.cpp:344
+msgid "&Rates Manager"
+msgstr "&Satsbehandling"
+
+#: ../../src/client/MainFrame.cpp:346
+msgid "Global &System settings"
+msgstr "&Globale systemegenskaper"
+
+#: ../../src/client/MainFrame.cpp:348
+msgid "Backup data"
+msgstr "Ta sikkerhetskopi av data"
+
+#: ../../src/client/MainFrame.cpp:349
+msgid "Restore data"
+msgstr "Legg tilbake data fra sikkerhetskopi"
+
+#: ../../src/client/MainFrame.cpp:350
+msgid "&File"
+msgstr "&Fil"
+
+#: ../../src/client/MainFrame.cpp:352
+#: ../../src/client/MainFrame.cpp:356
+#: ../../src/client/MainFrame.cpp:361
+msgid "&Edit"
+msgstr "&Rediger"
+
+#: ../../src/client/MainFrame.cpp:353
+msgid "Add a new &Customer"
+msgstr "&Legg til en ny Kunde"
+
+#: ../../src/client/MainFrame.cpp:354
+msgid "&Customer"
+msgstr "&Kunde"
+
+#: ../../src/client/MainFrame.cpp:357
+msgid "&Add a new Project"
+msgstr "&Legg til et prosjekt"
+
+#: ../../src/client/MainFrame.cpp:358
+#: ../../src/client/app_resources.cpp:91
+msgid "Add a new &Task"
+msgstr "Legg til en &Oppgave"
+
+#: ../../src/client/MainFrame.cpp:359
+msgid "&Project"
+msgstr "&Prosjekt"
+
+#: ../../src/client/MainFrame.cpp:362
+msgid "&Add a new Task"
+msgstr "Legg til ren &Oppgave"
+
+#: ../../src/client/MainFrame.cpp:363
+msgid "Add &Work"
+msgstr "Legg til &Arbeid"
+
+#: ../../src/client/MainFrame.cpp:364
+msgid "&Task"
+msgstr "&Oppgave"
+
+#: ../../src/client/MainFrame.cpp:366
+#: ../../src/client/app_resources.cpp:77
+msgid "&Edit\t..."
+msgstr "&Rediger\t..."
+
+#: ../../src/client/MainFrame.cpp:367
+msgid "Item"
+msgstr "&Enhet"
+
+#: ../../src/client/MainFrame.cpp:368
+msgid "&Work"
+msgstr "&Arbeid"
+
+#: ../../src/client/MainFrame.cpp:370
+#: ../../src/client/app_resources.cpp:63
+msgid "Export to XML"
+msgstr "Eksporter til XML"
+
+#: ../../src/client/MainFrame.cpp:371
+#: ../../src/client/app_resources.cpp:64
+msgid "Export to HTML"
+msgstr "Eksporter til HTML"
+
+#: ../../src/client/MainFrame.cpp:372
+msgid "Export to email"
+msgstr "Eksporer til epost"
+
+#: ../../src/client/MainFrame.cpp:375
+msgid "&About"
+msgstr "&Om"
+
+#: ../../src/client/MainFrame.cpp:376
+msgid "Help"
+msgstr "&Hjelp"
+
+#: ../../src/client/MainFrame.cpp:383
+msgid "Add a new customer"
+msgstr "Lenn til en ny kunde"
+
+#: ../../src/client/MainFrame.cpp:386
+msgid "Add a new project"
+msgstr "Legg til et nytt prosjekt"
+
+#: ../../src/client/MainFrame.cpp:389
+msgid "Add a new task in a project"
+msgstr "Legg til en ny oppgave i et projekt"
+
+#: ../../src/client/MainFrame.cpp:392
+msgid "Add work hours"
+msgstr "Legg til arbeid"
+
+#: ../../src/client/MainFrame.cpp:395
+msgid "Billing - Calculate charges and make incoices"
+msgstr "Fakturering - Kalkuler arbeid og lag regninger"
+
+#: ../../src/client/MainFrame.cpp:399
+msgid "Refresh the information on the screen"
+msgstr "Oppdater informasjonen på skjermen"
+
+#: ../../src/client/MainFrame.cpp:402
+msgid "Currently Active"
+msgstr "Aktive"
+
+#: ../../src/client/MainFrame.cpp:403
+msgid "Done, waiting to be invoiced"
+msgstr "Avsluttet, klar til fakturering"
+
+#: ../../src/client/MainFrame.cpp:404
+msgid "Done, hold back"
+msgstr "Avsluttet, hold tilbake fra fakturering"
+
+#: ../../src/client/MainFrame.cpp:405
+msgid "Free"
+msgstr "Gratis"
+
+#: ../../src/client/MainFrame.cpp:406
+msgid "Invoived"
+msgstr "Fakturert"
+
+#: ../../src/client/MainFrame.cpp:407
+msgid "Not invoiced or free (pending for invoice)"
+msgstr "Klar for fakturering"
+
+#: ../../src/client/MainFrame.cpp:408
+msgid "All"
+msgstr "Alle"
+
+#: ../../src/client/MainFrame.cpp:410
+msgid "5"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:411
+msgid "Filter the work-hour selection"
+msgstr "Filtrer på arbeidstimeutvalg"
+
+#: ../../src/client/MainFrame.cpp:413
+msgid "Work-hours status to show"
+msgstr "Tim"
+
+#: ../../src/client/MainFrame.cpp:417
+msgid "Reset the filters"
+msgstr "resett filtre"
+
+#: ../../src/client/MainFrame.cpp:442
+msgid "Only active"
+msgstr "Bare aktive"
+
+#: ../../src/client/MainFrame.cpp:446
+msgid "Filter"
+msgstr "Filter"
+
+#: ../../src/client/MainFrame.cpp:459
+msgid "Summary"
+msgstr "Oppsummering"
+
+#: ../../src/client/MainFrame.cpp:463
+msgid "Work Hours"
+msgstr "Arbeidstimer"
+
+#: ../../src/client/MainFrame.cpp:480
+msgid "Check in"
+msgstr "Start oppgave"
+
+#: ../../src/client/MainFrame.cpp:484
+#: ../../src/client/MainFrame.cpp:510
+#: ../../src/client/MainFrame.cpp:533
+msgid "Pause"
+msgstr "Pause"
+
+#: ../../src/client/MainFrame.cpp:507
+msgid "Origin"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:511
+#: ../../src/client/MainFrame.cpp:534
+msgid "Used"
+msgstr "Brukt"
+
+#: ../../src/client/MainFrame.cpp:513
+#: ../../src/client/MainFrame.cpp:535
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: ../../src/client/MainFrame.cpp:518
+msgid "Date"
+msgstr "Dato"
+
+#: ../../src/client/MainFrame.cpp:519
+msgid "#"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:521
+#: ../../src/client/MainFrame.cpp:2221
+msgid "User"
+msgstr "Bruker"
+
+#: ../../src/client/MainFrame.cpp:661
+msgid "Customers"
+msgstr "Bruker"
+
+#: ../../src/client/MainFrame.cpp:1171
+#: ../../src/client/MainFrame.cpp:1175
+#, c-format
+msgid "%02d:%02d"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:1422
+msgid "Check Out"
+msgstr "Ferdig"
+
+#: ../../src/client/MainFrame.cpp:1423
+msgid "Check In"
+msgstr "Start arbeid"
+
+#: ../../src/client/MainFrame.cpp:1607
+msgid "WHEAT"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:1711
+msgid "No properties for pauses..."
+msgstr "Ingen egenskaper for pauser..."
+
+#: ../../src/client/MainFrame.cpp:2185
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:147
+msgid "Default user"
+msgstr "Standardbruker"
+
+#: ../../src/client/MainFrame.cpp:2186
+#: ../../src/client/MainFrame.cpp:2219
+#: ../../src/client/UserManager.cpp:111
+msgid "Admin"
+msgstr "Administrator"
+
+#: ../../src/client/MainFrame.cpp:2227
+msgid "Access denied. Is the user-name and password correct?"
+msgstr "Tilgang nektet. Er brukernavnet og passordet korrekt?"
+
+#: ../../src/client/MainFrame.cpp:2398
+msgid "Save to HTML file"
+msgstr "Lagre som HTML fil"
+
+#: ../../src/client/MainFrame.cpp:2399
+msgid "bill.html"
+msgstr "regning.html"
+
+#: ../../src/client/MainFrame.cpp:2399
+msgid "HTML files (*.html)|*.htm"
+msgstr "HTML filer (*.html)|*.htm"
+
+#: ../../src/client/MainFrame.cpp:2481
+#: ../../src/client/MainFrame.cpp:2514
+msgid "whid_backup.xml"
+msgstr "whid_sikkerhetskopi.xml"
+
+#: ../../src/client/MainFrame.cpp:2488
+msgid "Backing up data..."
+msgstr "Tar sikkerhetskopi..."
+
+#: ../../src/client/MainFrame.cpp:2521
+msgid "Restoring data..."
+msgstr "Legger tilbake fra sikkerhetskopi..."
+
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:122
+msgid "MySQL Logon properties"
+msgstr "MySQL påloggingsegenskaper"
+
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:129
+msgid ""
+"In order to create the database, you must provide a\n"
+"user-name and a password to the MySQL database,\n"
+"for a user with access  to create databases and grant\n"
+"privileges. "
+msgstr ""
+"For å kunne opprette databasen må du oppgi en\n"
+"MySQL bruker som har slike rettigheter."
+
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:135
+msgid "Super user name"
+msgstr "Navn på administrativ bruker"
+
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:154
+msgid ""
+"I will add one user to the WHID database. This user will normally\n"
+"be you. Just enter yor name and your normal charge per hour."
+msgstr ""
+"Jeg vil legge til en ny dbruker i databasen. Dette vil nrmalt\n"
+"være deg. Oppgi navnet ditt og hva du vanligvus fakturerer pr. time."
+
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:160
+msgid "Login Name (initials)"
+msgstr "Påloggingnavn (initialer)"
+
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:166
+msgid "Your Name"
+msgstr "Ditt navn"
+
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:172
+msgid "Normal charge per hour"
+msgstr "Vanlig timesats"
+
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:181
+msgid "Create the database"
+msgstr "Opprett databasen"
+
+#: ../../src/client/NewPasswdDlg.cpp:132
+msgid "New password"
+msgstr "Nytt passord"
+
+#: ../../src/client/NodeDlg.cpp:179
+msgid "Is Customer active?"
+msgstr "Er kunden aktiv?"
+
+#: ../../src/client/NodeDlg.cpp:183
+msgid "Auto (Enabled if any of it's projects are active)"
+msgstr "Auto (aktiv dersom noen av nodene under er aktive)"
+
+#: ../../src/client/NodeDlg.cpp:184
+#: ../../src/client/UserDlg.cpp:204
+#: ../../src/client/UserManager.cpp:110
+msgid "Active"
+msgstr "Aktiv"
+
+#: ../../src/client/NodeDlg.cpp:185
+msgid "Inactive"
+msgstr "Inaktiv"
+
+#: ../../src/client/NodeDlg.cpp:187
+msgid "0"
+msgstr ""
+
+#: ../../src/client/NodeDlg.cpp:190
+#: ../../src/client/RateDlg.cpp:377
+#: ../../src/client/UserDlg.cpp:214
+msgid "Notes"
+msgstr "Notater"
+
+#: ../../src/client/NodeDlg.cpp:196
+#: ../../src/client/RateDlg.cpp:260
+#: ../../src/client/UserDlg.cpp:220
+#: ../../src/client/PropertiesDlg.h:42
+msgid "Properties"
+msgstr "Egenskaper"
+
+#: ../../src/client/NodeDlg.cpp:207
+#: ../../src/client/PropertiesDlg.cpp:413
+#: ../../src/client/UserDlg.cpp:226
+#: ../../src/client/EmailBillDlg.h:41
+msgid "Email"
+msgstr "Epost"
+
+#: ../../src/client/NodeDlg.cpp:214
+msgid "Customer Data"
+msgstr "Kundeopplysninger"
+
+#: ../../src/client/ProjectDlg.cpp:19
+msgid "icons/128x128/project.png"
+msgstr ""
+
+#: ../../src/client/ProjectDlg.cpp:25
+msgid "Is the project active?"
+msgstr "Er prosjektet aktivt?"
+
+#: ../../src/client/PropertiesDlg.cpp:116
+#, c-format
+msgid "%d"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:225
+msgid "Language"
+msgstr "Språk"
+
+#: ../../src/client/PropertiesDlg.cpp:232
+msgid "Default helper applications"
+msgstr "Tilleggsprogrammer"
+
+#: ../../src/client/PropertiesDlg.cpp:237
+msgid "Web browser"
+msgstr "Nettleser"
+
+#: ../../src/client/PropertiesDlg.cpp:243
+msgid "Preferences"
+msgstr "Innstillinger"
+
+#: ../../src/client/PropertiesDlg.cpp:249
+msgid "Ice settings"
+msgstr "Ice egenskaper"
+
+#: ../../src/client/PropertiesDlg.cpp:254
+msgid "Ice Host"
+msgstr "Ice vertsnavn"
+
+#: ../../src/client/PropertiesDlg.cpp:260
+msgid "Ice Port"
+msgstr "Ice portnummer"
+
+#: ../../src/client/PropertiesDlg.cpp:266
+msgid "Communication"
+msgstr "Kommunikasjon"
+
+#: ../../src/client/PropertiesDlg.cpp:281
+msgid "SQLite (default, embedded database)"
+msgstr "SQLite (standard innebygget database)"
+
+#: ../../src/client/PropertiesDlg.cpp:288
+msgid "MySQL Connection properties"
+msgstr "MySQL (tilkoblingsegenskaper)"
+
+#: ../../src/client/PropertiesDlg.cpp:293
+msgid "Database Host"
+msgstr "Database maskinadresse"
+
+#: ../../src/client/PropertiesDlg.cpp:298
+msgid "Hostname or IP-number for the MySQL Server"
+msgstr "Maskinadresse eller IP nummer for MySQL tjeneren"
+
+#: ../../src/client/PropertiesDlg.cpp:301
+msgid "Database Name"
+msgstr "Databasenavn"
+
+#: ../../src/client/PropertiesDlg.cpp:307
+#: ../../src/client/PropertiesDlg.cpp:401
+msgid "User Name"
+msgstr "Brukernavn"
+
+#: ../../src/client/PropertiesDlg.cpp:321
+msgid "Test connection"
+msgstr "Test forbindelsen"
+
+#: ../../src/client/PropertiesDlg.cpp:324
+msgid "Create database"
+msgstr "Opprett databasen"
+
+#: ../../src/client/PropertiesDlg.cpp:327
+msgid "MySQL (4.1 or newer) Server Connection"
+msgstr "MySQL (4.1 eller nyere) tjenerforbindelse"
+
+#: ../../src/client/PropertiesDlg.cpp:329
+msgid "Database"
+msgstr "Database"
+
+#: ../../src/client/PropertiesDlg.cpp:338
+msgid "File Name"
+msgstr "Filnavn"
+
+#: ../../src/client/PropertiesDlg.cpp:346
+msgid "Enable logging to file"
+msgstr "Slå på logging til fil"
+
+#: ../../src/client/PropertiesDlg.cpp:350
+msgid "Log Events"
+msgstr "Logghendelser"
+
+#: ../../src/client/PropertiesDlg.cpp:353
+msgid "Errors and Warnings"
+msgstr "Feil og advarsler"
+
+#: ../../src/client/PropertiesDlg.cpp:357
+msgid "Informational log messages"
+msgstr "Informative meldinger"
+
+#: ../../src/client/PropertiesDlg.cpp:361
+msgid "Debug messages"
+msgstr "Feilsøkingsmeldinger"
+
+#: ../../src/client/PropertiesDlg.cpp:365
+msgid "Very verbose debug messages for database"
+msgstr "Veldig pratsomme feilsøkingsmeldinger for database"
+
+#: ../../src/client/PropertiesDlg.cpp:369
+msgid "Very verbose debug messages for multithreading"
+msgstr "Veldig pratsomme feilsøkingsmeldinger for flertrødskjøring"
+
+#: ../../src/client/PropertiesDlg.cpp:373
+msgid "Log"
+msgstr "Logg"
+
+#: ../../src/client/PropertiesDlg.cpp:379
+msgid "Server properties"
+msgstr "Tjeneregenskaper"
+
+#: ../../src/client/PropertiesDlg.cpp:384
+msgid "Server address"
+msgstr "Tjeneradresse"
+
+#: ../../src/client/PropertiesDlg.cpp:390
+msgid "Return-address"
+msgstr "Returadresse (epost-navn)"
+
+#: ../../src/client/PropertiesDlg.cpp:396
+msgid "Optional credentials on the mailserver (ESMTP CRAM-MD5)"
+msgstr "Valgfri autentisering på eposttjener (ESMTP CRAM-MD5)"
+
+#: ../../src/client/PropertiesDlg.cpp:496
+msgid "The connection to the database-server was successful"
+msgstr "Klarte å opprette forbindelse til databaseserveren."
+
+#: ../../src/client/PropertiesDlg.cpp:497
+msgid "MySQL Connection"
+msgstr "MySQL tilkobling"
+
+#: ../../src/client/PropertiesDlg.cpp:543
+msgid "The database was successfully created and initialized."
+msgstr "Databasen ble opprettetog initialiset"
+
+#: ../../src/client/PropertiesDlg.cpp:544
+msgid "Database Creation"
+msgstr "Databaseopprettelse"
+
+#: ../../src/client/PropertiesDlg.cpp:641
+msgid "The changes will take effect the next time Whid is started."
+msgstr "Noen av endringene vil først ta plass når programmet startes på ny"
+
+#: ../../src/client/RateDlg.cpp:225
+msgid "Priority"
+msgstr "Prioritet"
+
+#: ../../src/client/RateDlg.cpp:235
+msgid "Normal charge"
+msgstr "Normal timesats"
+
+#: ../../src/client/RateDlg.cpp:236
+msgid "Add amount to normal charge"
+msgstr "Ekstrasats i tillegg til tnormal timesats"
+
+#: ../../src/client/RateDlg.cpp:237
+msgid "Add percentage to normal charge"
+msgstr "Legg til prosent til normal timesats"
+
+#: ../../src/client/RateDlg.cpp:238
+msgid "Extra fee"
+msgstr "Ekstra gebyr"
+
+#: ../../src/client/RateDlg.cpp:242
+msgid "Amount (per hour)"
+msgstr "Timesats"
+
+#: ../../src/client/RateDlg.cpp:248
+msgid "Cost (our expense)"
+msgstr "Kostnad (for oss)"
+
+#: ../../src/client/RateDlg.cpp:256
+msgid "Enabled"
+msgstr "Tilgjengelig"
+
+#: ../../src/client/RateDlg.cpp:268
+msgid "From/To hours"
+msgstr "Fra/Til timer"
+
+#: ../../src/client/RateDlg.cpp:273
+#: ../../src/client/RateDlg.cpp:298
+msgid "Enable"
+msgstr "Bruk"
+
+#: ../../src/client/RateDlg.cpp:279
+msgid "From hour"
+msgstr "Fra time"
+
+#: ../../src/client/RateDlg.cpp:281
+msgid "Like hour:minute or -1 if the rukle don't apply"
+msgstr "Som time:minutt eller -1 om regelen ikke gjelder"
+
+#: ../../src/client/RateDlg.cpp:287
+msgid "To Hour"
+msgstr "Til timer"
+
+#: ../../src/client/RateDlg.cpp:293
+msgid "Continous time"
+msgstr "Sammenhengende timer"
+
+#: ../../src/client/RateDlg.cpp:304
+msgid "From # hours"
+msgstr "Fra # timer"
+
+#: ../../src/client/RateDlg.cpp:310
+msgid "Max delays (minutes)"
+msgstr "Maks opphold (minutter)"
+
+#: ../../src/client/RateDlg.cpp:316
+msgid "Days of week"
+msgstr "Ukedager"
+
+#: ../../src/client/RateDlg.cpp:320
+msgid "All days"
+msgstr "Alle dager"
+
+#: ../../src/client/RateDlg.cpp:321
+msgid "Monday"
+msgstr "Mandag"
+
+#: ../../src/client/RateDlg.cpp:322
+msgid "Tuesday"
+msgstr "Tirsdag"
+
+#: ../../src/client/RateDlg.cpp:323
+msgid "Wednsday"
+msgstr "Onsdag"
+
+#: ../../src/client/RateDlg.cpp:324
+msgid "Thurstay"
+msgstr "Torsdag"
+
+#: ../../src/client/RateDlg.cpp:325
+msgid "Friday"
+msgstr "Fredag"
+
+#: ../../src/client/RateDlg.cpp:326
+msgid "Saturday"
+msgstr "Lørdan"
+
+#: ../../src/client/RateDlg.cpp:327
+msgid "Sunday"
+msgstr "Søndag"
+
+#: ../../src/client/RateDlg.cpp:333
+msgid "Applies"
+msgstr "Gjelder"
+
+#: ../../src/client/RateDlg.cpp:339
+msgid "Startfee"
+msgstr "Oppstartsgebyr"
+
+#: ../../src/client/RateDlg.cpp:344
+msgid "Minimum minutes to charge"
+msgstr "Minimum minutter å ta betalt for"
+
+#: ../../src/client/RateDlg.cpp:350
+msgid "Alignment"
+msgstr "Avrunding"
+
+#: ../../src/client/RateDlg.cpp:355
+msgid "Align to nearest # minutes"
+msgstr "Avrund til nærmeste # muinutter"
+
+#: ../../src/client/RateDlg.cpp:361
+msgid "Threshold # minutes"
+msgstr "Grenseverdi # minutter"
+
+#: ../../src/client/RateDlg.cpp:367
+msgid "Align to offset # minutes"
+msgstr "Avrund til # minutter"
+
+#: ../../src/client/RateDlg.cpp:373
+msgid "Adjustments"
+msgstr "Justeringer"
+
+#: ../../src/client/RateManager.cpp:79
+#: ../../src/client/RateManager.h:41
+msgid "Rate Manager"
+msgstr "Node"
+
+#: ../../src/client/RateManager.cpp:140
+msgid "Selected Rates"
+msgstr "Valgte timesatser"
+
+#: ../../src/client/RateManager.cpp:156
+#: ../../src/client/UserManager.cpp:161
+msgid "Delete"
+msgstr "Slett"
+
+#: ../../src/client/SystemSettingsDlg.cpp:148
+msgid "Multiuser mode"
+msgstr "Frerbrukermodus"
+
+#: ../../src/client/SystemSettingsDlg.cpp:151
+msgid "Enables multiuser-operation"
+msgstr "Slår på frerbrukermodus"
+
+#: ../../src/client/SystemSettingsDlg.cpp:154
+msgid "Settings"
+msgstr "Egenskaper"
+
+#: ../../src/client/TaskDlg.cpp:19
+msgid "icons/128x128/task.png"
+msgstr ""
+
+#: ../../src/client/TaskDlg.cpp:25
+msgid "Is the task active?"
+msgstr "Er prosjektet aktivt?"
+
+#: ../../src/client/UserDlg.cpp:199
+msgid "Reset"
+msgstr "Resett"
+
+#: ../../src/client/UserDlg.cpp:210
+msgid "Administrator privileges"
+msgstr "Administrative rettigheter"
+
+#: ../../src/client/UserDlg.cpp:232
+msgid "Contact Info"
+msgstr "Kontaktinfo"
+
+#: ../../src/client/UserManager.cpp:109
+msgid "LoginName"
+msgstr "Påloggingsnavn"
+
+#: ../../src/client/UserManager.cpp:337
+#: ../../src/client/UserManager.cpp:339
+msgid "Yes"
+msgstr "Ja"
+
+#: ../../src/client/UserManager.cpp:337
+#: ../../src/client/UserManager.cpp:339
+msgid "No"
+msgstr "Nei"
+
+#: ../../src/client/WhidApp.cpp:339
+msgid "ERROR"
+msgstr "FEIL"
+
+#: ../../src/client/WorkDlg.cpp:224
+msgid "Time spent"
+msgstr "Tidsforbruk"
+
+#: ../../src/client/WorkDlg.cpp:229
+msgid "From Time"
+msgstr "Fra kl"
+
+#: ../../src/client/WorkDlg.cpp:237
+#: ../../src/client/WorkDlg.cpp:248
+#: ../../src/client/WorkDlg.cpp:256
+msgid "Time as hours[:minutes]"
+msgstr "Tid som timer[:minutter]"
+
+#: ../../src/client/WorkDlg.cpp:240
+msgid "To Time"
+msgstr "Til kl"
+
+#: ../../src/client/WorkDlg.cpp:251
+msgid "Paused/credited time"
+msgstr "Pause/Kretitert tid"
+
+#: ../../src/client/WorkDlg.cpp:264
+msgid "&Open"
+msgstr "&Åpne"
+
+#: ../../src/client/WorkDlg.cpp:265
+msgid "&Done"
+msgstr "&Ferdig"
+
+#: ../../src/client/WorkDlg.cpp:266
+msgid "&Hold back"
+msgstr "&Hold tilbake"
+
+#: ../../src/client/WorkDlg.cpp:267
+msgid "&Free"
+msgstr "&Gratis"
+
+#: ../../src/client/WorkDlg.cpp:268
+msgid "&Invoice is sent"
+msgstr "&Regning er sendt"
+
+#: ../../src/client/WorkDlg.cpp:269
+msgid "Status"
+msgstr "Status"
+
+#: ../../src/client/WorkDlg.cpp:273
+msgid "Description/Notes"
+msgstr "Beskrivelse/Notater"
+
+#: ../../src/client/WorkDlg.cpp:279
+msgid "Work properties"
+msgstr "Arbeidsegenskaper"
+
+#: ../../src/client/WorkDlg.cpp:308
+msgid "C:\\devel\\current\\whid\\bin\\vs2003\\whid_resources.zip#zip:icons/128x128/work.png"
+msgstr ""
+
+#: ../../src/client/app_resources.cpp:51
+msgid "&Edit Task"
+msgstr "Rediger &Oppgave"
+
+#: ../../src/client/app_resources.cpp:65
+msgid "Export to Email"
+msgstr "Eksporer til epost"
+
+#: ../../src/client/app_resources.cpp:78
+msgid "&Delete"
+msgstr "&Slett"
+
+#: ../../src/client/app_resources.cpp:90
+msgid "&Edit Project"
+msgstr "Redigert &Prosjekt"
+
+#: ../../src/client/app_resources.cpp:103
+msgid "Create a new &Customer"
+msgstr "Opprett en ny &Kunde"
+
+#: ../../src/client/app_resources.cpp:104
+msgid "Create a new &Project"
+msgstr "Opprett et nytt &Prosjekt"
+
+#: ../../src/client/app_resources.cpp:105
+msgid "&Edit Customer"
+msgstr "&Rediger kunde"
+
+#: ../../src/client/AboutDlg.h:41
+msgid "About"
+msgstr "&Om"
+
+#: ../../src/client/Copy of WorkDlg.h:45
+#: ../../src/client/WorkDlg.h:46
+msgid "WorkDlg"
+msgstr "Arbeid"
+
+#: ../../src/client/FilteredList.h:43
+msgid "FilteredList"
+msgstr "Filtrert liste"
+
+#: ../../src/client/FirstUseDlg.h:43
+msgid "No database found"
+msgstr "Fant ingen databaser"
+
+#: ../../src/client/HTMLReport.h:42
+msgid "HTML Report"
+msgstr "HTML rapport"
+
+#: ../../src/client/ImageContainer.h:39
+msgid "Dialog"
+msgstr "Dialog"
+
+#: ../../src/client/LogonDlg.h:39
+msgid "Log on"
+msgstr "Logg på"
+
+#: ../../src/client/MainFrame.h:73
+msgid "What have I Done!"
+msgstr "What have I done (hva har tiden gått til)"
+
+#: ../../src/client/MysqlCreateDatabaseDlg.h:40
+msgid "Create MySQL Database"
+msgstr "Logg på"
+
+#: ../../src/client/NodeDlg.h:45
+msgid "Node"
+msgstr "Opprett MYSQL database"
+
+#: ../../src/client/SystemSettingsDlg.h:41
+msgid "System Settings"
+msgstr "Globale systemegenskaper"
+
+#: ../../src/client/UserDlg.h:42
+msgid "Edit User"
+msgstr "Rediger bruker"
+
+#: ../../src/client/UserManager.h:41
+msgid "User Manager"
+msgstr "Brukerbehandler"
+

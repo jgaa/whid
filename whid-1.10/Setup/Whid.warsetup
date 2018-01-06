@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WarSetup-Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" projectRunAfterInstall="true" mainTargetApp="ID_7af00ae6_b00e_4e2b_9357_eca343aa8162" nextUniqueId="4771" projectName="WHID" projectUuid="6fcc62ad-d2bf-4f9a-8aa5-a922fff171b1" projectUpgradeUuid="3d1cecd1-baa5-451c-9d94-9f2bd2562f89" projectVersion="1.10.0" projectOrganization="Jgaa's Internet" projectFromWindowsVersion="Windows XP" projectMustBeAdministratorToInstall="false" project64BitTarget="false" projectTargetDirectory="F:\devel\current\whid\Setup" projectTargetName="Whid-1.10" projectType="0" projectUserInterface="WixUI_Mondo">
+  <Virgin>false</Virgin>
+  <projectFeatures featureId="ID97F028B31D3B1596D80F65A7DE1D842E" featureName="WHID" featureDescription="The complete package" configurableDirectory="APPLICATIONFOLDER" configurableDirectoryDefaultPath="[ProjectName]" enableInDefaultInstall="true" enableInMinimalInstall="true" excludeFromBuild="false">
+    <childFeatures featureId="PROGRAM" featureName="Program" featureDescription="The Main Executable" enableInDefaultInstall="true" enableInMinimalInstall="true" excludeFromBuild="false">
+      <childFeatures featureId="ID5E4BFE178872E2C00F8B61BA0A87040A" featureName="Sqlite3 Runtime" featureDescription="Sqlite 3 database runtime dll" configurableDirectory="" configurableDirectoryDefaultPath="[APPLICATIONFOLDER]" enableInDefaultInstall="true" enableInMinimalInstall="true" excludeFromBuild="false">
+        <components componentId="ID1227" componentGuid="77d6e1d1-ba9f-44af-ab12-ec8daa27266f">
+          <componentFiles fileId="ID_b2ed2c2f_5c3e_41df_9619_e20ad95fca41" srcName="sqlite3.dll" srcDirectory="C:\Program Files\sqlite" dstName="sqlite3.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="sqlite3" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+            <service StartWhenInstalled="true" Remove="both" id="ID1226" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
+          </componentFiles>
+          <addToCreateFolder>false</addToCreateFolder>
+        </components>
+        <defaultInstallMode>1</defaultInstallMode>
+      </childFeatures>
+      <childFeatures featureId="IDC31469B752A03227CE764A4AEA127E1E" featureName="MySQL Client runtime dll" featureDescription="Include if you will use MySQL from another PC/Server" configurableDirectory="" configurableDirectoryDefaultPath="[APPLICATIONFOLDER]" enableInDefaultInstall="false" enableInMinimalInstall="false" excludeFromBuild="false">
+        <components componentId="ID1239" componentGuid="8da39de1-1273-4a03-9860-29fad2cfc93f">
+          <componentFiles fileId="ID_8b281e62_c116_4baf_a6c2_17d447d6f26d" srcName="libmysql.dll" srcDirectory="C:\Program Files\MySQL\MySQL Server 5.0\lib\opt" dstName="libmysql.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="libmysql" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+            <service StartWhenInstalled="true" Remove="both" id="ID1238" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
+          </componentFiles>
+          <addToCreateFolder>false</addToCreateFolder>
+        </components>
+        <components componentId="ID3185" componentGuid="3e49345d-edb8-4c9b-afc0-d17043160170">
+          <componentFiles fileId="ID_f21673ef_e2bb_4030_9ca8_93ba72800edd" srcName="COPYING" srcDirectory="C:\Program Files\MySQL\MySQL Server 5.0" dstName="COPYING" dstPath="[APPLICATIONFOLDER]\MysqlLicense" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="COPYING" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+            <service StartWhenInstalled="true" Remove="both" id="ID3184" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
+          </componentFiles>
+          <addToCreateFolder>false</addToCreateFolder>
+        </components>
+        <components componentId="ID3187" componentGuid="b13af625-c992-4d40-acd3-b4aa4b8422ed">
+          <componentFiles fileId="ID_1d39c206_3f37_42d9_96bd_cbd4dfa4d923" srcName="EXCEPTIONS-CLIENT" srcDirectory="C:\Program Files\MySQL\MySQL Server 5.0" dstName="EXCEPTIONS-CLIENT" dstPath="[APPLICATIONFOLDER]\MysqlLicense" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="EXCEPTIONS-CLIENT" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+            <service StartWhenInstalled="true" Remove="both" id="ID3186" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
+          </componentFiles>
+          <addToCreateFolder>false</addToCreateFolder>
+        </components>
+        <defaultInstallMode>0</defaultInstallMode>
+      </childFeatures>
+      <components componentId="ID1001" componentGuid="a8661c87-0c5d-4560-8692-a4d373fdf76a">
+        <componentFiles fileId="ID_7af00ae6_b00e_4e2b_9357_eca343aa8162" srcName="whid.exe" srcDirectory="..\bin\vs2003" dstName="whid.exe" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="WHID" shortcutInProgramFilesMenu="true" shortcutOnDesktop="true" shortcutInQuickLaunch="false" shortcutWorkingDirectory="[APPLICATIONFOLDER]" shortcutCommandArguments="" shortcutDescription="What Have I Done Application">
+          <service StartWhenInstalled="true" Remove="both" id="ID1000" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
+        </componentFiles>
+        <addToCreateFolder>false</addToCreateFolder>
+      </components>
+      <components componentId="ID1013" componentGuid="e72cd400-a084-4ab2-a0ba-0714098c9432">
+        <componentFiles fileId="ID_d6dc848e_8ba5_44a7_bf85_ed8afb9951a4" srcName="icessl32.dll" srcDirectory="F:\devel\libs\Ice-3.2.1-VC71\bin" dstName="icessl32.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="icessl32" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+          <service StartWhenInstalled="true" Remove="both" id="ID1012" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
+        </componentFiles>
+        <addToCreateFolder>false</addToCreateFolder>
+      </components>
+      <components componentId="ID1015" componentGuid="2e19fe4a-8d17-4386-9652-e891e6cd51ec">
+        <componentFiles fileId="ID_200f943e_1a97_49c2_90f5_4610e021244b" srcName="iceutil32.dll" srcDirectory="F:\devel\libs\Ice-3.2.1-VC71\bin" dstName="iceutil32.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="iceutil32" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+          <service StartWhenInstalled="true" Remove="both" id="ID1014" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
+        </componentFiles>
+        <addToCreateFolder>false</addToCreateFolder>
+      </components>
+      <components componentId="ID1017" componentGuid="abd1b02e-7a8a-43a4-83bf-87f2817a2051">
+        <componentFiles fileId="ID_8e49d370_a5f1_4228_bdae_e71f2577e586" srcName="bzip2.dll" srcDirectory="F:\devel\libs\Ice-3.2.1-VC71\bin" dstName="bzip2.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="bzip2" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+          <service StartWhenInstalled="true" Remove="both" id="ID1016" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
+        </componentFiles>
+        <addToCreateFolder>false</addToCreateFolder>
+      </components>
+      <components componentId="ID1019" componentGuid="0ffa9a66-4411-48ad-9070-0b955a65a46d">
+        <componentFiles fileId="ID_1df73cd3_1395_45d3_850b_f235c6333cd2" srcName="ice32.dll" srcDirectory="F:\devel\libs\Ice-3.2.1-VC71\bin" dstName="ice32.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="ice32" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+          <service StartWhenInstalled="true" Remove="both" id="ID1018" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
+        </componentFiles>
+        <addToCreateFolder>false</addToCreateFolder>
+      </components>
+      <components componentId="ID1021" componentGuid="8d72b4cf-cdec-4ff2-b563-7852b3782278">
+        <componentFiles fileId="ID_ccfb65b0_a368_4e27_9416_570602168d1e" srcName="libeay32.dll" srcDirectory="F:\devel\libs\openssl-0.9.8d\out32dll" dstName="libeay32.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="libeay32" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+          <service StartWhenInstalled="true" Remove="both" id="ID1020" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
+        </componentFiles>
+        <addToCreateFolder>false</addToCreateFolder>
+      </components>
+      <components componentId="ID1023" componentGuid="ea9d6a87-3c47-44e7-b67f-5fa3ba0471d6">
+        <componentFiles fileId="ID_8ce84315_5314_462b_80ec_07e617cb1d11" srcName="ssleay32.dll" srcDirectory="F:\devel\libs\openssl-0.9.8d\out32dll" dstName="ssleay32.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="ssleay32" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+          <service StartWhenInstalled="true" Remove="both" id="ID1022" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
+        </componentFiles>
+        <addToCreateFolder>false</addToCreateFolder>
+      </components>
+      <components componentId="ID1025" componentGuid="ed621bea-a14a-46e8-b008-d845d9cb2363">
+        <componentFiles fileId="ID_137cf5f2_4081_4f9d_bad8_34e93bb2ef6d" srcName="xerces-c_2_7.dll" srcDirectory="F:\devel\libs\xerces-c-src_2_7_0\Build\Win32\VC7.1\Release" dstName="xerces-c_2_7.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="xerces-c_2_7" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+          <service StartWhenInstalled="true" Remove="both" id="ID1024" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
+        </componentFiles>
+        <addToCreateFolder>false</addToCreateFolder>
+      </components>
+      <components componentId="ID3937" componentGuid="92d312d3-7af7-4ea2-b668-eb6f997d844d">
+        <componentFiles fileId="ID_627bb2f9_5df5_4d9f_844c_b36c385f8322" srcName="Xalan-C_1_10.dll" srcDirectory="F:\devel\libs\bin" dstName="Xalan-C_1_10.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="Xalan-C_1_10" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+          <service StartWhenInstalled="true" Remove="both" id="ID3936" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
+        </componentFiles>
+        <addToCreateFolder>false</addToCreateFolder>
+      </components>
+      <components componentId="ID3939" componentGuid="245122fa-712d-4e60-bc8b-ddf18e0288be">
+        <componentFiles fileId="ID_5612f678_3d12_4346_816a_17413f6fceb2" srcName="XalanMessages_1_10.dll" srcDirectory="F:\devel\libs\bin" dstName="XalanMessages_1_10.dll" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="XalanMessages_1_10" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+          <service StartWhenInstalled="true" Remove="both" id="ID3938" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
+        </componentFiles>
+        <addToCreateFolder>false</addToCreateFolder>
+      </components>
+      <defaultInstallMode>3</defaultInstallMode>
+      <directories dirId="ID1003" srcPath="..\database" dstPath="database" patterns=".*" excludePatterns="(.*\\CVS\\.*)|(.*Makefile.*)" recurse="true" preventEmptyDirectories="false" addToPath="false" ideHeaderFiles="false" ideExecutables="false" ideLibrary="false" ideMicrosoftVisualStudio2003="false" ideMicrosoftVisualStudio2005="false">
+        <pathComponent componentId="ID1002" componentGuid="748cddad-ae33-4ebb-a79e-6470676d76b4">
+          <addToCreateFolder>false</addToCreateFolder>
+        </pathComponent>
+      </directories>
+      <directories dirId="ID1005" srcPath="..\xml" dstPath="xml" patterns=".*" excludePatterns="(.*\\CVS\\.*)|(.*Makefile.*)" recurse="true" preventEmptyDirectories="false" addToPath="false" ideHeaderFiles="false" ideExecutables="false" ideLibrary="false" ideMicrosoftVisualStudio2003="false" ideMicrosoftVisualStudio2005="false">
+        <pathComponent componentId="ID1004" componentGuid="05eb694c-b12d-48a7-b8a8-897fed7f4885">
+          <addToCreateFolder>false</addToCreateFolder>
+        </pathComponent>
+      </directories>
+      <directories dirId="ID1007" srcPath="..\src\client\icons" dstPath="icons" patterns="(.*\.png)|(.*\.ico)|(.*\.xpm)" excludePatterns="(.*\\CVS\\.*)|(.*Makefile.*)" recurse="true" preventEmptyDirectories="true" addToPath="false" ideHeaderFiles="false" ideExecutables="false" ideLibrary="false" ideMicrosoftVisualStudio2003="false" ideMicrosoftVisualStudio2005="false">
+        <pathComponent componentId="ID1006" componentGuid="4a5da802-2806-477e-b984-008fd9103076">
+          <addToCreateFolder>false</addToCreateFolder>
+        </pathComponent>
+      </directories>
+      <directories dirId="ID3571" srcPath="..\translations" dstPath="translations" patterns=".*" excludePatterns="(.*\\CVS\\.*)|(.*Makefile.*)" recurse="true" preventEmptyDirectories="false" addToPath="false" ideHeaderFiles="false" ideExecutables="false" ideLibrary="false" ideMicrosoftVisualStudio2003="false" ideMicrosoftVisualStudio2005="false">
+        <pathComponent componentId="ID3570" componentGuid="f55db6e8-b3de-46a3-b42f-260ec41d5837">
+          <addToCreateFolder>false</addToCreateFolder>
+        </pathComponent>
+      </directories>
+    </childFeatures>
+    <childFeatures featureId="DOCUMENTATION" featureName="Documentation" featureDescription="The documentation" enableInDefaultInstall="true" enableInMinimalInstall="true" excludeFromBuild="false">
+      <components componentId="ID1009" componentGuid="8cbc346a-82d0-4680-80b2-ae4b272224ca">
+        <componentFiles fileId="ID_4ecf076b_fc56_41fc_8f90_3463b6a6755f" srcName="gpl.txt" srcDirectory="..\doc" dstName="gpl.txt" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="gpl" shortcutInProgramFilesMenu="false" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+          <service StartWhenInstalled="true" Remove="both" id="ID1008" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
+        </componentFiles>
+        <addToCreateFolder>false</addToCreateFolder>
+      </components>
+      <components componentId="ID1011" componentGuid="5bc73181-2d4c-4793-8b7f-a7ec92098e0d">
+        <componentFiles fileId="ID_0580e03d_44cc_452b_808f_c8ede609bfa0" srcName="whid_manual_en.pdf" srcDirectory="..\doc" dstName="whid_manual_en.pdf" dstPath="" isTrueTypeFont="false" isComModule="false" typelibGuid="" menuName="English Manual" shortcutInProgramFilesMenu="true" shortcutOnDesktop="false" shortcutInQuickLaunch="false" shortcutWorkingDirectory="" shortcutCommandArguments="" shortcutDescription="">
+          <service StartWhenInstalled="true" Remove="both" id="ID1010" isService="false" userAccount="" userPassword="" cmdLineArguments="" errorControl="normal" interactive="false" loadOrderGroup="" serviceName="" startMode="auto" vital="true" />
+        </componentFiles>
+        <addToCreateFolder>false</addToCreateFolder>
+      </components>
+      <defaultInstallMode>3</defaultInstallMode>
+    </childFeatures>
+    <childFeatures featureId="SCOURCECODEID" featureName="Source Code" featureDescription="The source code for the application" configurableDirectory="SOURCECODE" configurableDirectoryDefaultPath="[APPLICATIONFOLDER]\SourceCode" enableInDefaultInstall="false" enableInMinimalInstall="false" excludeFromBuild="false">
+      <defaultInstallMode>0</defaultInstallMode>
+      <directories dirId="ID1027" srcPath="F:\devel\current\whid" dstPath="[SOURCECODE]" patterns="(.*\\.po)|(.*\.xsl)|(.*\.vcproj)|(.*\.idl)|(.*\.xpm)|(.*\.xcf)|(.*\.png)|(.*\.pjd)|(.*\.ico)|(.*\.sln)|(.*\.cpp)|(.*\.h)|(.*\.xml)|(.*\.odt)|(.*\.txt)|(.*\.rtf)|(.*\.warsetup)|(.*README)|(.*AUTHORS)|(.*COPYING)|(.*COPYRIGHT)|(.*INSTALL)" excludePatterns="(.*\\bin\\.*)|(.*\\CVS\\.*)|(.*Debug.*)|(.*Release.*)|(.*\\libwhid\\template\\.*)" recurse="true" preventEmptyDirectories="true" addToPath="false" ideHeaderFiles="false" ideExecutables="false" ideLibrary="false" ideMicrosoftVisualStudio2003="false" ideMicrosoftVisualStudio2005="false">
+        <pathComponent componentId="ID1026" componentGuid="764a312e-7530-4e8d-8299-0b7427d423ea">
+          <addToCreateFolder>false</addToCreateFolder>
+        </pathComponent>
+      </directories>
+    </childFeatures>
+    <defaultInstallMode>3</defaultInstallMode>
+  </projectFeatures>
+  <projectMergeModules excludeFromBuild="false" srcPath="C:\Program Files\Common Files\Merge Modules\VC_User_CRT71_RTL_X86_---.msm">
+    <ModuleProperties>
+      <Properties>
+        <_Id>DIR_RETARGET_TARGETDIR</_Id>
+        <_Name>DIR_RETARGET_TARGETDIR</_Name>
+        <_Type>Key</_Type>
+        <_DefaultValue>TARGETDIR</_DefaultValue>
+        <_Value>TARGETDIR</_Value>
+        <_Nullable>true</_Nullable>
+        <_Description />
+        <Description />
+        <Id>DIR_RETARGET_TARGETDIR</Id>
+        <Name>DIR_RETARGET_TARGETDIR</Name>
+        <Type>Key</Type>
+        <DefaultValue>TARGETDIR</DefaultValue>
+        <Value>TARGETDIR</Value>
+        <Nullable>true</Nullable>
+      </Properties>
+    </ModuleProperties>
+    <ModuleId>VC_User_CRT71</ModuleId>
+    <ModuleLanguage>0</ModuleLanguage>
+    <ModuleVersion>1.0</ModuleVersion>
+    <MouleDescription>Installation Database</MouleDescription>
+    <ModuleComments>VC User CRT71 RTL X86 ---; Copyright (C) Microsoft Corporation, All rights reserved.</ModuleComments>
+    <ModuleManufacturer>Microsoft Corporation</ModuleManufacturer>
+    <ModulePlatforms>Intel;0</ModulePlatforms>
+  </projectMergeModules>
+  <projectMergeModules excludeFromBuild="false" srcPath="C:\Program Files\Common Files\Merge Modules\VC_User_STL71_RTL_X86_---.msm">
+    <ModuleProperties>
+      <Properties>
+        <_Id>DIR_RETARGET_TARGETDIR</_Id>
+        <_Name>DIR_RETARGET_TARGETDIR</_Name>
+        <_Type>Key</_Type>
+        <_DefaultValue>TARGETDIR</_DefaultValue>
+        <_Value>TARGETDIR</_Value>
+        <_Nullable>true</_Nullable>
+        <_Description />
+        <Description />
+        <Id>DIR_RETARGET_TARGETDIR</Id>
+        <Name>DIR_RETARGET_TARGETDIR</Name>
+        <Type>Key</Type>
+        <DefaultValue>TARGETDIR</DefaultValue>
+        <Value>TARGETDIR</Value>
+        <Nullable>true</Nullable>
+      </Properties>
+    </ModuleProperties>
+    <ModuleId>VC_User_STL71</ModuleId>
+    <ModuleLanguage>0</ModuleLanguage>
+    <ModuleVersion>1.0</ModuleVersion>
+    <MouleDescription>Installation Database</MouleDescription>
+    <ModuleComments>VC User STL71 RTL X86 ---; Copyright (C) Microsoft Corporation, All rights reserved.</ModuleComments>
+    <ModuleManufacturer>Microsoft Corporation</ModuleManufacturer>
+    <ModulePlatforms>Intel;0</ModulePlatforms>
+  </projectMergeModules>
+  <projectInstallForCurrentOrAllUsers>0</projectInstallForCurrentOrAllUsers>
+  <License>
+    <System>true</System>
+    <Name>GNU General Public License (GPL) 3.0</Name>
+  </License>
+  <projectProperties TopBanner="" BigBanner="whid_install.bmp" ExclamationIcon="" InfoIcon="" NewIcon="" UpIcon="" VS2003Integration="VS2003_INTEGRATION" VS2005Integration="VS2005_INTEGRATION" UseRelativePaths="true" UseWixUI_ErrorProgressText="true" UseWixUI="true" CreateUninstallShortcut="true" Codepage="1252" ProductLanguage="1033" AlwaysMajorUpgrade="true" SupressValidation="false" Compress="true" BuildTarget="true" PublisherUrl="http://products.jgaa.com" SupportContact="" SupportUrl="http://whid.jgaa.com" SupportPhone="" ReadMeFile="" UpdateUrl="http://whid.jgaa.com" Comments="" Icon="../whid.ico" EmbedCab="true" MaxCabSize="0" CabCompressionLevel="none" InstallerVersion="300">
+    <UiCultures Name="en-US" Enabled="true" />
+    <UiCultures Name="de-de" Enabled="false" />
+    <UiCultures Name="es-es" Enabled="false" />
+    <UiCultures Name="nl-nl" Enabled="false" />
+  </projectProperties>
+</WarSetup-Project>

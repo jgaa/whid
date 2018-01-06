@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libwhid", "libwhid\libwhid.vcproj", "{F0E1B0DF-CA8B-4948-8E8D-B61F7001583E}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "client", "client\client.vcproj", "{6F136530-812C-4FA6-A2CA-9A8ECB71565D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F0E1B0DF-CA8B-4948-8E8D-B61F7001583E} = {F0E1B0DF-CA8B-4948-8E8D-B61F7001583E}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Unicode Debug = Unicode Debug
+		Unicode Release = Unicode Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{F0E1B0DF-CA8B-4948-8E8D-B61F7001583E}.Unicode Debug.ActiveCfg = UnicodeDebug|Win32
+		{F0E1B0DF-CA8B-4948-8E8D-B61F7001583E}.Unicode Debug.Build.0 = UnicodeDebug|Win32
+		{F0E1B0DF-CA8B-4948-8E8D-B61F7001583E}.Unicode Release.ActiveCfg = UnicodeRelease|Win32
+		{F0E1B0DF-CA8B-4948-8E8D-B61F7001583E}.Unicode Release.Build.0 = UnicodeRelease|Win32
+		{6F136530-812C-4FA6-A2CA-9A8ECB71565D}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{6F136530-812C-4FA6-A2CA-9A8ECB71565D}.Unicode Debug.Build.0 = Unicode Debug|Win32
+		{6F136530-812C-4FA6-A2CA-9A8ECB71565D}.Unicode Release.ActiveCfg = Unicode Release|Win32
+		{6F136530-812C-4FA6-A2CA-9A8ECB71565D}.Unicode Release.Build.0 = Unicode Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

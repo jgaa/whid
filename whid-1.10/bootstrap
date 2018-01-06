@@ -1,0 +1,39 @@
+#! /bin/sh
+
+
+set -e
+#set -x
+
+echo "Cleaning up and remaking configuration"
+
+
+echo -n "Removing old files... "
+list='*.o Makefile Makefile.in *.a *.la *.class *.jar *~'
+for f in $list ; do 
+	find -name $f -exec rm -fv {} \; > /dev/null
+done
+
+rm -f config.guess cat aclocal.m4 config.h  config.cache  \
+    config.guess config.log config.status config.sub \
+    configure install-sh libtool ltmain.sh  missing \
+    mkinstalldirs stamp-h acsite.m4 > /dev/null
+
+rm -fr *.cache
+
+echo " ok"
+echo "Running auto* tools... "
+
+CONFDIR=.
+
+aclocal 
+autoheader
+libtoolize --force --copy
+autoconf
+automake --gnu --add-missing --copy 
+
+
+echo "=========================================="
+echo "You can now run ./configure [options]"
+echo "Options: "
+echo "   --enable-debug   Compile with support for gdb and no optimalization."
+

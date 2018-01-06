@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE warlib.database PUBLIC "-//Jarle Aase//warlib database configuration 0.1//EN" 
+	"http://xml.devel.jgaa.com/xml/warlib_database.dtd">
+<?xml-stylesheet type="text/xsl"
+    href="http://xml.devel.jgaa.com/xml/warlib_database_2_html.xsl"?>
+<warlib.database name="whid">
+   <description>
+      <para>Database definition for WHID</para>
+
+      <para>Copyright 2006 - 2009 by Jarle (jgaa) Aase All rights reserved.</para>
+   </description>
+
+   <table name="Users">
+      <description>
+         <para>User table. Adds multiuser-support to the database.</para>
+      </description>
+
+      <field name="Id" type="integer" primary="yes" autoincrement="yes" />
+
+      <field name="Name" type="varchar" length="150" null="no" >
+        <description><para>Full name for the user</para>
+          </description>
+      </field>
+      
+      <field name="LoginName" type="varchar" length="32" null="no" default="admin" >
+        <description><para>Login name for the user. Normally the users initials.</para>
+          </description>
+      </field>
+      
+      <field name="Email" type="varchar" length="128" null="yes" >
+        <description><para>Email address for the user.</para>
+          </description>
+      </field>
+      
+      <field name="Password" type="varchar" length="250" null="no" default="secret">
+          <description><para>Login password</para></description>
+      </field>
+
+      <field name="Notes" type="text" null="yes">
+		<description><para>Notes about the user</para></description>
+      </field>
+      
+      <field name="Active" type="integer" bits="8" default="1">
+          <description><para>Determines if a user is active and can log on.</para></description>
+      </field>
+          
+      <field name="Admin" type="integer" bits="8" default="0">
+          <description><para>Determines if a user is an administrator.
+            Administrators can edit system-settings and add/delete users.</para>
+          </description>
+      </field>
+
+      <index primary="yes">
+         <col name="Id" />
+      </index>
+
+      <index name="key_user_constaint" unique="yes">
+         <col name="Name" />
+      </index>
+      
+      <index name="key_loginname_constaint" unique="yes">
+         <col name="LoginName" />
+      </index>
+   </table>
+
+   <table name="Customers">
+      <description>
+         <para>Customer table.</para>
+      </description>
+
+      <field name="Id" type="integer" primary="yes" autoincrement="yes" />
+
+      <field name="Name" type="varchar" length="150" />
+
+      <field name="Notes" type="text" null="yes" />
+      
+      <field name="Email" type="varchar" length="128" null="yes" >
+        <description><para>Email address.</para>
+          </description>
+      </field>
+
+      <field name="ActiveStatus" type="integer" bits="32" null="no" default="0">
+         <description>
+            <para>Active status. One of</para>
+
+            <ul>
+               <li>0 - Auto - Actual status is decided by the childrens status. 
+               		If any child is active, then the node is active. Else it is inactive.</li>
+
+               <li>1 - Active</li>
+
+               <li>2 - Inactive</li>
+            </ul>
+         </description>
+      </field>
+      
+      <field name="IsActive" type="integer" length="8" null="no" default="1">
+          <description>
+          	<para>Flag that tells if the node is active or not.
+          		This flag is updated internally based on the value
+          		of ActiveStatus.
+          	</para>
+          </description>
+      </field>
+      
+      <index primary="yes">
+         <col name="Id" />
+      </index>
+
+      <index name="key_cust_constaint" unique="yes">
+         <col name="Name" />
+      </index>
+   </table>
+
+   <table name="Projects">
+      <description>
+         <para>Projects table.</para>
+      </description>
+
+      <field name="Id" type="integer" primary="yes" autoincrement="yes" />
+
+      <field name="CustomerId" type="integer" bits="64" null="no" />
+
+      <field name="Name" type="varchar" length="150" />
+
+      <field name="Notes" type="text" null="yes" />
+
+      <field name="ActiveStatus" type="integer" bits="32" null="no" default="0">
+         <description>
+            <para>Active status. One of</para>
+
+            <ul>
+               <li>0 - Auto - Actual status is decided by the childrens status. If any child is active, then the node is active. Else it is inactive.</li>
+
+               <li>1 - Active</li>
+
+               <li>2 - Inactive</li>
+            </ul>
+         </description>
+      </field>
+      
+      <field name="IsActive" type="integer" length="8" null="no" default="1">
+          <description>
+          	<para>Flag that tells if the node is active or not.
+          		This flag is updated internally based on the value
+          		of ActiveStatus.
+          	</para>
+          </description>
+      </field>
+
+      <index primary="yes">
+         <col name="Id" />
+      </index>
+
+      <index name="key_prj_constaint" unique="yes">
+         <col name="CustomerId" />
+
+         <col name="Name" />
+      </index>
+   </table>
+
+   <table name="Tasks">
+      <description>
+         <para>Tasks table.</para>
+      </description>
+
+      <field name="Id" type="integer" primary="yes" autoincrement="yes" />
+
+      <field name="ProjectId" type="integer" bits="64" null="no" />
+
+      <field name="CustomerId" type="integer" bits="64" null="no" />
+
+      <field name="Name" type="varchar" length="150" />
+
+      <field name="Notes" type="text" null="yes" />
+
+      <field name="ActiveStatus" type="integer" bits="32" null="no" default="1">
+         <description>
+            <para>Active status. One of</para>
+
+            <ul>
+               <li>1 - Active</li>
+
+               <li>2 - Inactive</li>
+            </ul>
+         </description> 
+      </field>
+      
+
+      <index primary="yes">
+         <col name="Id" />
+      </index>
+
+      <index name="key_task_constaint" unique="yes">
+         <col name="ProjectId" />
+
+         <col name="Name" />
+      </index>
+   </table>
+
+   <table name="Work">
+      <description>
+         <para>Projects table.</para>
+      </description>
+
+      <field name="Id" type="integer" primary="yes" autoincrement="yes" />
+
+      <field name="UserId" type="integer" bits="64" null="no" />
+
+      <field name="TaskId" type="integer" bits="64" null="no" />
+
+      <field name="ProjectId" type="integer" bits="64" null="no" />
+
+      <field name="CustomerId" type="integer" bits="64" null="no" />
+
+      <field name="InvoiceId" type="integer" bits="64" null="no" />
+
+      <field name="Notes" type="text" null="yes" />
+
+      <field name="FromTime" type="datetime" null="no">
+      </field>
+
+      <field name="ToTime" type="datetime" null="no">
+      </field>
+
+      <field name="MinutesPaused" type="integer" null="no" default="0">
+         <description>
+            <para>How much time in the interval that was not worked If used, the amouut is withdrawn from the total sum excluding fees. That means that overtime dues etc. might be incorrectly handled.</para>
+         </description>
+      </field>
+
+      <field name="MinutesUsed" type="integer" null="no" default="0" />
+
+      <field name="Charge" type="float" null="no" default="0">
+         <description>
+            <para>This field is updated each time the charge is calculated. 
+            It's not a data-field but a cache for the calculation in the underlaying 
+            Charge record(s).</para>
+         </description>
+      </field>
+      
+      <field name="Profit" type="float" null="no" default="0">
+         <description>
+            <para>This field is updated each time the profit is calculated. 
+            It's not a data-field but a cache for the calculation in the underlaying 
+            Charge record(s).</para>
+         </description>
+      </field>
+      
+      <field name="Cost" type="float" null="no" default="0">
+         <description>
+            <para>This field is updated each time the profit is calculated. 
+            It's not a data-field but a cache for the calculation in the underlaying 
+            Charge record(s).</para>
+         </description>
+      </field>
+
+      <field name="Status" type="integer" null="no" default="0">
+         <description>
+            <para>Current status of this item. One of:</para>
+
+            <ul>
+               <li>0 - Open (created but not finished yet - time is accumulating)</li>
+
+               <li>1 - Done, pending incoice</li>
+
+               <li>2 - Holdback. Do not invoice yet.</li>
+
+               <li>3 - Done, free</li>
+
+               <li>4 - Done Invoiced</li>
+            </ul>
+         </description>
+      </field>
+      
+
+      <index primary="yes">
+         <col name="Id" />
+      </index>
+
+      <index name="key_work_date" unique="no">
+         <col name="FromTime" />
+      </index>
+
+      <index name="key_work_task" unique="no">
+         <col name="CustomerId" />
+
+         <col name="ProjectId" />
+
+         <col name="TaskId" />
+
+         <col name="FromTime" />
+      </index>
+
+      <index name="key_work_status" unique="no">
+         <col name="Status" />
+
+         <col name="CustomerId" />
+
+         <col name="ProjectId" />
+
+         <col name="TaskId" />
+
+         <col name="FromTime" />
+      </index>
+   </table>
+
+   <table name="Charge">
+      <description>
+         <para>Projects table.</para>
+      </description>
+
+      <field name="Id" type="integer" primary="yes" autoincrement="yes" />
+
+      <field name="UserId" type="integer" bits="64" null="no" />
+
+      <field name="ProjectId" type="integer" bits="64" null="no" />
+
+      <field name="CustomerId" type="integer" bits="64" null="no" />
+
+      <field name="TaskId" type="integer" bits="64" null="no" />
+
+      <field name="WorkId" type="integer" bits="64" null="no" />
+
+      <field name="RateId" type="integer" bits="64" null="no" />
+
+      <field name="InvoiceId" type="integer" bits="64" null="no" default="0" />
+
+      <field name="NumHours" type="float" null="no">
+      </field>
+
+      <field name="Charge" type="float" null="no">
+      </field>
+      
+      <field name="Cost" type="float" null="no">
+          <description>
+                <para>The cost. Used to calculate profit.</para>
+          </description>
+      </field>
+      
+      <field name="Profit" type="float" null="no">
+          <description>
+                <para>The profit.</para>
+          </description>
+      </field>
+
+      <field name="Discount" type="float" null="no" default="0">
+      </field>
+
+      <field name="FromTime" type="datetime" null="no" default="0000-00-00">
+         <description>
+            <para>The charge is calculated from this time. This time might be aligned up or down from the actual work-time.</para>
+         </description>
+      </field>
+
+      <field name="ToTime" type="datetime" null="no" default="0000-00-00">
+         <description>
+            <para>The charge is calculated to this time. This time might be aligned up or down from the actual work-time.</para>
+         </description>
+      </field>
+
+      <index primary="yes">
+         <col name="Id" />
+      </index>
+   </table>
+
+   <table name="Invoice">
+      <description>
+         <para>Invoice table.</para>
+      </description>
+
+      <field name="Id" type="integer" primary="yes" autoincrement="yes" />
+
+      <field name="UserId" type="integer" bits="64" null="no" />
+
+      <field name="CustomerId" type="integer" bits="64" null="no" />
+
+      <field name="Frozen" type="integer" bits="32" null="no" default="0">
+      </field>
+
+      <field name="Charge" type="float" null="no">
+      </field>
+      
+      <field name="Cost" type="float" null="no" default="0">
+         <description>
+            <para>Our cost (expenses) for this invoice.</para>
+         </description>
+      </field>
+      
+      <field name="Profit" type="float" null="no" default="0">
+         <description>
+            <para>The profit for this invoice.</para>
+         </description>
+      </field>
+      
+      <field name="Hours" type="float" null="no" default="0">
+      </field>
+
+      <field name="Discount" type="float" null="no" default="0">
+      </field>
+
+      <field name="InvoiceDate" type="datetime" null="no" />
+
+      <index primary="yes">
+         <col name="Id" />
+      </index>
+   </table>
+
+   <table name="Rates">
+      <description>
+         <para>Rate table. This decides how work (hours) is charged. Several rates can be assigned to one work-unit, and the rates are addes based on their type and relevance.</para>
+
+         <para>Rates are calculated per minute like this:</para>
+
+         <ul>
+            <li>First the fixed rates</li>
+
+            <li>Then the rates that are calculated from the fixed rate(s) are added</li>
+
+            <li>Then fees are added once.</li>
+         </ul>
+      </description>
+
+      <field name="Id" type="integer" primary="yes" autoincrement="yes" />
+
+      <field name="Name" type="varchar" length="32">
+         <description>
+            <para>Name of the rate, like "normal hours"</para>
+         </description>
+      </field>
+
+      <field name="ChargePerHour" type="float">
+         <description>
+            <para>How much money to charge per hour</para>
+         </description>
+      </field>
+      
+       <field name="Cost" type="float">
+         <description>
+            <para>Our own expense per hour</para>
+         </description>
+      </field>
+
+      
+      <field name="ChargeType" type="integer" bits="32" null="no" default="0">
+         <description>
+            <para>How to apply the charge</para>
+
+            <ul>
+               <li>0 - Absolute value. Only one of this type applies to each work-hour. If there are several alternative, the priority decides which to apply.</li>
+
+               <li>1 - Add to underlaying charge</li>
+
+               <li>2 - Add to underlaying charce as percent (like + 30%)</li>
+
+               <li>3 - Extra fee. It is added to the invoice, independently of other charges (and rules). This field exist in order to add a "penalty" to customers that insists on attention when you are doing something else. Most people will rather wait if thye have to pay extra ;)</li>
+            </ul>
+         </description>
+      </field>
+
+      <field name="Priority" type="integer" bits="32" null="no" default="10">
+         <description>
+            <para>Decices the order in which the charges are applied. Lower numbers give higher priority (pri 1 comes before pri 2).</para>
+         </description>
+      </field>
+
+      <field name="FromClock" type="integer" bits="32" null="no" default="-1">
+         <description>
+            <para>Applies from clock. If nagitive this rule is disregarded.</para>
+         </description>
+      </field>
+
+      <field name="ToClock" type="integer" bits="32" null="no" default="-1">
+         <description>
+            <para>Applies from clock. If negative this rule is disregarded.</para>
+         </description>
+      </field>
+
+      <field name="NumContinousHours" type="integer" bits="32" null="no" default="-1">
+         <description>
+            <para>Applies if work is done in at leaast # contunous hours. If negative, this rule is disregarded.</para>
+         </description>
+      </field>
+
+      <field name="MaxTimeBetweenContinousIntervals" type="integer" bits="32" null="no" default="120">
+         <description>
+            <para>Used to see if work is continous. This is the max number of /minutes/ that work can be interrupted without being regarded as two different time-periods.</para>
+         </description>
+      </field>
+
+      <field name="AppliesToDayMask" type="varchar" length="20" null="no" default="a">
+         <description>
+            <para>What days does this rule apply?</para>
+
+            <ul>
+               <li>m - Mondays</li>
+
+               <li>t - Tuesdays</li>
+
+               <li>w - Wedsnsdays</li>
+
+               <li>T - Thurstads</li>
+
+               <li>f - Fridays</li>
+
+               <li>s - Saturdays</li>
+
+               <li>S - Sundays</li>
+
+               <li>p - Public Hollydays</li>
+
+               <li>X - Special public hollydays like Christmas eve</li>
+
+               <li>a - All days</li>
+            </ul>
+         </description>
+      </field>
+
+<!-- Alignment -->
+      <field name="MinTime" type="integer" null="no" default="60">
+         <description>
+            <para>Minimumber of /minutes/. At least this much time will always be invoiced.</para>
+         </description>
+      </field>
+
+      <field name="Align" type="integer" null="no" default="60">
+         <description>
+            <para>Alignment. All time is rounded up to this number of /minutes/. If the time spent is less than MinTime, then the time is aligned to MinTime and Align is ignored.</para>
+         </description>
+      </field>
+
+      <field name="AlignStart" type="integer" null="no" default="15">
+         <description>
+            <para>Alignment for the start-time. If non-zero, the start-time is aligned down to this value. The End-time is aligned up to the same value.</para>
+         </description>
+      </field>
+
+      <field name="AlignThreshold" type="integer" null="no" default="5">
+         <description>
+            <para>Threshold for the alignment. The time-difference between the aligned time and the real time must be at leat this in order to round up and down. If not, you "lose" this time. This is a "fairness" value so that a customer don't have to pay for a full extra hour if you start working like two minutes before the hour. The value is in /minutes/.</para>
+         </description>
+      </field>
+
+<!-- special -->
+      <field name="Free" type="integer" null="no" default="0">
+         <description>
+            <para>Bolean field. If 1, then this charge is free. The cost can be used to make reports on what ve "lose". It will always be invoiced as "free" work.</para>
+         </description>
+      </field>
+
+      <field name="Active" type="integer" null="no" default="1">
+         <description>
+            <para>Bolean field. Determines if the rate is actively used. If not, it is hidden in selections for "add rate" etc.</para>
+         </description>
+      </field>
+
+<!-- Misc -->
+      <field name="Notes" type="text" null="yes" />
+
+      <index primary="yes">
+         <col name="Id" />
+      </index>
+   </table>
+
+   <table name="ChargeBinding">
+      <description>
+         <para>This is an xref table that binds charges to customers and users.</para>
+      </description>
+
+      <field name="Id" type="integer" primary="yes" autoincrement="yes" />
+
+      <field name="UserId" type="integer" bits="64" null="no" default="0">
+         <description>
+            <para>If the binding is to customer, project, task or work, and UserId = 0, then this is a default rule. It can be overridden by an equal rule whith a real UserId for that user.</para>
+         </description>
+      </field>
+
+      <field name="ChargeId" type="integer" bits="64" null="no" default="0" />
+
+      <field name="XrefType" type="integer" bits="64" null="no" default="0">
+         <description>
+            <para>This tells what's in XrefId</para>
+
+            <ul>
+               <li>0 - User (default) - Only UserId and ChargeId is non-zero</li>
+
+               <li>1 - Customer (default)</li>
+
+               <li>2 - Project (default)</li>
+
+               <li>3 - Task (default)</li>
+
+               <li>4 - Work</li>
+            </ul>
+         </description>
+      </field>
+
+      <field name="XrefId" type="integer" bits="64" null="no" default="0">
+         <description>
+            <para>This is the binding to a customer, project, task or work -item</para>
+         </description>
+      </field>
+
+      <index primary="yes">
+         <col name="Id" />
+      </index>
+
+      <index name="key_xref" unique="yes">
+         <col name="UserId" />
+
+         <col name="ChargeId" />
+
+         <col name="XrefType" />
+
+         <col name="XrefId" />
+      </index>
+   </table>
+   
+   <table name="Options">
+      <description> 
+         <para>Options for this installation. This is per-database options, not per-user settings.</para>
+      </description>
+      
+      <field name="Id" type="integer" bits="64" primary="yes" autoincrement="no" />
+      
+      <field name="Multiuser" type="integer" length="8" null="no" default="0">
+          <description><para>Toggles multiuser-mode. In single-user-mode, all 
+          transactions are connected to Users.Id = 1.</para></description>
+      </field>
+      
+      <index primary="yes">
+         <col name="Id" />
+      </index>
+      
+   </table>
+      
+</warlib.database>
+

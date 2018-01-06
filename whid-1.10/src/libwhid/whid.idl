@@ -1,0 +1,747 @@
+
+
+module WHID
+{
+
+    interface Node;
+    interface Task;
+    interface Project;
+    interface Customer;
+    interface Rate;
+    interface Work;
+    interface User;
+    interface Invoice;
+    interface WhidControl;
+
+    enum NodeTypeE { NODECUSTOMER, NODEPROJECT, NODETASK };
+    enum WorkStatusE {WSACTIVE, WSPENDINGINV, WSHOLDBACK, WSFREE, WSINVOICED};
+
+    /* Equal to NodeTypeE except for the two extra last items */
+    enum WorkFilterE {
+        WFACTIVE, 
+        WFPENDINGINV,
+        WFHOLDBACK,
+        WFFREE,
+        WFINVOICED,
+        WFOPEN,
+        WFALL};
+
+    sequence<Node *>NodeList;
+    sequence<Task *>TaskList;
+    sequence<Project *>ProjectList;
+    sequence<Customer *>CustomerList;
+    sequence<Rate *>RateList;
+    sequence<Work *>WorkList;
+    sequence<User *>UserList;
+    sequence<Invoice *>InvoiceList;
+
+    /** Not found exception
+         \ingroup WARCMS
+     */
+	exception NotFoundException {};
+    
+    /** Already exist exception
+         \ingroup WARCMS
+     */
+    exception AlreadyExistException {};
+
+    /** Not Internal error exception
+         \ingroup WARCMS
+     */
+    exception InternalErrorException {};
+
+    /** Access denied exception
+         \ingroup WARCMS
+     */
+    exception AccessDeniedException {};
+    
+    /** Integrity error exception
+         \ingroup WARCMS
+     */
+    exception IntegrityErrorException {};
+
+
+    enum CustFilterE {CFNORMAL };
+
+    enum ActiveStatusE { ASAUTO, ASACTIVE, ASDISABLED };
+
+    enum RateChargeTypeE { 
+        RCTABSOLUTE, 
+        RTCADDVALUE, 
+        RTCADDPERCENT,
+        RTCEXTRAFEE
+    };
+
+    enum ProjectSummaryModeE { PSMWEEK };
+
+    struct Session
+    {
+        int mSessionKey;
+        string mCookie;
+    };
+
+    struct Options
+    {
+        bool mMultiuser;
+        int mDaysWhenActive; // How many days after activity will a node remain active?
+    };
+
+
+    sequence<int>WorkMinutesList;
+
+
+    struct ProjectSummary
+    {
+        string mCompanyName;
+        string mProjectName;
+        Project *mProject;
+        /// One entry for each day, starting with monday
+        WorkMinutesList mWorked;
+        int mTotalMinutes;
+    };
+
+    sequence<ProjectSummary>ProjectSummaryList;
+
+    struct ProjectForBillingInfo
+    {
+        string mCompanyName;
+        string mProjectName;
+        int mHoursToBill;
+
+        int mCompanyId;
+        int mProjectId;
+
+        Project *mProject;
+        Customer *mCustomer;
+    };
+
+    sequence<ProjectForBillingInfo> ProjectForBillingInfoList;
+
+    struct ProjectWithChargeForBillingInfo
+    {
+        string mCompanyName;
+        string mProjectName;
+        int mHoursToBill;
+        double mCharge;
+
+        long mCompanyId;
+        long mProjectId;
+
+        Project *mProject;
+        Customer *mCustomer;
+    };
+
+    sequence<ProjectWithChargeForBillingInfo> ProjectWithChargeForBillingInfoList;
+
+
+    struct InvoiceInfo
+    {
+        int mId;
+
+        string mCustomerName;
+        string mUserName;
+        double mCharge;
+        double mCost;
+        double mProfit;
+        double mHours;
+        bool mFrozen;
+        string mInvoiceDate;
+
+        Invoice *mInvoice;
+        Customer *mCustomer;
+        User *mUser;
+    };
+
+    sequence <InvoiceInfo> InvoiceInfoList;
+
+    struct ChargeData
+    {
+        long mId;
+        //User *mUser;
+
+        double mNumHours;
+        double mCharge;
+        double mCost;
+        double mProfit;
+        double mDiscount;
+
+        double mChargePrHour;
+
+        string mTaskName;
+        string mRateName;
+        string mWorkFrom;
+        string mWorkTo;
+
+        long mWorkId;
+
+        Task *mTask;
+        Rate *mRate;
+        Work *mWork;
+        Project *mProject;
+        Customer *mCustomer;
+    };
+
+    sequence<ChargeData> ChargeDataList;
+
+    interface HaveExplain
+    {
+        nonmutating string Explain();
+    };
+
+    struct RateInfo
+    {
+        string mName;
+        RateChargeTypeE mChargeType;
+        int mPriority;
+        bool mFree;
+        double mChargePerHour;
+        double mCost;
+        bool mActive;
+
+        Rate *mRate;
+    };
+
+    sequence<RateInfo> RateInfoList;
+
+    struct WorkInfo
+    {
+        string mCustomerName;
+        string mProjectName;
+        string mTaskName;
+        string mNotes;
+        string mFromTime;
+        string mToTime;
+        int mMinutesUsed;
+        int mMinutesPaused;
+        double mCharge;
+        double mCost;
+        double mProfit;
+        WorkStatusE mStatus;
+
+        Work *mNode;
+
+        Customer *mCustomer;
+        Project *mProject;
+        Task *mTask;
+    };
+
+    sequence<WorkInfo> WorkInfoList;
+
+    interface HaveRates extends HaveExplain
+    {
+        nonmutating void GetRates(out RateInfoList rates);
+
+        idempotent void SetRates(RateInfoList rates)
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+    };
+
+    interface HaveCharges extends HaveExplain
+    {
+        nonmutating void GetCharges(WorkFilterE filter,
+            User *forUser,
+            out ChargeDataList list)
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        nonmutating void GetInvoices(User *forUser, 
+            out InvoiceInfoList invoices)
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        /** Get work 
+            \param statusFilter Filter on status
+            \param fromTime Id set, only return items after this date
+            \param toTime If set, only return items until this date
+            \param children Return biuffer
+        */
+        nonmutating void GetWork(
+            User *forUser,
+            WorkFilterE statusFilter,
+            string fromTime,
+            string toTime,
+            out WorkInfoList children)
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+    };
+
+
+    struct UserData
+    {
+        long mId;
+        string mName;
+        string mLoginName;
+        string mNotes;
+        string mEmail;
+        bool mActive;
+        bool mAdmin;
+    };
+
+    struct UserInfo
+    {
+        string mName;
+        string mLoginName;
+        bool mActive;
+        bool mAdmin;
+
+        User *mUser;
+    };
+
+    sequence<UserInfo> UserInfoList;
+
+
+    interface User extends HaveCharges
+    {
+        nonmutating long GetId();
+
+        nonmutating string GetName()
+             throws InternalErrorException, 
+				AccessDeniedException;
+
+        nonmutating void GetData(out UserData data)
+             throws InternalErrorException, 
+				AccessDeniedException;
+
+        nonmutating void GetInfo(out UserInfo info)
+             throws InternalErrorException, 
+				AccessDeniedException;
+
+        /* Normal users are not allowed to change the admin or active state */
+        idempotent void SetData(UserData data)
+            throws InternalErrorException, 
+                AlreadyExistException,
+				AccessDeniedException;
+
+        idempotent void SetPassword(string passwd)
+            throws InternalErrorException, 
+                AlreadyExistException,
+				AccessDeniedException;        
+
+        // From WhidControl
+        /** Project summary
+            
+            \param mode Time-period
+            \param period Depends on mode
+                - week Any ANSI-DATE within the requested week.
+        */
+        nonmutating void GetProjectSummary(
+            ProjectSummaryModeE mode,
+            string period,
+            out ProjectSummaryList result)
+            throws InternalErrorException, 
+                AccessDeniedException;
+
+        /** Get the list of projects with work that are not billed. */
+        nonmutating void GetProjectsForBilling(
+            string fromDate, string toDate,
+            out ProjectForBillingInfoList list)
+             throws InternalErrorException, 
+                AccessDeniedException;
+
+        /** Get a list of projects with calculated charges, ready to be billed */
+        nonmutating void GetProjectsReadyForInvoicing(
+            out ProjectWithChargeForBillingInfoList list)
+             throws InternalErrorException, 
+                AccessDeniedException;
+
+        /** Clear all calculated charges for all non-invoiced work-items */
+        void ClearAllChargesNotInvoiced()
+            throws InternalErrorException, 
+                AccessDeniedException;
+
+        /** Make invoices for all work that are WSPENDINGINV where charges are created 
+        
+            This is the second last step on the way to making invoices. 
+
+            This method will not commit the invoices - that is, the work-items
+            weill remain open.
+
+            \param list List of the generated invoices
+        */
+        idempotent void MakeInvoices(out InvoiceInfoList list)
+            throws InternalErrorException, 
+                AccessDeniedException;
+
+        /** Get an XML buffer for the requested invoices */
+        nonmutating void GetInvoicesAsXml(InvoiceList invoices,
+            out string xml)
+            throws InternalErrorException, 
+                AccessDeniedException;
+
+        /*nonmutating void GetInvoices(out InvoiceInfoList invoices)
+            throws InternalErrorException, 
+				AccessDeniedException;*/
+    };
+
+    struct RateData
+    {
+        long mId;
+        string mName;
+        double mChargePerHour;
+        double mCost;
+        RateChargeTypeE mChargeType;
+        int mPriority;
+        int mFromClock;
+        int mToClock;
+        int mNumContinousHours;
+        int mMaxTimeBetweenContinousIntervals;
+        string mAppliesToDayMask;
+        int mMinTime;
+        int mAlign;
+        int mAlignStart;
+        int mAlignThreshold;
+        bool mFree;
+        bool mActive;
+        string mNotes;
+    };
+
+
+    interface Rate extends HaveExplain
+    {
+        nonmutating long GetId();
+
+        nonmutating string GetName()
+             throws InternalErrorException, 
+				AccessDeniedException;
+
+        nonmutating void GetData(out RateData data)
+             throws InternalErrorException, 
+				AccessDeniedException;
+
+        nonmutating void GetInfo(out RateInfo info)
+             throws InternalErrorException, 
+				AccessDeniedException;
+
+        idempotent void SetData(RateData data)
+            throws InternalErrorException, 
+                AlreadyExistException,
+				AccessDeniedException;
+
+    };
+
+    struct NodeData
+    {
+        string mName;
+        string mNotes;
+        ActiveStatusE mActiveStatus;
+    };
+
+    struct NodeInfo
+    {
+        string mName;
+        ActiveStatusE mActiveStatus;
+        NodeTypeE mType;
+        Node *mNode;
+    };
+
+    sequence<NodeInfo> NodeInfoList;
+
+    struct WorkData
+    {
+        string mNotes;
+        string mFromTime;
+        string mToTime;
+        int mMinutesPaused;
+    };
+
+
+    interface Node extends HaveRates, HaveCharges
+    {
+        nonmutating string GetName()
+             throws InternalErrorException, 
+				AccessDeniedException;
+
+        nonmutating void GetData(out NodeData data)
+             throws InternalErrorException, 
+				AccessDeniedException;
+        
+        idempotent void SetData(NodeData data)
+            throws InternalErrorException, 
+				AccessDeniedException,
+                AlreadyExistException;
+
+        nonmutating void GetChildren(
+            bool onlyActive,
+            out NodeInfoList children)
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        Node *GetParent()
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        NodeTypeE GetNodeType()
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        bool IsActive()
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        idempotent void UpdateActiveStatus()
+            throws InternalErrorException, 
+				AccessDeniedException;
+    };
+    
+    interface Work extends HaveRates, HaveCharges
+    {
+        nonmutating Task *GetParent()
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        idempotent void SetData(WorkData data)
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        nonmutating void GetData(out WorkData data)
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        nonmutating void GetInfo(out WorkInfo info)
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        nonmutating WorkStatusE GetStatus()
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        idempotent void SetStatus(WorkStatusE status)
+             throws InternalErrorException, 
+				AccessDeniedException,
+                IntegrityErrorException;
+    
+        void Delete()
+             throws InternalErrorException, 
+				AccessDeniedException,
+                IntegrityErrorException;
+
+        /** Closes the task and aligns the end-time.
+            according to the rules. This method will
+            only work on items in state WSACTIVE.
+        */
+        void CloseTimer()
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        nonmutating Rate *GetMainRate()
+             throws InternalErrorException, 
+				AccessDeniedException;
+
+        void AddPause(int minutes)
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        /** Only valid for open objects 
+        
+            \exception IntegrityErrorException if the
+                item haa any other state than WSACTIVE
+        */
+        void SetEndtimeToNow()
+            throws InternalErrorException, 
+				AccessDeniedException,
+                IntegrityErrorException;
+
+        /** Delete the charges that is calculated for this time */
+        idempotent void DeleteCharges()
+            throws InternalErrorException, 
+				AccessDeniedException,
+                IntegrityErrorException;
+
+        /** Caøculate the charges for this time 
+        
+            The status is not updated. This
+            is done separately after the charges are approved.
+
+        */
+        idempotent void CalculateCharges()
+            throws InternalErrorException, 
+				AccessDeniedException,
+                IntegrityErrorException;
+
+
+    };
+    
+    interface Task extends Node
+    {
+        /** Create a new work entry with the specified data */
+        Work *CreateWork(User *forUser, WorkData data)
+            throws InternalErrorException, 
+				AccessDeniedException;
+        /** Create a new work-entry with default values */
+        Work *StartTimer(User *forUser) 
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        /** Get the default rates for the current user */
+        nonmutating void GetDefaultRates(
+                User *forUser,
+                out RateInfoList rates)
+                throws InternalErrorException, 
+				AccessDeniedException;
+    };
+
+    interface Project extends Node
+    {
+        nonmutating void GetTasks(
+            bool onlyActive,
+            out TaskList children)
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        Task *CreateTask(NodeData data)
+            throws InternalErrorException, 
+				AccessDeniedException,
+                AlreadyExistException;
+
+        /** Recalculate open work-items */
+        idempotent void RecalculatePending(
+            User *forUser,
+            string fromDate, string toDate)
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        /** Delete calculated charges for open work-items */
+        idempotent void ClearPending(User *forUser)
+             throws InternalErrorException, 
+				AccessDeniedException;
+
+        /** Get a list over all open work-items */
+        nonmutating void GetAllPendingWorkItems(
+            User *forUser,
+            string fromDate, string toDate,
+            out WorkList list)
+            throws InternalErrorException, 
+				AccessDeniedException;
+    };
+
+    struct CustomerData
+    {
+        string mEmail;
+    };
+
+    interface Customer extends Node
+    {
+        nonmutating void GetProjects(bool onlyActive,
+            out ProjectList children)
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        nonmutating void GetCustomerData(out CustomerData data)
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        idempotent void SetCustomerData(CustomerData data)
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        Project *CreateProject(NodeData data)
+            throws InternalErrorException, 
+				AccessDeniedException,
+                AlreadyExistException;
+
+        /** Make an invoice for the projects */
+        idempotent Invoice *MakeInvoice(ProjectList projects,
+            User *forUser)
+             throws InternalErrorException, 
+				AccessDeniedException,
+                AlreadyExistException;
+    };    
+    
+    interface Invoice extends HaveCharges
+    {
+        /** Commit the invoice.
+
+            After this method is called once, the invoice is frozen.
+        */
+        void Commit()
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        nonmutating void GetInfo(out InvoiceInfo info)
+            throws InternalErrorException, 
+				AccessDeniedException;
+
+        idempotent void GetAsXml(out string xmlBuffer,
+            out double totalHours, out double totalCharge,
+            out double totalCost, out double totalProfit)
+            throws InternalErrorException, 
+				AccessDeniedException;
+    };
+
+    /** Where the client gets the data */
+    interface WhidControl extends HaveExplain
+    {
+        Customer *CreateCustomer(NodeData data)
+            throws InternalErrorException, 
+				AccessDeniedException,
+                AlreadyExistException;
+        
+        nonmutating void GetCustomers(CustFilterE filter, 
+            string pattern, 
+            bool onlyActive,
+            out NodeInfoList customers)
+             throws InternalErrorException, 
+				AccessDeniedException;
+
+        /** Get all rates in the system */
+        nonmutating void GetRates(bool onlyActive,
+            out RateInfoList rates)
+             throws InternalErrorException, 
+				AccessDeniedException;
+        
+        /** Add a new rate */
+        Rate *AddRate(RateData data)
+            throws InternalErrorException, 
+				AccessDeniedException,
+                AlreadyExistException;
+
+        
+
+        /** Get the global options for this instance */
+        nonmutating void GetOptions(out Options opt)
+            throws InternalErrorException, 
+                AccessDeniedException;
+
+        /** Set the global options for this instance. 
+            A client can make a subset of the options-list and
+            save only that. Options that are missing in this
+            list is not deleted from the database.
+        */
+        idempotent void SetOptions(Options opt)
+            throws InternalErrorException, 
+                AccessDeniedException;  
+
+        nonmutating void GetUser(long userId, out User *usr)
+            throws InternalErrorException, 
+                AccessDeniedException;  
+
+        nonmutating void GetUserList(out UserInfoList users)
+            throws InternalErrorException, 
+                AccessDeniedException;  
+
+        void AddUser(UserData data, out User * usr)
+            throws InternalErrorException, 
+                AlreadyExistException,
+                AccessDeniedException;  
+
+    };    
+
+    /** Entry-point */
+    interface Gateway extends HaveExplain
+    {
+        void Login(string logonName, 
+            string password,
+            out Session ses)
+            throws InternalErrorException, 
+                AccessDeniedException;
+
+        void Logout(Session ses);
+
+        void GetUserFromSession(Session ses, out User *usr)
+            throws InternalErrorException, 
+                AccessDeniedException;
+    };
+};
+

@@ -1,0 +1,1341 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: whid\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-08-04 17:31+0200\n"
+"PO-Revision-Date: 2007-11-01 10:49+0100\n"
+"Last-Translator: Jarle Aase <jgaa@jgaa.com>\n"
+"Language-Team: translators <jgaa@jgaa.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ../../src/client\n"
+
+#: ../../src/client/AboutDlg.cpp:132
+msgid "Homepage"
+msgstr ""
+
+#: ../../src/client/AboutDlg.cpp:135
+msgid "Donate"
+msgstr ""
+
+#: ../../src/client/AboutDlg.cpp:138
+msgid "&Close"
+msgstr ""
+
+#: ../../src/client/AboutDlg.cpp:154
+msgid "version"
+msgstr ""
+
+#: ../../src/client/AboutDlg.cpp:164
+msgid "is free software (as in free), published under the"
+msgstr ""
+
+#: ../../src/client/AboutDlg.cpp:168
+msgid "There are no nags, no banners, no adware, no spyware."
+msgstr ""
+
+#: ../../src/client/AboutDlg.cpp:170
+msgid "The source-code is available for"
+msgstr ""
+
+#: ../../src/client/AboutDlg.cpp:173
+msgid "download"
+msgstr ""
+
+#: ../../src/client/AboutDlg.cpp:179
+msgid "is written by"
+msgstr ""
+
+#: ../../src/client/AboutDlg.cpp:182
+msgid "from Norway."
+msgstr ""
+
+#: ../../src/client/AboutDlg.cpp:184
+msgid "Jarle has released free software since 1985."
+msgstr ""
+
+#: ../../src/client/AboutDlg.cpp:188
+msgid "If you find this software useful, you may"
+msgstr ""
+
+#: ../../src/client/AboutDlg.cpp:191
+msgid "donate"
+msgstr ""
+
+#: ../../src/client/AboutDlg.cpp:193
+msgid "some money to the project. But you are free to use it anyway"
+msgstr ""
+
+#: ../../src/client/AboutDlg.cpp:249
+msgid "http://whid.jgaa.com"
+msgstr ""
+
+#: ../../src/client/AboutDlg.cpp:260
+msgid "http://donate.jgaa.com"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:94
+msgid "Billing"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:298
+msgid "Projects with work that can be billed"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:309
+msgid "Select All"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:312
+msgid "Unselect All"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:315
+#: ../../src/client/BillingWiz.cpp:910
+msgid "Toggle"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:371
+msgid "Fetching billable projects..."
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:472
+msgid "Calculating..."
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:574
+msgid "Calculated and aligned charges"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:590
+#: ../../src/client/InvoiceUtil.cpp:210
+#: ../../src/client/TaskDlg.cpp:24
+msgid "Task"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:591
+#: ../../src/client/InvoiceUtil.cpp:204
+#: ../../src/client/MainFrame.cpp:508
+#: ../../src/client/MainFrame.cpp:531
+msgid "From"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:592
+#: ../../src/client/InvoiceUtil.cpp:205
+#: ../../src/client/MainFrame.cpp:509
+#: ../../src/client/MainFrame.cpp:532
+msgid "To"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:593
+#: ../../src/client/InvoiceUtil.cpp:206
+#: ../../src/client/MainFrame.cpp:522
+msgid "Hours"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:594
+#: ../../src/client/ChooseRateDlg.cpp:106
+#: ../../src/client/InvoiceUtil.cpp:207
+#: ../../src/client/RateManager.cpp:107
+#: ../../src/client/RateDlg.h:42
+msgid "Rate"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:595
+msgid "r/hr"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:596
+msgid "Charge"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:597
+#: ../../src/client/InvoiceUtil.cpp:209
+msgid "Discount"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:641
+msgid "Updating data..."
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:648
+msgid "Companys"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:763
+#: ../../src/client/BillingWiz.cpp:766
+#: ../../src/client/BillingWiz.cpp:768
+#: ../../src/client/BillingWiz.cpp:770
+#: ../../src/client/BillingWiz.cpp:789
+#: ../../src/client/BillingWiz.cpp:792
+#: ../../src/client/BillingWiz.cpp:795
+#, c-format
+msgid "%1.2lf"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:787
+#: ../../src/client/InvoiceUtil.cpp:199
+msgid "Total"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:893
+#: ../../src/client/MainFrame.cpp:373
+#: ../../src/client/MainFrame.cpp:467
+msgid "Invoices"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:904
+msgid "Select all"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:907
+msgid "Unselect all"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:916
+msgid "Export to html"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:919
+msgid "Export to xml"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:922
+msgid "Send on email"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:977
+msgid "Updating..."
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:1027
+msgid "Creating invoices..."
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:1097
+#: ../../src/client/BillingWiz.cpp:1126
+#: ../../src/client/MainFrame.cpp:2367
+#: ../../src/client/MainFrame.cpp:2480
+#: ../../src/client/MainFrame.cpp:2513
+msgid "Save to XML file"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:1098
+msgid "HTML files (*.html)|*.html"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:1127
+#: ../../src/client/MainFrame.cpp:2368
+msgid "bill.xml"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:1127
+#: ../../src/client/MainFrame.cpp:2368
+#: ../../src/client/MainFrame.cpp:2481
+#: ../../src/client/MainFrame.cpp:2514
+msgid "XML files (*.xml)|*.xml"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:1266
+msgid "From Date"
+msgstr ""
+
+#: ../../src/client/BillingWiz.cpp:1272
+msgid "To date"
+msgstr ""
+
+#: ../../src/client/ChooseRateDlg.cpp:104
+#: ../../src/client/NodeDlg.cpp:171
+#: ../../src/client/PropertiesDlg.cpp:275
+#: ../../src/client/RateDlg.cpp:219
+#: ../../src/client/RateManager.cpp:105
+#: ../../src/client/UserDlg.cpp:179
+#: ../../src/client/UserManager.cpp:108
+msgid "Name"
+msgstr ""
+
+#: ../../src/client/ChooseRateDlg.cpp:105
+#: ../../src/client/RateDlg.cpp:231
+#: ../../src/client/RateManager.cpp:106
+msgid "Type"
+msgstr ""
+
+#: ../../src/client/ChooseRateDlg.cpp:136
+#: ../../src/client/NodeDlg.cpp:200
+#: ../../src/client/WorkDlg.cpp:282
+#: ../../src/client/ChooseRateDlg.h:41
+msgid "Rates"
+msgstr ""
+
+#: ../../src/client/ChooseRateDlg.cpp:146
+msgid "Hide inactive rates"
+msgstr ""
+
+#: ../../src/client/ChooseRateDlg.cpp:150
+msgid "Add new"
+msgstr ""
+
+#: ../../src/client/ChooseRateDlg.cpp:156
+#: ../../src/client/EmailBillDlg.cpp:154
+#: ../../src/client/FirstUseDlg.cpp:156
+#: ../../src/client/HTMLReport.cpp:145
+#: ../../src/client/LogonDlg.cpp:149
+#: ../../src/client/NewPasswdDlg.cpp:141
+#: ../../src/client/NodeDlg.cpp:221
+#: ../../src/client/PropertiesDlg.cpp:420
+#: ../../src/client/RateDlg.cpp:384
+#: ../../src/client/SystemSettingsDlg.cpp:161
+#: ../../src/client/UserDlg.cpp:239
+#: ../../src/client/WorkDlg.cpp:289
+msgid "&OK"
+msgstr ""
+
+#: ../../src/client/ChooseRateDlg.cpp:159
+#: ../../src/client/EmailBillDlg.cpp:157
+#: ../../src/client/FirstUseDlg.cpp:159
+#: ../../src/client/HTMLReport.cpp:148
+#: ../../src/client/LogonDlg.cpp:152
+#: ../../src/client/NewPasswdDlg.cpp:144
+#: ../../src/client/NodeDlg.cpp:224
+#: ../../src/client/PropertiesDlg.cpp:423
+#: ../../src/client/RateDlg.cpp:387
+#: ../../src/client/SystemSettingsDlg.cpp:164
+#: ../../src/client/UserDlg.cpp:242
+#: ../../src/client/WorkDlg.cpp:292
+msgid "&Cancel"
+msgstr ""
+
+#: ../../src/client/ChooseRateDlg.cpp:276
+#: ../../src/client/MainFrame.cpp:1177
+#: ../../src/client/RateManager.cpp:220
+#, c-format
+msgid "%.0f"
+msgstr ""
+
+#: ../../src/client/ChooseRateDlg.cpp:281
+#: ../../src/client/RateManager.cpp:225
+msgid "Normal"
+msgstr ""
+
+#: ../../src/client/ChooseRateDlg.cpp:284
+#: ../../src/client/RateManager.cpp:153
+#: ../../src/client/RateManager.cpp:228
+#: ../../src/client/UserManager.cpp:158
+msgid "Add"
+msgstr ""
+
+#: ../../src/client/ChooseRateDlg.cpp:287
+#: ../../src/client/RateManager.cpp:231
+msgid "Percent"
+msgstr ""
+
+#: ../../src/client/ChooseRateDlg.cpp:290
+#: ../../src/client/RateManager.cpp:234
+msgid "Fee"
+msgstr ""
+
+#: ../../src/client/CustomerDlg.cpp:15
+#: ../../src/client/MainFrame.cpp:520
+msgid "Customer"
+msgstr ""
+
+#: ../../src/client/EmailBillDlg.cpp:133
+msgid "Email address"
+msgstr ""
+
+#: ../../src/client/EmailBillDlg.cpp:139
+msgid "Subject"
+msgstr ""
+
+#: ../../src/client/EmailBillDlg.cpp:145
+msgid "Message"
+msgstr ""
+
+#: ../../src/client/FirstUseDlg.cpp:119
+msgid ""
+"I cannot find a database. If this is the first time the program is used by you, that is normal.\n"
+"I can create a new database. Just provide the infromation  below and press OK."
+msgstr ""
+
+#: ../../src/client/FirstUseDlg.cpp:122
+msgid "If you /do/ have a database, press the cancel button to abort."
+msgstr ""
+
+#: ../../src/client/FirstUseDlg.cpp:128
+msgid "Login name"
+msgstr ""
+
+#: ../../src/client/FirstUseDlg.cpp:130
+msgid "The login-name is normally composed from the users initials"
+msgstr ""
+
+#: ../../src/client/FirstUseDlg.cpp:136
+msgid "Your full name"
+msgstr ""
+
+#: ../../src/client/FirstUseDlg.cpp:142
+msgid "What do you normally charge per hour?"
+msgstr ""
+
+#: ../../src/client/FirstUseDlg.cpp:147
+msgid "Just insert the amout (not the currency)"
+msgstr ""
+
+#: ../../src/client/HTMLReport.cpp:135
+msgid "Choose report"
+msgstr ""
+
+#: ../../src/client/HTMLReport.cpp:158
+msgid "Invoice"
+msgstr ""
+
+#: ../../src/client/HTMLReport.cpp:159
+msgid "Internal report with cost and profit"
+msgstr ""
+
+#: ../../src/client/InvoiceUtil.cpp:49
+#: ../../src/client/InvoiceUtil.cpp:163
+msgid "whid-bill"
+msgstr ""
+
+#: ../../src/client/InvoiceUtil.cpp:71
+msgid "Sending message. Please wait..."
+msgstr ""
+
+#: ../../src/client/InvoiceUtil.cpp:158
+msgid "Exporting data. Please wait..."
+msgstr ""
+
+#: ../../src/client/InvoiceUtil.cpp:197
+msgid "Report Summary"
+msgstr ""
+
+#: ../../src/client/InvoiceUtil.cpp:198
+msgid "Total hours"
+msgstr ""
+
+#: ../../src/client/InvoiceUtil.cpp:200
+msgid "Cost"
+msgstr ""
+
+#: ../../src/client/InvoiceUtil.cpp:201
+#: ../../src/client/MainFrame.cpp:524
+msgid "Profit"
+msgstr ""
+
+#: ../../src/client/InvoiceUtil.cpp:202
+msgid "Invoice #"
+msgstr ""
+
+#: ../../src/client/InvoiceUtil.cpp:203
+#: ../../src/client/ProjectDlg.cpp:24
+msgid "Project"
+msgstr ""
+
+#: ../../src/client/InvoiceUtil.cpp:208
+#: ../../src/client/MainFrame.cpp:512
+#: ../../src/client/MainFrame.cpp:523
+msgid "Sum"
+msgstr ""
+
+#: ../../src/client/InvoiceUtil.cpp:258
+#: ../../src/client/MainFrame.cpp:2307
+msgid "Access denied. You don't have permission to see invoices."
+msgstr ""
+
+#: ../../src/client/LogonDlg.cpp:134
+#: ../../src/client/UserDlg.cpp:185
+msgid "Login Name"
+msgstr ""
+
+#: ../../src/client/LogonDlg.cpp:140
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:141
+#: ../../src/client/PropertiesDlg.cpp:313
+#: ../../src/client/PropertiesDlg.cpp:407
+#: ../../src/client/UserDlg.cpp:191
+#: ../../src/client/NewPasswdDlg.h:39
+msgid "Password"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:341
+msgid "&Quit"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:342
+msgid "&Properties"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:343
+msgid "&Users"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:344
+msgid "&Rates Manager"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:346
+msgid "Global &System settings"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:348
+msgid "Backup data"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:349
+msgid "Restore data"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:350
+msgid "&File"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:352
+#: ../../src/client/MainFrame.cpp:356
+#: ../../src/client/MainFrame.cpp:361
+msgid "&Edit"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:353
+msgid "Add a new &Customer"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:354
+msgid "&Customer"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:357
+msgid "&Add a new Project"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:358
+#: ../../src/client/app_resources.cpp:91
+msgid "Add a new &Task"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:359
+msgid "&Project"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:362
+msgid "&Add a new Task"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:363
+msgid "Add &Work"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:364
+msgid "&Task"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:366
+#: ../../src/client/app_resources.cpp:77
+msgid "&Edit\t..."
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:367
+msgid "Item"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:368
+msgid "&Work"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:370
+#: ../../src/client/app_resources.cpp:63
+msgid "Export to XML"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:371
+#: ../../src/client/app_resources.cpp:64
+msgid "Export to HTML"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:372
+msgid "Export to email"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:375
+msgid "&About"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:376
+msgid "Help"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:383
+msgid "Add a new customer"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:386
+msgid "Add a new project"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:389
+msgid "Add a new task in a project"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:392
+msgid "Add work hours"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:395
+msgid "Billing - Calculate charges and make incoices"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:399
+msgid "Refresh the information on the screen"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:402
+msgid "Currently Active"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:403
+msgid "Done, waiting to be invoiced"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:404
+msgid "Done, hold back"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:405
+msgid "Free"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:406
+msgid "Invoived"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:407
+msgid "Not invoiced or free (pending for invoice)"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:408
+msgid "All"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:410
+msgid "5"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:411
+msgid "Filter the work-hour selection"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:413
+msgid "Work-hours status to show"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:417
+msgid "Reset the filters"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:442
+msgid "Only active"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:446
+msgid "Filter"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:459
+msgid "Summary"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:463
+msgid "Work Hours"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:480
+msgid "Check in"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:484
+#: ../../src/client/MainFrame.cpp:510
+#: ../../src/client/MainFrame.cpp:533
+msgid "Pause"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:507
+msgid "Origin"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:511
+#: ../../src/client/MainFrame.cpp:534
+msgid "Used"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:513
+#: ../../src/client/MainFrame.cpp:535
+msgid "Description"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:518
+msgid "Date"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:519
+msgid "#"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:521
+#: ../../src/client/MainFrame.cpp:2221
+msgid "User"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:661
+msgid "Customers"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:1171
+#: ../../src/client/MainFrame.cpp:1175
+#, c-format
+msgid "%02d:%02d"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:1422
+msgid "Check Out"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:1423
+msgid "Check In"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:1607
+msgid "WHEAT"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:1711
+msgid "No properties for pauses..."
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:2185
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:147
+msgid "Default user"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:2186
+#: ../../src/client/MainFrame.cpp:2219
+#: ../../src/client/UserManager.cpp:111
+msgid "Admin"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:2227
+msgid "Access denied. Is the user-name and password correct?"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:2398
+msgid "Save to HTML file"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:2399
+msgid "bill.html"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:2399
+msgid "HTML files (*.html)|*.htm"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:2481
+#: ../../src/client/MainFrame.cpp:2514
+msgid "whid_backup.xml"
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:2488
+msgid "Backing up data..."
+msgstr ""
+
+#: ../../src/client/MainFrame.cpp:2521
+msgid "Restoring data..."
+msgstr ""
+
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:122
+msgid "MySQL Logon properties"
+msgstr ""
+
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:129
+msgid ""
+"In order to create the database, you must provide a\n"
+"user-name and a password to the MySQL database,\n"
+"for a user with access  to create databases and grant\n"
+"privileges. "
+msgstr ""
+
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:135
+msgid "Super user name"
+msgstr ""
+
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:154
+msgid ""
+"I will add one user to the WHID database. This user will normally\n"
+"be you. Just enter yor name and your normal charge per hour."
+msgstr ""
+
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:160
+msgid "Login Name (initials)"
+msgstr ""
+
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:166
+msgid "Your Name"
+msgstr ""
+
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:172
+msgid "Normal charge per hour"
+msgstr ""
+
+#: ../../src/client/MysqlCreateDatabaseDlg.cpp:181
+msgid "Create the database"
+msgstr ""
+
+#: ../../src/client/NewPasswdDlg.cpp:132
+msgid "New password"
+msgstr ""
+
+#: ../../src/client/NodeDlg.cpp:179
+msgid "Is Customer active?"
+msgstr ""
+
+#: ../../src/client/NodeDlg.cpp:183
+msgid "Auto (Enabled if any of it's projects are active)"
+msgstr ""
+
+#: ../../src/client/NodeDlg.cpp:184
+#: ../../src/client/UserDlg.cpp:204
+#: ../../src/client/UserManager.cpp:110
+msgid "Active"
+msgstr ""
+
+#: ../../src/client/NodeDlg.cpp:185
+msgid "Inactive"
+msgstr ""
+
+#: ../../src/client/NodeDlg.cpp:187
+msgid "0"
+msgstr ""
+
+#: ../../src/client/NodeDlg.cpp:190
+#: ../../src/client/RateDlg.cpp:377
+#: ../../src/client/UserDlg.cpp:214
+msgid "Notes"
+msgstr ""
+
+#: ../../src/client/NodeDlg.cpp:196
+#: ../../src/client/RateDlg.cpp:260
+#: ../../src/client/UserDlg.cpp:220
+#: ../../src/client/PropertiesDlg.h:42
+msgid "Properties"
+msgstr ""
+
+#: ../../src/client/NodeDlg.cpp:207
+#: ../../src/client/PropertiesDlg.cpp:413
+#: ../../src/client/UserDlg.cpp:226
+#: ../../src/client/EmailBillDlg.h:41
+msgid "Email"
+msgstr ""
+
+#: ../../src/client/NodeDlg.cpp:214
+msgid "Customer Data"
+msgstr ""
+
+#: ../../src/client/ProjectDlg.cpp:19
+msgid "icons/128x128/project.png"
+msgstr ""
+
+#: ../../src/client/ProjectDlg.cpp:25
+msgid "Is the project active?"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:116
+#, c-format
+msgid "%d"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:225
+msgid "Language"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:232
+msgid "Default helper applications"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:237
+msgid "Web browser"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:243
+msgid "Preferences"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:249
+msgid "Ice settings"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:254
+msgid "Ice Host"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:260
+msgid "Ice Port"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:266
+msgid "Communication"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:281
+msgid "SQLite (default, embedded database)"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:288
+msgid "MySQL Connection properties"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:293
+msgid "Database Host"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:298
+msgid "Hostname or IP-number for the MySQL Server"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:301
+msgid "Database Name"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:307
+#: ../../src/client/PropertiesDlg.cpp:401
+msgid "User Name"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:321
+msgid "Test connection"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:324
+msgid "Create database"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:327
+msgid "MySQL (4.1 or newer) Server Connection"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:329
+msgid "Database"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:338
+msgid "File Name"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:346
+msgid "Enable logging to file"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:350
+msgid "Log Events"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:353
+msgid "Errors and Warnings"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:357
+msgid "Informational log messages"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:361
+msgid "Debug messages"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:365
+msgid "Very verbose debug messages for database"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:369
+msgid "Very verbose debug messages for multithreading"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:373
+msgid "Log"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:379
+msgid "Server properties"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:384
+msgid "Server address"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:390
+msgid "Return-address"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:396
+msgid "Optional credentials on the mailserver (ESMTP CRAM-MD5)"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:496
+msgid "The connection to the database-server was successful"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:497
+msgid "MySQL Connection"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:543
+msgid "The database was successfully created and initialized."
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:544
+msgid "Database Creation"
+msgstr ""
+
+#: ../../src/client/PropertiesDlg.cpp:641
+msgid "The changes will take effect the next time Whid is started."
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:225
+msgid "Priority"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:235
+msgid "Normal charge"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:236
+msgid "Add amount to normal charge"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:237
+msgid "Add percentage to normal charge"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:238
+msgid "Extra fee"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:242
+msgid "Amount (per hour)"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:248
+msgid "Cost (our expense)"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:256
+msgid "Enabled"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:268
+msgid "From/To hours"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:273
+#: ../../src/client/RateDlg.cpp:298
+msgid "Enable"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:279
+msgid "From hour"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:281
+msgid "Like hour:minute or -1 if the rukle don't apply"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:287
+msgid "To Hour"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:293
+msgid "Continous time"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:304
+msgid "From # hours"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:310
+msgid "Max delays (minutes)"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:316
+msgid "Days of week"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:320
+msgid "All days"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:321
+msgid "Monday"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:322
+msgid "Tuesday"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:323
+msgid "Wednsday"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:324
+msgid "Thurstay"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:325
+msgid "Friday"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:326
+msgid "Saturday"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:327
+msgid "Sunday"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:333
+msgid "Applies"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:339
+msgid "Startfee"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:344
+msgid "Minimum minutes to charge"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:350
+msgid "Alignment"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:355
+msgid "Align to nearest # minutes"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:361
+msgid "Threshold # minutes"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:367
+msgid "Align to offset # minutes"
+msgstr ""
+
+#: ../../src/client/RateDlg.cpp:373
+msgid "Adjustments"
+msgstr ""
+
+#: ../../src/client/RateManager.cpp:79
+#: ../../src/client/RateManager.h:41
+msgid "Rate Manager"
+msgstr ""
+
+#: ../../src/client/RateManager.cpp:140
+msgid "Selected Rates"
+msgstr ""
+
+#: ../../src/client/RateManager.cpp:156
+#: ../../src/client/UserManager.cpp:161
+msgid "Delete"
+msgstr ""
+
+#: ../../src/client/SystemSettingsDlg.cpp:148
+msgid "Multiuser mode"
+msgstr ""
+
+#: ../../src/client/SystemSettingsDlg.cpp:151
+msgid "Enables multiuser-operation"
+msgstr ""
+
+#: ../../src/client/SystemSettingsDlg.cpp:154
+msgid "Settings"
+msgstr ""
+
+#: ../../src/client/TaskDlg.cpp:19
+msgid "icons/128x128/task.png"
+msgstr ""
+
+#: ../../src/client/TaskDlg.cpp:25
+msgid "Is the task active?"
+msgstr ""
+
+#: ../../src/client/UserDlg.cpp:199
+msgid "Reset"
+msgstr ""
+
+#: ../../src/client/UserDlg.cpp:210
+msgid "Administrator privileges"
+msgstr ""
+
+#: ../../src/client/UserDlg.cpp:232
+msgid "Contact Info"
+msgstr ""
+
+#: ../../src/client/UserManager.cpp:109
+msgid "LoginName"
+msgstr ""
+
+#: ../../src/client/UserManager.cpp:337
+#: ../../src/client/UserManager.cpp:339
+msgid "Yes"
+msgstr ""
+
+#: ../../src/client/UserManager.cpp:337
+#: ../../src/client/UserManager.cpp:339
+msgid "No"
+msgstr ""
+
+#: ../../src/client/WhidApp.cpp:339
+msgid "ERROR"
+msgstr ""
+
+#: ../../src/client/WorkDlg.cpp:224
+msgid "Time spent"
+msgstr ""
+
+#: ../../src/client/WorkDlg.cpp:229
+msgid "From Time"
+msgstr ""
+
+#: ../../src/client/WorkDlg.cpp:237
+#: ../../src/client/WorkDlg.cpp:248
+#: ../../src/client/WorkDlg.cpp:256
+msgid "Time as hours[:minutes]"
+msgstr ""
+
+#: ../../src/client/WorkDlg.cpp:240
+msgid "To Time"
+msgstr ""
+
+#: ../../src/client/WorkDlg.cpp:251
+msgid "Paused/credited time"
+msgstr ""
+
+#: ../../src/client/WorkDlg.cpp:264
+msgid "&Open"
+msgstr ""
+
+#: ../../src/client/WorkDlg.cpp:265
+msgid "&Done"
+msgstr ""
+
+#: ../../src/client/WorkDlg.cpp:266
+msgid "&Hold back"
+msgstr ""
+
+#: ../../src/client/WorkDlg.cpp:267
+msgid "&Free"
+msgstr ""
+
+#: ../../src/client/WorkDlg.cpp:268
+msgid "&Invoice is sent"
+msgstr ""
+
+#: ../../src/client/WorkDlg.cpp:269
+msgid "Status"
+msgstr ""
+
+#: ../../src/client/WorkDlg.cpp:273
+msgid "Description/Notes"
+msgstr ""
+
+#: ../../src/client/WorkDlg.cpp:279
+msgid "Work properties"
+msgstr ""
+
+#: ../../src/client/WorkDlg.cpp:308
+msgid "C:\\devel\\current\\whid\\bin\\vs2003\\whid_resources.zip#zip:icons/128x128/work.png"
+msgstr ""
+
+#: ../../src/client/app_resources.cpp:51
+msgid "&Edit Task"
+msgstr ""
+
+#: ../../src/client/app_resources.cpp:65
+msgid "Export to Email"
+msgstr ""
+
+#: ../../src/client/app_resources.cpp:78
+msgid "&Delete"
+msgstr ""
+
+#: ../../src/client/app_resources.cpp:90
+msgid "&Edit Project"
+msgstr ""
+
+#: ../../src/client/app_resources.cpp:103
+msgid "Create a new &Customer"
+msgstr ""
+
+#: ../../src/client/app_resources.cpp:104
+msgid "Create a new &Project"
+msgstr ""
+
+#: ../../src/client/app_resources.cpp:105
+msgid "&Edit Customer"
+msgstr ""
+
+#: ../../src/client/AboutDlg.h:41
+msgid "About"
+msgstr ""
+
+#: ../../src/client/Copy of WorkDlg.h:45
+#: ../../src/client/WorkDlg.h:46
+msgid "WorkDlg"
+msgstr ""
+
+#: ../../src/client/FilteredList.h:43
+msgid "FilteredList"
+msgstr ""
+
+#: ../../src/client/FirstUseDlg.h:43
+msgid "No database found"
+msgstr ""
+
+#: ../../src/client/HTMLReport.h:42
+msgid "HTML Report"
+msgstr ""
+
+#: ../../src/client/ImageContainer.h:39
+msgid "Dialog"
+msgstr ""
+
+#: ../../src/client/LogonDlg.h:39
+msgid "Log on"
+msgstr ""
+
+#: ../../src/client/MainFrame.h:73
+msgid "What have I Done!"
+msgstr ""
+
+#: ../../src/client/MysqlCreateDatabaseDlg.h:40
+msgid "Create MySQL Database"
+msgstr ""
+
+#: ../../src/client/NodeDlg.h:45
+msgid "Node"
+msgstr ""
+
+#: ../../src/client/SystemSettingsDlg.h:41
+msgid "System Settings"
+msgstr ""
+
+#: ../../src/client/UserDlg.h:42
+msgid "Edit User"
+msgstr ""
+
+#: ../../src/client/UserManager.h:41
+msgid "User Manager"
+msgstr ""
+

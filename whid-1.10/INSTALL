@@ -1,0 +1,21 @@
+
+Linux:
+    Run ./bootstrap
+	Run make twice. (The first run will fail, the second should succeed)
+	Run make install
+
+Windows:
+    Open the appropriate MSVC project in the build sub-folder.
+    
+
+Dependencies:
+    Whid depends on warlib and wxwidgets
+
+    Warlibs homepage is: http://warlib.jgaa.com
+    WxWidgets homepage is: http://www.wxwidgets.org
+
+GUI:
+    The GUI is built with the commercial version of DialogBlocks.
+    WHID can be compiled and modified without this
+    application. Buf if you intend to do alot of changes on the
+    GUI, DialogBlocks will simplyfy your work.

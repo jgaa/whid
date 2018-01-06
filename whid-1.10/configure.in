@@ -1,0 +1,89 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ(2.61)
+AC_INIT(whid, 1.10, jgaa@jgaa.com)
+AC_CONFIG_SRCDIR([src/client/WhidApp.h])
+AC_CANONICAL_SYSTEM
+AM_INIT_AUTOMAKE(0.1.0)
+AC_CONFIG_HEADER([config.h])
+
+AC_PROG_LIBTOOL
+
+
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+
+AC_DEFINE_UNQUOTED(WXVERSION, `wx-config --version`,"wx windows version")
+WHID_DB_DIR="$datadir/whid/database"
+WHID_ICON_DIR="$datadir/whid/icons"
+WHID_XML_DIR="$datadir/whid/xml"
+WHID_LNG_DIR="$datadir/whid/translations"
+
+CXXFLAGS=""
+AM_CXXFLAGS="-DWHID_DB_DIR=\\\"$WHID_DB_DIR\\\" -DWHID_ICON_DIR=\\\"$WHID_ICON_DIR\\\" -DWHID_XML_DIR=\\\"$WHID_XML_DIR\\\" -DWHID_LNG_DIR=\\\"$WHID_LNG_DIR\\\" "
+AC_SUBST(CXXFLAGS)
+
+DEBUG_FLAGS="-DDEBUG -g"
+OPT_FLAGS="-O3"
+
+AC_ARG_ENABLE(debug, --enable-debug Enable debugging features)
+AC_MSG_CHECKING("for debug-build")
+if test "$enable_debug" = "yes"
+then
+    wxdebug="--debug"
+    AM_CXXFLAGS="$DEBUG_FLAGS $AM_CXXFLAGS "
+    AC_MSG_RESULT("yes")
+else
+    AM_CXXFLAGS="$AM_CXXFLAGS $OPT_FLAGS"
+    AC_MSG_RESULT("no")
+fi
+
+AM_CXXFLAGS="$AM_CXXFLAGS -Wall `wx-config $wxdebug --cxxflags` "
+LDFLAGS="$LDFLAGS -lwarcore -lwarice -lwarxml -lwardatabase `wx-config $wxdebug --libs`"
+
+AC_MSG_CHECKING(looking for warlib)
+if test -d /usr/include/warlib ; then 
+	AM_CXXFLAGS="$AM_CXXFLAGS -I/usr/include/warlib "
+elif test -d /usr/local/include/warlib ; then 
+	AM_CXXFLAGS="$AM_CXXFLAGS -I/usr/local/include/warlib " ;
+	if test -f /usr/local/lib/libwarcore.so ;
+		then LDFLAGS="-L/usr/local/lib $LDFLAGS "
+	fi
+else
+	AC_ERROR(no)
+fi
+AC_MSG_RESULT(yes)
+
+# Checks for libraries.
+
+# Checks for header files.
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_STDBOOL
+AC_C_CONST
+AC_TYPE_SIZE_T
+AC_STRUCT_TM
+
+# Checks for library functions.
+AC_HEADER_STDC
+AC_FUNC_SETVBUF_REVERSED
+AC_CHECK_FUNCS([memset strstr tzset])
+
+AC_SUBST(AM_CXXFLAGS)
+AC_SUBST(LDFLAGS)
+AC_OUTPUT(Makefile \
+    src/Makefile \
+    src/libwhid/Makefile \
+    src/client/Makefile \
+    src/client/icons/Makefile \
+    src/client/icons/128x128/Makefile \
+    src/client/icons/16x16/Makefile \
+    src/client/icons/32x32/Makefile \
+    src/client/icons/other/Makefile \
+    database/Makefile \
+    translations/Makefile \
+    translations/EN/Makefile \
+    translations/nb_NO/Makefile \
+    xml/Makefile)
