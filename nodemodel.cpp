@@ -104,12 +104,13 @@ QVariant NodeModel::data(const QModelIndex &index, int role) const
 
     const auto node = static_cast<const Node *>(index.internalPointer());
 
-    if (role == Qt::DisplayRole) {
-        return node->name;
-    }
+    switch(role) {
+        case Qt::DisplayRole:
+        case Qt::EditRole:
+            return node->name;
+        case Qt::DecorationRole:
+            return node->getIcon({16,16});
 
-    if (role == Qt::DecorationRole) {
-        return node->getIcon({16,16});
     }
 
     return {};
@@ -164,8 +165,13 @@ void NodeModel::fetchChildren(Node &parent)
     }
 
     QSqlQuery query;
-    query.prepare("SELECT id, name, type, descr, active, charge FROM node where parent=? ORDER BY name");
-    query.addBindValue(parent.id);
+
+    if (parent.id > 0) {
+        query.prepare("SELECT id, name, type, descr, active, charge FROM node where parent=? ORDER BY name");
+        query.addBindValue(parent.id);
+    } else {
+        query.prepare("SELECT id, name, type, descr, active, charge FROM node where parent IS NULL ORDER BY name");
+    }
     if (!query.exec()) {
         qWarning() << "Failed to fetch from database: " << query.lastError();
     }
@@ -234,7 +240,7 @@ void NodeModel::flushNode(Node &node)
 
     if (do_update) {
         sql = "UPDATE node SET "
-              "name=:name, type=:type, descr=:descr, active=:active, charge=:charge, parent=:paremnt "
+              "name=:name, type=:type, descr=:descr, active=:active, charge=:charge, parent=:parent "
               "WHERE id = :id";
     } else {
         sql = "INSERT INTO node (name, type, descr, active, charge, parent) "
@@ -253,7 +259,12 @@ void NodeModel::flushNode(Node &node)
     query.bindValue(":descr", node.descr);
     query.bindValue(":active", node.active);
     query.bindValue(":charge", node.charge);
-    query.bindValue(":parent", parent_id);
+
+    if (parent_id) {
+        query.bindValue(":parent", parent_id);
+    } else {
+        query.bindValue(":parent", QVariant::Int);
+    }
 
     if (do_update) {
         query.bindValue(":id", node.id);
@@ -266,7 +277,7 @@ void NodeModel::flushNode(Node &node)
         if (!do_update) {
             node.id = query.lastInsertId().toInt();
         }
-        qDebug() << "Flushed node #" << node.id << " " << node.name;
+        qDebug() << "Flushed node #" << node.id << " " << node.name << " with parent " << parent_id;
     }
 }
 
