@@ -5,5 +5,11 @@
         <file>res/icons/project.svg</file>
         <file>res/icons/folder.svg</file>
         <file>res/icons/customer.svg</file>
+        <file>res/icons/start.svg</file>
+        <file>res/icons/pause.svg</file>
+        <file>res/icons/done.svg</file>
+        <file>res/icons/resume.svg</file>
+        <file>res/icons/active.svg</file>
+        <file>res/icons/edit.svg</file>
     </qresource>
 </RCC>

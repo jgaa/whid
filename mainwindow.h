@@ -6,7 +6,7 @@
 #include <QMainWindow>
 #include "database.h"
 #include "nodemodel.h"
-
+#include "currentworkmodel.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,8 +21,14 @@ public:
     void initialize();
     ~MainWindow();
 
-public slots:
+private slots:
     void customContextMenu(const QPoint &point);
+    void onTreeNodeActivated(const QModelIndex &index);
+    void onStartNewButtonClicked();
+    void onCurrentWorkListActivated(const QModelIndex &index);
+    void onDoneButtonClicked();
+    void onSuspendButtonClicked();
+    void onResumeButtonClicked();
 
 private:
     template <typename T>
@@ -58,6 +64,7 @@ private:
     Ui::MainWindow *ui;
     std::unique_ptr<Database> db_ = nullptr;
     std::unique_ptr<NodeModel> nodeModel_;
+    std::unique_ptr<CurrentWorkModel> currentWorkModel_;
 };
 
 #endif // MAINWINDOW_H

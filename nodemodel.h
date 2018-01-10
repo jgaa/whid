@@ -8,6 +8,9 @@
 
 class Node : public std::enable_shared_from_this<Node> {
 public:
+    using ptr_t = std::shared_ptr<Node>;
+    using wptr_t = std::weak_ptr<Node>;
+
     enum class Type {
         ROOT,
         FOLDER,
@@ -182,36 +185,6 @@ public:
     QVariant getIcon(QSize size) const override {
         return getNodeIcon("task.svg", size);
     }
-};
-
-class Work {
-public:
-    enum class Status {
-        OPEN,
-        DONE,
-        INTERRUPTED, // App closed / crashed without updating the end time
-        HELD_BACK, // Manual hold-back
-        FREE,
-        APPROVED,
-        INVOICED
-    };
-
-    int getStatusId() const {
-        return static_cast<int>(status);
-    }
-
-    int id = {};
-    QString name;
-    QString descr;
-    QDateTime start;
-    QDateTime end;
-    int paused;
-    int time; // Time consumed, including roundup and adjustments
-    Status status = Status::OPEN;
-    QString note;
-    int charge;
-
-    std::weak_ptr<Node> node;
 };
 
 class NodeModel : public QStandardItemModel

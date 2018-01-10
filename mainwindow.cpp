@@ -1,6 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+using namespace std;
+
+Q_DECLARE_METATYPE(Node::wptr_t)
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -10,12 +14,32 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::initialize()
 {
-    db_ = std::make_unique<Database>();
-    nodeModel_ = std::make_unique<NodeModel>();
+    db_ = make_unique<Database>();
+    nodeModel_ = make_unique<NodeModel>();
+    currentWorkModel_ = make_unique<CurrentWorkModel>();
+    currentWorkModel_->initialize();
     ui->nodeTree->setModel(nodeModel_.get());
     ui->nodeTree->setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->startNewButton->setIcon(QIcon(":/res/icons/start.svg"));
+    ui->resumeButton->setIcon(QIcon(":/res/icons/resume.svg"));
+    ui->doneButton->setIcon(QIcon(":/res/icons/done.svg"));
+    ui->suspendButton->setIcon(QIcon(":/res/icons/pause.svg"));
+    ui->currentWorkList->setModel(currentWorkModel_.get());
+    ui->currentWorkList->horizontalHeader()->setStretchLastSection(true);
+    for(int col = 0; col < 5l; ++col) {
+        ui->currentWorkList->setColumnWidth(col, 60 + (col == 0 ? 16 : 0));
+    }
+
     connect(ui->nodeTree, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(customContextMenu(const QPoint &)));
+    connect(ui->nodeTree, SIGNAL(activated(const QModelIndex &)),
+            this, SLOT(onTreeNodeActivated(const QModelIndex &)));
+    connect(ui->startNewButton, SIGNAL(released()), this, SLOT(onStartNewButtonClicked()));
+    connect(ui->suspendButton, SIGNAL(released()), this, SLOT(onSuspendButtonClicked()));
+    connect(ui->resumeButton, SIGNAL(released()), this, SLOT(onResumeButtonClicked()));
+    connect(ui->doneButton, SIGNAL(released()), this, SLOT(onDoneButtonClicked()));
+    connect(ui->currentWorkList, SIGNAL(activated(const QModelIndex &)),
+            this, SLOT(onCurrentWorkListActivated(const QModelIndex &)));
 }
 
 MainWindow::~MainWindow()
@@ -68,6 +92,74 @@ void MainWindow::customContextMenu(const QPoint &point)
     menu->exec(ui->nodeTree->mapToGlobal(point));
 }
 
+void MainWindow::onTreeNodeActivated(const QModelIndex &index)
+{
+    if (index.isValid()) {
+        Node *node = static_cast<Node *>(index.internalPointer());
+        if (node->getType() == Node::Type::TASK) {
+
+            // TODO: Handle stop / pause
+
+            ui->startNewButton->setEnabled(true);
+            ui->startNewButton->setProperty("selected",
+                QVariant::fromValue(Node::wptr_t(node->shared_from_this())));
+            return;
+        }
+    }
+
+    ui->startNewButton->setEnabled(false);
+    ui->startNewButton->setProperty("selected", {});
+}
+
+void MainWindow::onStartNewButtonClicked()
+{
+    // TODO: Handle done
+
+    auto work = make_shared<Work>();
+    work->name = "Untitled";
+    work->start = work->end = QDateTime::currentDateTime();
+    auto createdIx = currentWorkModel_->addWork(work);
+    ui->currentWorkList->selectRow(createdIx.row());
+
+    auto ix = currentWorkModel_->index(createdIx.row(), CurrentWorkModel::HN_NAME, {});
+    ui->currentWorkList->edit(ix);
+}
+
+void MainWindow::onCurrentWorkListActivated(const QModelIndex &index)
+{
+    const auto cw = currentWorkModel_->getCurrentWork(index);
+
+    if (cw) {
+        ui->doneButton->setEnabled(true);
+
+        if (cw->current_state == CurrentWork::ACTIVE) {
+            ui->resumeButton->setEnabled(false);
+            ui->suspendButton->setEnabled(true);
+        } else {
+            ui->resumeButton->setEnabled(true);
+            ui->suspendButton->setEnabled(false);
+        }
+    } else {
+        ui->resumeButton->setEnabled(false);
+        ui->doneButton->setEnabled(false);
+    }
+}
+
+void MainWindow::onDoneButtonClicked()
+{
+    currentWorkModel_->done(ui->currentWorkList->currentIndex());
+}
+
+void MainWindow::onSuspendButtonClicked()
+{
+    currentWorkModel_->suspend(ui->currentWorkList->currentIndex());
+}
+
+void MainWindow::onResumeButtonClicked()
+{
+    currentWorkModel_->resume(ui->currentWorkList->currentIndex());
+}
+
 void MainWindow::selectNode(const QModelIndex &index)
 {
     if (index.isValid()) {
@@ -77,3 +169,5 @@ void MainWindow::selectNode(const QModelIndex &index)
         ui->nodeTree->edit(index);
     }
 }
+
+
