@@ -197,7 +197,7 @@ void CurrentWorkModel::resume(const QModelIndex &ix)
             if (cw != work_[0].get()) {
                 suspendActive();
                 beginMoveRows({}, ix.row(), ix.row(), {}, 0);
-                auto rowData = move(work_[ix.row()]);
+                auto rowData = move(work_[static_cast<size_t>(ix.row())]);
                 work_.erase(work_.begin() + ix.row());
                 work_.insert(work_.begin(), move(rowData));
                 endMoveRows();
