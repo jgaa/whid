@@ -29,14 +29,16 @@ SOURCES += \
     database.cpp \
     nodemodel.cpp \
     currentworkmodel.cpp \
-    workmodel.cpp
+    workmodel.cpp \
+    utility.cpp
 
 HEADERS += \
         mainwindow.h \
     database.h \
     nodemodel.h \
     currentworkmodel.h \
-    workmodel.h
+    workmodel.h \
+    utility.h
 
 FORMS += \
         mainwindow.ui

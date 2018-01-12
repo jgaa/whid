@@ -38,6 +38,38 @@ QModelIndex NodeModel::addNode(const QModelIndex &parentIndex, std::shared_ptr<N
     return index(children, 0, parentIndex);
 }
 
+Node::ptr_t NodeModel::getNodeFromId(const int id)
+{
+    std::weak_ptr<Node> cached;
+
+    auto node = cached.lock();
+    if (node) {
+        if (node->id == id) {
+            return node;
+        }
+    }
+
+    node = getNodeFromId(*root_, id);
+    cached = node;
+    return node;
+}
+
+Node::ptr_t NodeModel::getNodeFromId(Node &node, const int id)
+{
+    for(size_t i = 0; i < node.getNumChildren(); ++i) {
+        auto n = node.getChild(i);
+        if (n->id == id) {
+            return n->shared_from_this();
+        }
+
+        if (auto child = getNodeFromId(*n, id)) {
+            return child;
+        }
+    }
+
+    return {};
+}
+
 QModelIndex NodeModel::index(int row, int column,
                              const QModelIndex &parent) const
 {
@@ -150,6 +182,22 @@ Qt::ItemFlags NodeModel::flags(const QModelIndex &index) const
     }
 
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable;
+}
+
+void NodeModel::getIdWithChildren(const QModelIndex &ix, std::set<int> &ids)
+{
+    if (ix.isValid()) {
+        auto node = static_cast<Node *>(ix.internalPointer());
+        getIdWithChildren(*node, ids);
+    }
+}
+
+void NodeModel::getIdWithChildren(const Node& node, std::set<int>& ids)
+{
+    ids.insert(node.id);
+    for(size_t i = 0; i < node.getNumChildren(); ++i) {
+        getIdWithChildren(*node.getChild(i), ids);
+    }
 }
 
 void NodeModel::loadData()

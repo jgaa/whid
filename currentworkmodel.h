@@ -57,7 +57,8 @@ public:
 
 class CurrentWorkModel : public QAbstractTableModel
 {
-
+public:
+    Q_OBJECT
 
 public:
     enum Headers {
@@ -68,7 +69,7 @@ public:
         HN_NAME
     };
 
-    CurrentWorkModel() = default;
+    CurrentWorkModel();
     void initialize();
 
 
@@ -82,6 +83,8 @@ public:
         return 5;
     }
 
+    bool removeRows(int row, int count, const QModelIndex &parent) override;
+
     QVariant data(const QModelIndex&index, int role) const override;
 
     bool setData(const QModelIndex &index, const QVariant &value, int role) override;
@@ -92,32 +95,25 @@ public:
 
     CurrentWork *getCurrentWork(const QModelIndex &index) const;
 
-    void suspend(const QModelIndex &index);
-    void resume(const QModelIndex &index);
-    void done(const QModelIndex &index);
-
 public slots:
     // Suspend the active item and add the new one at the top of the list
     QModelIndex addWork(Work::ptr_t work);
 
-    // Pause one item, or all if index is invalid
-    void pauseWork(QModelIndex& index);
-
-    // Put the work at the top of the list and resume it
-    void resumeWork(QModelIndex& index);
-
-    // Save to database aand remove from list
-    void completeWork(QModelIndex& index);
+    void suspend(const QModelIndex &index);
+    void resume(const QModelIndex &index);
+    void done(const QModelIndex &ix);
 
     void updateTime();
 
+signals:
+    void workDone(Work::ptr_t);
+
 private:
-    QString toHourMin(const int duration) const;
-    int parseDuration(const QString& value) const;
     void suspendActive();
 
     std::vector<std::shared_ptr<CurrentWork>> work_;    
     std::unique_ptr<QTimer> timer_;
+
 };
 
 #endif // CURRENTWORKMODEL_H

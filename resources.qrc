@@ -11,5 +11,11 @@
         <file>res/icons/resume.svg</file>
         <file>res/icons/active.svg</file>
         <file>res/icons/edit.svg</file>
+        <file>res/icons/open.svg</file>
+        <file>res/icons/interrupted.svg</file>
+        <file>res/icons/heldback.svg</file>
+        <file>res/icons/free.svg</file>
+        <file>res/icons/approved.svg</file>
+        <file>res/icons/invoiced.svg</file>
     </qresource>
 </RCC>

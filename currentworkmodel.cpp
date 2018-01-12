@@ -1,16 +1,35 @@
 #include "currentworkmodel.h"
+#include "utility.h"
 
 #include <QDebug>
 #include <QIcon>
+#include <QMessageBox>
 #include <array>
 
 using namespace std;
+
+CurrentWorkModel::CurrentWorkModel()
+{
+
+}
 
 void CurrentWorkModel::initialize()
 {
     timer_ = make_unique<QTimer>();
     connect(timer_.get(), &QTimer::timeout, this, &CurrentWorkModel::updateTime);
     timer_->start(10000);
+}
+
+bool CurrentWorkModel::removeRows(int row, int count, const QModelIndex &parent)
+{
+    beginRemoveRows(parent, row, row + count -1);
+
+    while(count-- > 0) {
+        work_.erase(work_.begin() + row);
+    }
+
+    endRemoveRows();
+    return true;
 }
 
 QVariant CurrentWorkModel::data(const QModelIndex &index, int role) const
@@ -97,8 +116,6 @@ void CurrentWorkModel::suspendActive()
 
 void CurrentWorkModel::updateTime()
 {
-    qDebug() << "Timer executing";
-
     for(int row = 0; row < static_cast<int>(work_.size()); ++row) {
         auto ix = index(row, HN_PAUSE);
         emit dataChanged(ix, ix);
@@ -107,40 +124,6 @@ void CurrentWorkModel::updateTime()
     }
 }
 
-QString CurrentWorkModel::toHourMin(const int duration) const
-{
-    qDebug() << "Duration is " << duration;
-
-    auto minutes = duration / 60;
-    auto hours = minutes / 60;
-    minutes -= (hours * 60);
-
-    QString val;
-    return val.sprintf("%02d:%02d", hours, minutes);
-}
-
-int CurrentWorkModel::parseDuration(const QString &value) const
-{
-    int minutes = {}, hours = {};
-    bool have_seen_column = false;
-
-    for(const auto& ch : value) {
-        if (ch >= '0' && ch <= '9') {
-            minutes *= 10;
-            minutes += (ch.toLatin1() - '0');
-        } else if (ch == ':') {
-            if (have_seen_column) {
-                throw std::runtime_error("Invalid input");
-            }
-            hours = minutes * 60 * 60;
-            minutes = 0;
-        } else {
-            throw std::runtime_error("Invalid input");
-        }
-    }
-
-    return (minutes * 60) + hours;
-}
 
 bool CurrentWorkModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
@@ -210,5 +193,38 @@ void CurrentWorkModel::resume(const QModelIndex &ix)
 
 void CurrentWorkModel::done(const QModelIndex &ix)
 {
+    if (auto cw =  getCurrentWork(ix)) {
+        bool do_save = true;
 
+        if (cw->getWorkedDuration() < 60) {
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Question);
+            msgBox.setText("The work-item contains less than 1 minute work-time.");
+            msgBox.setInformativeText("Do you really want to save your changes?");
+            msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+            msgBox.setDefaultButton(QMessageBox::Save);
+            switch(msgBox.exec()) {
+                case QMessageBox::Discard:
+                    do_save = false;
+                    break;
+                case QMessageBox::Cancel:
+                    return;
+            }
+        }
+
+        if (cw->current_state == CurrentWork::PAUSED) {
+            cw->endPause();
+        }
+        auto work = move(cw->work);
+
+        beginRemoveRows({}, ix.row(), ix.row());
+        work_.erase(work_.begin() + ix.row());
+        endRemoveRows();
+
+        if (do_save) {
+            work->end = QDateTime::currentDateTime();
+            work->status = Work::Status::DONE;
+            emit workDone(move(work));
+        }
+    }
 }

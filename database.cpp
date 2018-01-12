@@ -14,8 +14,11 @@ Database::Database()
     if (!QDir(data_path).exists()) {
         QDir().mkdir(data_path);
     }
-
+#ifdef QT_DEBUG
+    data_path += "/whid-debug.db";
+#else
     data_path += "/whid.db";
+#endif
     const bool new_database = QFileInfo(data_path).isFile() == false;
 
     if(!QSqlDatabase::isDriverAvailable(DRIVER)) {
@@ -57,7 +60,7 @@ void Database::createDatabase()
         exec(R"(CREATE TABLE "whid" ( `version` INTEGER NOT NULL ))");
         exec(R"(CREATE TABLE `charge` ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL UNIQUE, `rate` INTEGER NOT NULL DEFAULT 0, `currency` TEXT NOT NULL DEFAULT "eur", `roundup_sec` INTEGER NOT NULL DEFAULT 0, `minimun_time` INTEGER NOT NULL DEFAULT 0 ))");
         exec(R"(CREATE TABLE "node" ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` REAL NOT NULL, `type` INTEGER NOT NULL, `status` INTEGER NOT NULL DEFAULT 0, `descr` TEXT, `active` INTEGER NOT NULL DEFAULT 1, `charge` INTEGER, `parent` INTEGER, FOREIGN KEY(`charge`) REFERENCES `charge`(`id`), FOREIGN KEY(`parent`) REFERENCES node(id)))");
-        exec(R"(CREATE TABLE "work" ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `start` INTEGER NOT NULL, `end` INTEGER NOT NULL DEFAULT 0, `paused` INTEGER NOT NULL DEFAULT 0, `status` INTEGER NOT NULL DEFAULT 0, `invoiced` INTEGER NOT NULL DEFAULT 0, `description` TEXT NOT NULL, `note` TEXT, `charge` INTEGER, `node` INTEGER NOT NULL, FOREIGN KEY(`charge`) REFERENCES charge(id), FOREIGN KEY(`node`) REFERENCES `node`(`id`) ))");
+        exec(R"(CREATE TABLE "work" ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `status` INTEGER NOT NULL DEFAULT 0, `start` INTEGER NOT NULL, `end` INTEGER NOT NULL, `used` INTEGER NOT NULL, `paused` INTEGER NOT NULL DEFAULT 0, `name` TEXT NOT NULL, `note` TEXT, `charge` INTEGER, `node` INTEGER NOT NULL, FOREIGN KEY(`charge`) REFERENCES `charge`(`id`), FOREIGN KEY(`node`) REFERENCES `node`(`id`) ))");
 
         QSqlQuery query(db_);
         query.prepare("INSERT INTO whid (version) VALUES (:version)");

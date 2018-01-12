@@ -2,6 +2,7 @@
 #define NODEMODEL_H
 
 #include <memory>
+#include <set>
 #include <QStandardItemModel>
 #include <QDateTime>
 #include <QMenu>
@@ -83,6 +84,17 @@ public:
 
         return false;
     }
+
+    void getPath(QString& path) const {
+        if (auto parent = parent_.lock()) {
+            parent->getPath(path);
+            path += "/";
+        }
+
+        path += name;
+    }
+
+    QVariant getStatusIcon(QSize size);
 
     int id = {};
     QString name;
@@ -198,8 +210,11 @@ public:
         return root_.get();
     }
 
+    Node::ptr_t getNodeFromId(const int id);
+
     // QAbstractItemModel interface
 public:
+    Node::ptr_t getNodeFromId(Node& node, const int id);
     QModelIndex index(int row, int column, const QModelIndex &parent) const override;
     QModelIndex parent(const QModelIndex &child) const override;
     int rowCount(const QModelIndex &parent) const override;
@@ -213,10 +228,14 @@ public:
     //bool removeColumns(int column, int count, const QModelIndex &parent) override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
 
+    // Get the id fields for ix and it's childen
+    void getIdWithChildren(const QModelIndex& ix, std::set<int>& ids);
+
 private:
     void loadData();
     void fetchChildren(Node& node);
     void flushNode(Node& node);
+    void getIdWithChildren(const Node& node, std::set<int>& ids);
 
     std::shared_ptr<Root> root_;
 };
