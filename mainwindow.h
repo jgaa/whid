@@ -39,6 +39,7 @@ private slots:
     void onDoneButtonClicked();
     void onSuspendButtonClicked();
     void onResumeButtonClicked();
+    void nodeModelReset();
 
 private:
     template <typename T>

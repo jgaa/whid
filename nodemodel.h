@@ -205,6 +205,7 @@ public:
     NodeModel();
 
     QModelIndex addNode(const QModelIndex& parentIndex, std::shared_ptr<Node> node);
+    bool deleteNodes(const QModelIndexList& indexes);
 
     Node *getRootNode() const {
         return root_.get();
@@ -230,6 +231,8 @@ public:
 
     // Get the id fields for ix and it's childen
     void getIdWithChildren(const QModelIndex& ix, std::set<int>& ids);
+    QString createFilter(const QModelIndexList& ixlist, const QString& fieldName);
+
 
 private:
     void loadData();

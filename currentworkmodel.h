@@ -113,7 +113,6 @@ private:
 
     std::vector<std::shared_ptr<CurrentWork>> work_;    
     std::unique_ptr<QTimer> timer_;
-
 };
 
 #endif // CURRENTWORKMODEL_H

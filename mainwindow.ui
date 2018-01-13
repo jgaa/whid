@@ -52,6 +52,12 @@
             <property name="selectionBehavior">
              <enum>QAbstractItemView::SelectRows</enum>
             </property>
+            <property name="showGrid">
+             <bool>false</bool>
+            </property>
+            <property name="cornerButtonEnabled">
+             <bool>false</bool>
+            </property>
             <attribute name="horizontalHeaderDefaultSectionSize">
              <number>70</number>
             </attribute>
@@ -99,6 +105,16 @@
        <widget class="QWidget" name="verticalLayoutWidget">
         <layout class="QVBoxLayout" name="verticalWorkArea">
          <item>
+          <widget class="QPushButton" name="startNewButton">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Start new</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="verticalSpacer">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
@@ -110,16 +126,6 @@
             </size>
            </property>
           </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="startNewButton">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="text">
-            <string>Start new</string>
-           </property>
-          </widget>
          </item>
          <item>
           <widget class="QPushButton" name="resumeButton">

@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <array>
 #include <QSqlQuery>
+#include <QMessageBox>
 
 using namespace std;
 
@@ -17,6 +18,7 @@ WorkModel::WorkModel(NodeModel& nm)
     setFilter("id=-1"); // Show nothing
     setTable("work");
     setSort(fieldIndex("start"), Qt::AscendingOrder);
+    setEditStrategy(QSqlTableModel::OnFieldChange);
 }
 
 void WorkModel::addWork(Work::ptr_t work)
@@ -73,7 +75,48 @@ void WorkModel::addWork(Work::ptr_t work)
 //    }
 //    if (!submitAll()) {
 //        qWarning() << "Failed to commit data: " << lastError();
-//    }
+    //    }
+}
+
+void WorkModel::setStatus(QModelIndexList indexes, Work::Status status)
+{
+    static const int statusCol = fieldIndex("status");
+    setEditStrategy(QSqlTableModel::OnManualSubmit);
+
+    int downgrade_count = 0;
+
+    for(const auto& ix: indexes) {
+        if (!ix.isValid() || (ix.column() != statusCol)) {
+            continue;
+        }
+
+        const auto current_status = data(ix, Qt::EditRole).toInt();
+        if (current_status > static_cast<int>(status)) {
+            ++downgrade_count;
+        }
+        statusIsWritable = true;
+        setData(ix, static_cast<int>(status));
+        statusIsWritable = false;
+    }
+
+    if (downgrade_count) {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Question);
+        msgBox.setText("You are about to downgrade the status of " + QString::number(downgrade_count) + " row(s)");
+        msgBox.setInformativeText("Press OK to confirm that you really want to do this?");
+        msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        msgBox.setDefaultButton(QMessageBox::Cancel);
+        if(msgBox.exec() == QMessageBox::Cancel) {
+            setEditStrategy(QSqlTableModel::OnFieldChange);
+            revertAll();
+            return;
+        }
+    }
+
+    if (!submitAll()) {
+        qWarning() << "Failed to commit status changes: " << lastError();
+    }
+    setEditStrategy(QSqlTableModel::OnFieldChange);
 }
 
 QVariant WorkModel::data(const QModelIndex &ix, int role) const
@@ -128,9 +171,11 @@ QVariant WorkModel::data(const QModelIndex &ix, int role) const
 Qt::ItemFlags WorkModel::flags(const QModelIndex &ix) const
 {
     static const int nameCol = fieldIndex("name");
+    static const int statusCol = fieldIndex("status");
 
     if (ix.isValid()) {
-        if (ix.column() != nameCol) {
+        if ((ix.column() != nameCol)
+                && !((ix.column() == statusCol) && statusIsWritable)) {
             return QSqlTableModel::flags(ix) & ~Qt::EditRole;
         }
     }

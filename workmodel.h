@@ -57,6 +57,9 @@ public:
 public slots:
     void addWork(Work::ptr_t work);
 
+public:
+    void setStatus(QModelIndexList indexes, Work::Status status);
+
     // QAbstractItemModel interface
     QVariant data(const QModelIndex &index, int role) const override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
@@ -67,6 +70,7 @@ private:
 
     std::vector<int> columnMapping_; // Own to data-model
     NodeModel& nodeModel_;
+    bool statusIsWritable = false;
 };
 
 #endif // WORKMODEL_H

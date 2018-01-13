@@ -1,6 +1,7 @@
 
 #include <assert.h>
 #include <QDebug>
+#include <QMessageBox>
 #include "nodemodel.h"
 #include "database.h"
 
@@ -36,6 +37,47 @@ QModelIndex NodeModel::addNode(const QModelIndex &parentIndex, std::shared_ptr<N
     endInsertRows();
 
     return index(children, 0, parentIndex);
+}
+
+bool NodeModel::deleteNodes(const QModelIndexList& indexes)
+{
+    // Find the number of affected work-nodes
+    auto filter = createFilter(indexes, "node");
+
+    QSqlQuery query("SELECT COUNT(*) FROM work WHERE " + filter);
+    if (!query.next()) {
+        qWarning() << "Failed to query work-table: " << query.lastError().text();
+        return false;
+    }
+
+    const auto work_rows = query.value(0).toInt();
+    if (work_rows) {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Question);
+        msgBox.setText("If you delete the selection, wou will also delete " + QString::number(work_rows) + " work item(s)");
+        msgBox.setInformativeText("Press OK to delete the selected item(s)?");
+        msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        msgBox.setDefaultButton(QMessageBox::Cancel);
+        if(msgBox.exec() == QMessageBox::Cancel) {
+            return false;
+        }
+    }
+
+    beginResetModel();
+
+    auto db = QSqlDatabase::database();
+    db.transaction();
+    query.exec("DELETE FROM work WHERE " + filter);
+    filter = createFilter(indexes, "id");
+    query.exec("DELETE FROM node WHERE " + filter);
+    if (!db.commit()) {
+        qWarning() << "Failed to query work-table: " << query.lastError().text();
+        return false;
+    }
+    loadData();
+    endResetModel();
+
+    return true;
 }
 
 Node::ptr_t NodeModel::getNodeFromId(const int id)
@@ -192,6 +234,26 @@ void NodeModel::getIdWithChildren(const QModelIndex &ix, std::set<int> &ids)
     }
 }
 
+QString NodeModel::createFilter(const QModelIndexList &ixlist,
+                                const QString& fieldName)
+{
+    // Get the id's of all nodes and children in the selection
+    set<int> ids;
+    for(auto n: ixlist) {
+        getIdWithChildren(n, ids);
+    }
+
+    QString filter;
+    for(const auto id : ids) {
+        if (!filter.isEmpty()) {
+            filter += " OR ";
+        }
+        filter += " " + fieldName + "=" + QString::number(id);
+    }
+
+    return filter;
+}
+
 void NodeModel::getIdWithChildren(const Node& node, std::set<int>& ids)
 {
     ids.insert(node.id);
@@ -203,6 +265,7 @@ void NodeModel::getIdWithChildren(const Node& node, std::set<int>& ids)
 void NodeModel::loadData()
 {
     root_->clearChildren();
+    root_->isFetched = false;
     fetchChildren(*root_);
 }
 

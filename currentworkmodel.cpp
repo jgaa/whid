@@ -1,5 +1,6 @@
 #include "currentworkmodel.h"
 #include "utility.h"
+#include "nodemodel.h"
 
 #include <QDebug>
 #include <QIcon>
@@ -7,6 +8,7 @@
 #include <array>
 
 using namespace std;
+
 
 CurrentWorkModel::CurrentWorkModel()
 {
@@ -55,6 +57,12 @@ QVariant CurrentWorkModel::data(const QModelIndex &index, int role) const
     } else if (role == Qt::DecorationRole && index.column() == 0) {
         const auto state = work_.at(static_cast<size_t>(index.row()))->current_state;
         return icons.at(state).pixmap({16,16});
+    } else if (role == Qt::ToolTipRole) {
+        if (auto node = work_.at(static_cast<size_t>(index.row()))->work->node.lock()) {
+            QString path;
+            node->getPath(path);
+            return path;
+        }
     }
 
     return {};
@@ -225,6 +233,12 @@ void CurrentWorkModel::done(const QModelIndex &ix)
             work->end = QDateTime::currentDateTime();
             work->status = Work::Status::DONE;
             emit workDone(move(work));
+        }
+
+        if (!work_.empty()) {
+            work_[0]->endPause();
+            const auto chix = index(0, HN_FROM, {});
+            emit dataChanged(chix, chix);
         }
     }
 }

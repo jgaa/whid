@@ -56,6 +56,14 @@ void MainWindow::initialize()
     ui->bottomHorizontalSplitter->setStretchFactor(0,1);
     ui->bottomHorizontalSplitter->setStretchFactor(1,0);
 
+    ui->splitterMain->setStretchFactor(0,1);
+    ui->splitterMain->setStretchFactor(1,0);
+
+    ui->startNewButton->setStyleSheet("text-align: left");
+    ui->resumeButton->setStyleSheet("text-align: left");
+    ui->doneButton->setStyleSheet("text-align: left");
+    ui->suspendButton->setStyleSheet("text-align: left");
+
     connect(ui->nodeTree, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(nodeTreeContextMenu(const QPoint &)));
     connect(ui->currentWorkList, SIGNAL(customContextMenuRequested(const QPoint &)),
@@ -76,6 +84,7 @@ void MainWindow::initialize()
             this, SLOT(onWorkListSelectionChanged(const QItemSelection&, const QItemSelection&)));
     connect(currentWorkModel_.get(), SIGNAL(workDone(Work::ptr_t)),
             workModel_.get(), SLOT(addWork(Work::ptr_t)));
+    connect(nodeModel_.get(), SIGNAL(modelReset()), this, SLOT(nodeModelReset()));
 }
 
 MainWindow::~MainWindow()
@@ -102,6 +111,13 @@ void MainWindow::nodeTreeContextMenu(const QPoint &point)
     QMenu *menu = new QMenu;
 
     const auto type = node->getType();
+
+    if (node->getType() != Node::Type::ROOT) {
+        menu->addAction("Delete", [this, index] {
+            nodeModel_->deleteNodes(ui->nodeTree->selectionModel()->selectedIndexes());
+        });
+        menu->addSeparator();
+    }
 
     if (type != Node::Type::TASK) {
         menu->addAction("Add Folder", [this, index] {
@@ -156,6 +172,28 @@ void MainWindow::workListContextMenu(const QPoint &point)
         deleteFromWorkList(ui->workList->selectionModel()->selection());
     });
 
+    menu->addSection("Status");
+    menu->addAction("Set as Done", [this, index] {
+        workModel_->setStatus(ui->workList->selectionModel()->selectedIndexes(),
+                              Work::Status::DONE);
+    });
+    menu->addAction("Set as Free", [this, index] {
+        workModel_->setStatus(ui->workList->selectionModel()->selectedIndexes(),
+                              Work::Status::FREE);
+    });
+    menu->addAction("Set as Held Back", [this, index] {
+        workModel_->setStatus(ui->workList->selectionModel()->selectedIndexes(),
+                              Work::Status::HELD_BACK);
+    });
+    menu->addAction("Set as Approved", [this, index] {
+        workModel_->setStatus(ui->workList->selectionModel()->selectedIndexes(),
+                              Work::Status::APPROVED);
+    });
+    menu->addAction("Set as Invoiced", [this, index] {
+        workModel_->setStatus(ui->workList->selectionModel()->selectedIndexes(),
+                              Work::Status::INVOICED);
+    });
+
     menu->exec(ui->workList->mapToGlobal(point));
 }
 
@@ -180,22 +218,13 @@ void MainWindow::onTreeNodeActivated(const QModelIndex &index)
 
 void MainWindow::onTreeSelectionChanged(const QItemSelection &, const QItemSelection &)
 {
-    // Get the id's of all nodes and children in the selection
-    set<int> ids;
-    //for(auto n: selected.indexes()) { //ui->nodeTree->selectionModel()->selectedIndexes()) {
-    for(auto n: ui->nodeTree->selectionModel()->selectedIndexes()) {
-        nodeModel_->getIdWithChildren(n, ids);
+    auto selection =  ui->nodeTree->selectionModel()->selectedIndexes();
+    if (selection.isEmpty()) {
+        workModel_->setFilter("id=-1");
+    } else {
+        workModel_->setFilter(nodeModel_->createFilter(
+            selection, "node"));
     }
-
-    QString filter;
-    for(const auto id : ids) {
-        if (!filter.isEmpty()) {
-            filter += " OR ";
-        }
-        filter += " node=" + QString::number(id);
-    }
-
-    workModel_->setFilter(filter);
     workModel_->select();
 }
 
@@ -260,6 +289,13 @@ void MainWindow::onResumeButtonClicked()
     currentWorkModel_->resume(ui->currentWorkList->currentIndex());
 }
 
+void MainWindow::nodeModelReset()
+{
+    ui->nodeTree->selectionModel()->clear();
+    workModel_->setFilter("id=-1");
+    workModel_->select();
+}
+
 void MainWindow::selectNode(const QModelIndex &index)
 {
     if (index.isValid()) {
@@ -296,6 +332,7 @@ void MainWindow::deleteFromWorkList(const QItemSelection& selection)
         return;
     }
 
+    workModel_->setEditStrategy(QSqlTableModel::OnManualSubmit);
     for(const auto& s: selections) {
         qDebug() << "Deleting rows: " << s.first << " " << s.second;
         workModel_->removeRows(s.first, s.second, {});
@@ -303,6 +340,7 @@ void MainWindow::deleteFromWorkList(const QItemSelection& selection)
 
     workModel_->submitAll();
     workModel_->select();
+    workModel_->setEditStrategy(QSqlTableModel::OnFieldChange);
 }
 
 
