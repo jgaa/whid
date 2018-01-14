@@ -52,6 +52,10 @@ public:
         duration -= getPaused();
         return duration;
     }
+
+    void setStartTime(const QDateTime& when) {
+        work->start = when;
+    }
 };
 
 

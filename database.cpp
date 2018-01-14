@@ -41,8 +41,6 @@ Database::Database()
         throw std::runtime_error("Missing configuration record in database");
     }
 
-    // TODO: Add logic to upgrade the schema
-
     const auto dbver = query.value(WT_VERSION).toInt();
     qDebug() << "Database schema version is " << dbver;
     if (dbver != currentVersion) {

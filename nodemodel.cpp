@@ -54,7 +54,7 @@ bool NodeModel::deleteNodes(const QModelIndexList& indexes)
     if (work_rows) {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Question);
-        msgBox.setText("If you delete the selection, wou will also delete " + QString::number(work_rows) + " work item(s)");
+        msgBox.setText("If you delete the selection, you will also delete " + QString::number(work_rows) + " work item(s)");
         msgBox.setInformativeText("Press OK to delete the selected item(s)?");
         msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
         msgBox.setDefaultButton(QMessageBox::Cancel);

@@ -30,7 +30,8 @@ SOURCES += \
     nodemodel.cpp \
     currentworkmodel.cpp \
     workmodel.cpp \
-    utility.cpp
+    utility.cpp \
+    summarymodel.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -38,7 +39,8 @@ HEADERS += \
     nodemodel.h \
     currentworkmodel.h \
     workmodel.h \
-    utility.h
+    utility.h \
+    summarymodel.h
 
 FORMS += \
         mainwindow.ui

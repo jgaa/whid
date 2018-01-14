@@ -11,6 +11,7 @@
 #include "database.h"
 #include "nodemodel.h"
 #include "currentworkmodel.h"
+#include "summarymodel.h"
 
 namespace Ui {
 class MainWindow;
@@ -79,6 +80,7 @@ private:
     std::unique_ptr<NodeModel> nodeModel_;
     std::unique_ptr<CurrentWorkModel> currentWorkModel_;
     std::unique_ptr<WorkModel> workModel_;
+    std::unique_ptr<SummaryModel> summaryModel_;
     QTableView *workList_ = {};
 };
 

@@ -23,6 +23,7 @@ void MainWindow::initialize()
     currentWorkModel_ = make_unique<CurrentWorkModel>();
     currentWorkModel_->initialize();
     workModel_ = make_unique<WorkModel>(*nodeModel_);
+    summaryModel_ = make_unique<SummaryModel>(*nodeModel_);
     ui->nodeTree->setModel(nodeModel_.get());
     ui->nodeTree->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->nodeTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -48,6 +49,9 @@ void MainWindow::initialize()
     ui->workList->setColumnWidth(workModel_->fieldIndex("end"), 60);
 
     ui->workList->setContextMenuPolicy(Qt::CustomContextMenu);
+
+    ui->summaryView->setModel(summaryModel_.get());
+    ui->summaryView->setColumnWidth(0, 180);
 
     // Prevent resize of the main window to resize the node-tree horizontally.
     ui->topHorizontalSplitter->setStretchFactor(0,0);
@@ -85,6 +89,10 @@ void MainWindow::initialize()
     connect(currentWorkModel_.get(), SIGNAL(workDone(Work::ptr_t)),
             workModel_.get(), SLOT(addWork(Work::ptr_t)));
     connect(nodeModel_.get(), SIGNAL(modelReset()), this, SLOT(nodeModelReset()));
+    connect(workModel_.get(), SIGNAL(modelReset()), summaryModel_.get(), SLOT(dataChanged));
+    connect(workModel_.get(), SIGNAL(
+            dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &())),
+            summaryModel_.get(), SLOT(dataChanged));
 }
 
 MainWindow::~MainWindow()

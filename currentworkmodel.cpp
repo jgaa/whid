@@ -44,7 +44,11 @@ QVariant CurrentWorkModel::data(const QModelIndex &index, int role) const
     if (role == Qt::DisplayRole || role == Qt::EditRole) {
         switch(index.column()) {
             case HN_FROM:
+            if (role == Qt::DisplayRole) {
                 return  work_.at(static_cast<size_t>(index.row()))->work->start.toString("HH:mm");
+            } else {
+                return  work_.at(static_cast<size_t>(index.row()))->work->start;
+            }
             case HN_TO:
                 return  work_.at(static_cast<size_t>(index.row()))->work->end.toString("HH:mm");
             case HN_PAUSE:
@@ -76,7 +80,9 @@ QVariant CurrentWorkModel::headerData(int section, Qt::Orientation orientation, 
     if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
         return names.at(static_cast<size_t>(section));
     } else if (role == Qt::DecorationRole && orientation == Qt::Horizontal) {
-        if (section == CurrentWorkModel::HN_PAUSE || section == CurrentWorkModel::HN_NAME) {
+        if (section == CurrentWorkModel::HN_PAUSE
+                || section == CurrentWorkModel::HN_NAME
+                || section == CurrentWorkModel::HN_FROM) {
             return editIcon.pixmap(12,12);
         }
     }
@@ -88,7 +94,7 @@ Qt::ItemFlags CurrentWorkModel::flags(const QModelIndex &index) const
 {
     auto flags = QAbstractTableModel::flags(index);
 
-    if (index.column() == HN_PAUSE || index.column() == HN_NAME) {
+    if (index.column() == HN_PAUSE || index.column() == HN_NAME || index.column() == HN_FROM) {
         flags |= Qt::ItemIsEditable;
     }
 
@@ -143,6 +149,9 @@ bool CurrentWorkModel::setData(const QModelIndex &index, const QVariant &value, 
                 result = true;
             } else if (index.column() == HN_PAUSE) {
                 cw->setPaused(parseDuration(value.toString()));
+                result = true;
+            } else if (index.column() == HN_FROM) {
+                cw->setStartTime(value.toDateTime());
                 result = true;
             }
         }
