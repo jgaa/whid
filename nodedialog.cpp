@@ -9,6 +9,7 @@ NodeDialog::NodeDialog(QWidget *parent, const QModelIndex& ix, Node::ptr_t node)
 {
     ui->setupUi(this);
 
+    setWindowTitle("Edit " + node->getTypeName());
     ui->nameEdit->setText(node->name);
     ui->notesEdit->setPlainText(node->descr);
     ui->activeCheck->setCheckState(node->active ? Qt::Checked : Qt::Unchecked);

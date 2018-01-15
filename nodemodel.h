@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <set>
+#include <array>
 #include <QStandardItemModel>
 #include <QDateTime>
 #include <QMenu>
@@ -33,6 +34,13 @@ public:
 
     int getTypeId() const {
         return static_cast<int>(getType());
+    }
+
+    QString getTypeName() const {
+        static const std::array<QString, 5> names = {{
+            "Root", "Folder", "Customer", "Project", "Task"
+        }};
+        return names.at(static_cast<size_t>(getTypeId()));
     }
 
     size_t getNumChildren() const {
