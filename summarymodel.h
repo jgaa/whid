@@ -26,10 +26,18 @@ public:
 
     SummaryModel(NodeModel& nm);
 
+    const QDate& getWeekSelection() const {
+        return weekSelection;
+    }
+
 public slots:
     void modeChanged(const Mode mode);
     void whenChanged(const When when);
     void dataChanged();
+    void setSelectedWeek(const QDate& date);
+
+signals:
+    void selectionTextChanged(const QString& text);
 
     // QAbstractItemModel interface
 public:

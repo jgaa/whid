@@ -3,6 +3,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "weekselectiondialog.h"
 
 using namespace std;
 
@@ -17,7 +18,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::initialize()
 {
+#ifdef QT_DEBUG
+    setWindowTitle("Whid (debug)");
+#else
     setWindowTitle("Whid");
+#endif
+    QIcon appicon(":res/icons/whid.svg");
+    setWindowIcon(appicon);
+
     db_ = make_unique<Database>();
     nodeModel_ = make_unique<NodeModel>();
     currentWorkModel_ = make_unique<CurrentWorkModel>();
@@ -68,6 +76,12 @@ void MainWindow::initialize()
     ui->doneButton->setStyleSheet("text-align: left");
     ui->suspendButton->setStyleSheet("text-align: left");
 
+    ui->summarySelectionCombo->addItem("Current Week", static_cast<int>(SummaryModel::When::CURRENT));
+    ui->summarySelectionCombo->addItem("Previous Week", static_cast<int>(SummaryModel::When::PREVIOUS));
+    ui->summarySelectionCombo->addItem("Selected Week", static_cast<int>(SummaryModel::When::WEEK_NUMBER));
+    ui->summarySelectionCombo->setCurrentIndex(0);
+    ui->summarySelectionLabel->setText("");
+
     connect(ui->nodeTree, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(nodeTreeContextMenu(const QPoint &)));
     connect(ui->currentWorkList, SIGNAL(customContextMenuRequested(const QPoint &)),
@@ -93,6 +107,9 @@ void MainWindow::initialize()
     connect(workModel_.get(), SIGNAL(
             dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &())),
             summaryModel_.get(), SLOT(dataChanged));
+    connect(ui->summarySelectionCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(onSummarySelectionChanged(int)));
+    connect(summaryModel_.get(), SIGNAL(selectionTextChanged(const QString &)), ui->summarySelectionLabel, SLOT(setText(const QString &)));
+    connect(ui->summarySelectionOptionsButton, SIGNAL(clicked(bool)), this, SLOT(onSummaryOptionsClicked()));
 }
 
 MainWindow::~MainWindow()
@@ -302,6 +319,36 @@ void MainWindow::nodeModelReset()
     ui->nodeTree->selectionModel()->clear();
     workModel_->setFilter("id=-1");
     workModel_->select();
+}
+
+void MainWindow::onSummarySelectionChanged(int index)
+{
+    array<SummaryModel::When, 3> when = {{
+        SummaryModel::When::CURRENT,
+        SummaryModel::When::PREVIOUS,
+        SummaryModel::When::WEEK_NUMBER
+    }};
+
+    const auto selected_when = when.at(static_cast<size_t>(index));
+
+    summaryModel_->whenChanged(selected_when);
+
+    switch(selected_when) {
+        case SummaryModel::When::CURRENT:
+        case SummaryModel::When::PREVIOUS:
+            ui->summarySelectionOptionsButton->setEnabled(false);
+            break;
+        case SummaryModel::When::WEEK_NUMBER:
+            ui->summarySelectionOptionsButton->setEnabled(true);
+            break;
+    }
+}
+
+void MainWindow::onSummaryOptionsClicked()
+{
+    auto dlg = new WeekSelectionDialog(this, summaryModel_->getWeekSelection());
+    connect(dlg, SIGNAL(selectedDateChanged(const QDate&)), summaryModel_.get(), SLOT(setSelectedWeek(const QDate&)));
+    dlg->exec();
 }
 
 void MainWindow::selectNode(const QModelIndex &index)

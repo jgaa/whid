@@ -17,5 +17,6 @@
         <file>res/icons/free.svg</file>
         <file>res/icons/approved.svg</file>
         <file>res/icons/invoiced.svg</file>
+        <file>res/icons/whid.svg</file>
     </qresource>
 </RCC>

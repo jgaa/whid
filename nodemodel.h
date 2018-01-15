@@ -88,7 +88,9 @@ public:
     void getPath(QString& path) const {
         if (auto parent = parent_.lock()) {
             parent->getPath(path);
-            path += "/";
+            if (parent->getType() != Node::Type::ROOT) {
+                path += "/";
+            }
         }
 
         path += name;
@@ -100,11 +102,9 @@ public:
     QString name;
     QString descr;
     bool active = true;
-    int charge = -1;
+    int charge = {};
 
-    bool isFetched = false;
-
-    void addChild(std::shared_ptr<Node>&& node) {
+    void addChild(std::shared_ptr<Node> node) {
         children_.push_back(move(node));
     }
 
@@ -137,7 +137,7 @@ public:
 
 class Folder : public Node {
 public:
-    Folder(std::shared_ptr<Node>&& parent)
+    Folder(std::shared_ptr<Node> parent)
         : Node(move(parent))
     {
     }
@@ -153,7 +153,7 @@ public:
 
 class Customer : public Node {
 public:
-    Customer(std::shared_ptr<Node>&& parent)
+    Customer(std::shared_ptr<Node> parent)
         : Node(move(parent))
     {
     }
@@ -169,7 +169,7 @@ public:
 
 class Project : public Node {
 public:
-    Project(std::shared_ptr<Node>&& parent)
+    Project(std::shared_ptr<Node> parent)
         : Node(move(parent))
     {
     }
@@ -185,7 +185,7 @@ public:
 
 class Task : public Node {
 public:
-    Task(std::shared_ptr<Node>&& parent)
+    Task(std::shared_ptr<Node> parent)
         : Node(move(parent))
     {
     }
@@ -223,10 +223,6 @@ public:
     bool hasChildren(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;
     bool setData(const QModelIndex &index, const QVariant &value, int role) override;
-    //bool insertRows(int row, int count, const QModelIndex &parent) override;
-    //bool insertColumns(int column, int count, const QModelIndex &parent) override;
-    //bool removeRows(int row, int count, const QModelIndex &parent) override;
-    //bool removeColumns(int column, int count, const QModelIndex &parent) override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
 
     // Get the id fields for ix and it's childen
@@ -236,7 +232,6 @@ public:
 
 private:
     void loadData();
-    void fetchChildren(Node& node);
     void flushNode(Node& node);
     void getIdWithChildren(const Node& node, std::set<int>& ids);
 

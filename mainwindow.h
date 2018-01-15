@@ -13,6 +13,8 @@
 #include "currentworkmodel.h"
 #include "summarymodel.h"
 
+#define WHID_VERSION "0.10"
+
 namespace Ui {
 class MainWindow;
 }
@@ -41,6 +43,8 @@ private slots:
     void onSuspendButtonClicked();
     void onResumeButtonClicked();
     void nodeModelReset();
+    void onSummarySelectionChanged(int index);
+    void onSummaryOptionsClicked();
 
 private:
     template <typename T>

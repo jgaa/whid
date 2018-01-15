@@ -90,10 +90,17 @@
             <item>
              <layout class="QHBoxLayout" name="summaryControlsLayout">
               <item>
-               <widget class="QComboBox" name="comboBox"/>
+               <widget class="QComboBox" name="summarySelectionCombo">
+                <property name="currentText">
+                 <string/>
+                </property>
+                <property name="currentIndex">
+                 <number>-1</number>
+                </property>
+               </widget>
               </item>
               <item>
-               <widget class="QToolButton" name="toolButton">
+               <widget class="QToolButton" name="summarySelectionOptionsButton">
                 <property name="enabled">
                  <bool>false</bool>
                 </property>
@@ -103,7 +110,7 @@
                </widget>
               </item>
               <item alignment="Qt::AlignBottom">
-               <widget class="QLabel" name="label">
+               <widget class="QLabel" name="summarySelectionLabel">
                 <property name="text">
                  <string>unset</string>
                 </property>

@@ -1,5 +1,7 @@
 
 #include <assert.h>
+#include <stack>
+
 #include <QDebug>
 #include <QMessageBox>
 #include "nodemodel.h"
@@ -156,7 +158,6 @@ int NodeModel::rowCount(const QModelIndex &parent) const
             ? static_cast<Node *>(parent.internalPointer())
             : root_.get();
 
-    const_cast<NodeModel *>(this)->fetchChildren(*parent_item);
     return static_cast<int>(parent_item->getNumChildren());
 }
 
@@ -264,11 +265,82 @@ void NodeModel::getIdWithChildren(const Node& node, std::set<int>& ids)
 
 void NodeModel::loadData()
 {
+    enum Fields {
+        F_ID,
+        F_NAME,
+        F_TYPE,
+        F_DESCR,
+        F_ACTIVE,
+        F_CHARGE,
+        F_PARENT
+    };
+
     root_->clearChildren();
-    root_->isFetched = false;
-    fetchChildren(*root_);
+    stack<Node::ptr_t> parents;
+    parents.push(root_);
+    QSqlQuery query;
+    query.prepare("WITH RECURSIVE "
+                  "childrens(id, name, type, descr, active, charge, parent, level) AS ("
+                  "VALUES(0, 'root', 0, NULL, 1, NULL, NULL, 1) "
+                  "UNION ALL "
+                  "SELECT node.id, node.name, node.type, node.descr, node.active, node.charge, node.parent, childrens.level+1 "
+                  "    FROM node JOIN childrens ON node.parent = childrens.id "
+                  "    ORDER BY 8 DESC, 2 ASC "
+                  ") "
+                  "SELECT id, name, type, descr, active, charge, parent from childrens");
+
+    if (!query.exec()) {
+        qWarning() << "Failed to fetch from database: " << query.lastError();
+        return;
+    }
+
+    while(query.next()) {
+        const int nt = query.value(F_TYPE).toInt();
+        const int parent_id = query.value(F_PARENT).toInt();
+
+        while(parent_id != parents.top()->id) {
+            parents.pop();
+
+            // We should never move above root
+            assert(!parents.empty());
+        }
+
+        Node::ptr_t node;
+
+        switch(nt) {
+            case static_cast<int>(Node::Type::FOLDER):
+                node = make_shared<Folder>(parents.top());
+            break;
+
+            case static_cast<int>(Node::Type::CUSTOMER):
+                node = make_shared<Customer>(parents.top());
+            break;
+
+            case static_cast<int>(Node::Type::PROJECT):
+                node = make_shared<Project>(parents.top());
+            break;
+
+            case static_cast<int>(Node::Type::TASK):
+                node = make_shared<Task>(parents.top());
+            break;
+
+            default:
+                qWarning() << "Ignoring unknown node type " << nt << "from database";
+                continue;
+        }
+
+        node->id = query.value(F_ID).toInt();
+        node->name = query.value(F_NAME).toString();
+        node->descr = query.value(F_DESCR).toString();
+        node->active = query.value(F_ACTIVE).toBool();
+        node->charge = query.value(F_CHARGE).toInt();
+
+        parents.top()->addChild(node);
+        parents.push(move(node));
+    }
 }
 
+/*
 void NodeModel::fetchChildren(Node &parent)
 {
     if (parent.isFetched) {
@@ -324,6 +396,7 @@ void NodeModel::fetchChildren(Node &parent)
 
     parent.isFetched = true;
 }
+*/
 
 void Node::addCustomer()
 {
@@ -369,7 +442,7 @@ void NodeModel::flushNode(Node &node)
     query.bindValue(":type", node.getTypeId());
     query.bindValue(":descr", node.descr);
     query.bindValue(":active", node.active);
-    query.bindValue(":charge", node.charge);
+    query.bindValue(":charge", node.charge > 0 ? QVariant{node.charge} : QVariant::Int);
 
     if (parent_id) {
         query.bindValue(":parent", parent_id);

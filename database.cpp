@@ -60,6 +60,8 @@ void Database::createDatabase()
         exec(R"(CREATE TABLE "node" ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` REAL NOT NULL, `type` INTEGER NOT NULL, `status` INTEGER NOT NULL DEFAULT 0, `descr` TEXT, `active` INTEGER NOT NULL DEFAULT 1, `charge` INTEGER, `parent` INTEGER, FOREIGN KEY(`charge`) REFERENCES `charge`(`id`), FOREIGN KEY(`parent`) REFERENCES node(id)))");
         exec(R"(CREATE TABLE "work" ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `status` INTEGER NOT NULL DEFAULT 0, `start` INTEGER NOT NULL, `end` INTEGER NOT NULL, `used` INTEGER NOT NULL, `paused` INTEGER NOT NULL DEFAULT 0, `name` TEXT NOT NULL, `note` TEXT, `charge` INTEGER, `node` INTEGER NOT NULL, FOREIGN KEY(`charge`) REFERENCES `charge`(`id`), FOREIGN KEY(`node`) REFERENCES `node`(`id`) ))");
 
+        exec(R"(INSERT INTO node (id, name, type) VALUES (0, "root", 0))");
+
         QSqlQuery query(db_);
         query.prepare("INSERT INTO whid (version) VALUES (:version)");
         query.bindValue(":version", currentVersion);
@@ -67,7 +69,7 @@ void Database::createDatabase()
             throw std::runtime_error("Failed to initialize database");
         }
 
-    } catch(const std::exception& ex) {
+    } catch(const std::exception&) {
         db_.rollback();
         throw;
     }

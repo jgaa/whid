@@ -35,6 +35,14 @@ void SummaryModel::dataChanged()
     endResetModel();
 }
 
+void SummaryModel::setSelectedWeek(const QDate &date)
+{
+    if (when_ == When::WEEK_NUMBER) {
+        weekSelection = date;
+        dataChanged();
+    }
+}
+
 int SummaryModel::rowCount(const QModelIndex&) const
 {
     return static_cast<int>(rows_.size());
@@ -182,12 +190,17 @@ void SummaryModel::getDateSpan(QDate &firstday, QDate &lastday)
         switch(when_) {
             case When::CURRENT:
                 weekSelection = QDate::currentDate();
+                emit selectionTextChanged("");
                 break;
             case When::PREVIOUS:
                 weekSelection = QDate::currentDate().addDays(-7);
+                emit selectionTextChanged("");
                 break;
-            default:
-                ;
+            case When::WEEK_NUMBER:
+                emit selectionTextChanged("Week #"
+                    + QString::number(weekSelection.weekNumber())
+                    + " " + QString::number(weekSelection.year()));
+                break;
         }
 
         const auto todays_weekday = weekSelection.dayOfWeek();
