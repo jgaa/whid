@@ -4,6 +4,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "weekselectiondialog.h"
+#include "nodedialog.h"
 
 using namespace std;
 
@@ -96,6 +97,12 @@ void MainWindow::initialize()
     connect(ui->doneButton, SIGNAL(released()), this, SLOT(onDoneButtonClicked()));
     connect(ui->currentWorkList, SIGNAL(activated(const QModelIndex &)),
             this, SLOT(onCurrentWorkListActivated(const QModelIndex &)));
+    connect(currentWorkModel_.get(), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
+            this, SLOT(onCurrentWorkModelChanged()));
+    connect(currentWorkModel_.get(), SIGNAL(columnsRemoved(const QModelIndex&, int, int)),
+            this, SLOT(onCurrentWorkModelChanged()));
+    connect(currentWorkModel_.get(), SIGNAL(modelReset()),
+            this, SLOT(onCurrentWorkModelChanged()));
     connect(ui->nodeTree->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)),
             this, SLOT(onTreeSelectionChanged(const QItemSelection&, const QItemSelection&)));
     connect(ui->workList->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)),
@@ -103,10 +110,10 @@ void MainWindow::initialize()
     connect(currentWorkModel_.get(), SIGNAL(workDone(Work::ptr_t)),
             workModel_.get(), SLOT(addWork(Work::ptr_t)));
     connect(nodeModel_.get(), SIGNAL(modelReset()), this, SLOT(nodeModelReset()));
-    connect(workModel_.get(), SIGNAL(modelReset()), summaryModel_.get(), SLOT(dataChanged));
+    connect(workModel_.get(), SIGNAL(modelReset()), summaryModel_.get(), SLOT(dataChanged()));
     connect(workModel_.get(), SIGNAL(
-            dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &())),
-            summaryModel_.get(), SLOT(dataChanged));
+            dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
+            summaryModel_.get(), SLOT(dataChanged()));
     connect(ui->summarySelectionCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(onSummarySelectionChanged(int)));
     connect(summaryModel_.get(), SIGNAL(selectionTextChanged(const QString &)), ui->summarySelectionLabel, SLOT(setText(const QString &)));
     connect(ui->summarySelectionOptionsButton, SIGNAL(clicked(bool)), this, SLOT(onSummaryOptionsClicked()));
@@ -138,6 +145,17 @@ void MainWindow::nodeTreeContextMenu(const QPoint &point)
     const auto type = node->getType();
 
     if (node->getType() != Node::Type::ROOT) {
+        menu->addAction("Edit", [this, index] {
+            auto ix = ui->nodeTree->selectionModel()->currentIndex();
+            if (ix.isValid()) {
+                if (auto node = static_cast<Node *>(ix.internalPointer())) {
+                    auto dlg = new NodeDialog(this, ix, node->shared_from_this());
+                    connect(dlg, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
+                            nodeModel_.get(), SLOT(dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)));
+                    dlg->exec();
+                }
+            }
+        });
         menu->addAction("Delete", [this, index] {
             nodeModel_->deleteNodes(ui->nodeTree->selectionModel()->selectedIndexes());
         });
@@ -256,7 +274,8 @@ void MainWindow::onTreeSelectionChanged(const QItemSelection &, const QItemSelec
 void MainWindow::onWorkListSelectionChanged(const QItemSelection &,
                                             const QItemSelection &)
 {
-
+    const auto active = ui->currentWorkList->selectionModel()->currentIndex();
+    onCurrentWorkListActivated(active);
 }
 
 void MainWindow::onStartNewButtonClicked()
@@ -276,6 +295,7 @@ void MainWindow::onStartNewButtonClicked()
     ui->currentWorkList->selectRow(createdIx.row());
 
     auto ix = currentWorkModel_->index(createdIx.row(), CurrentWorkModel::HN_NAME, {});
+    onCurrentWorkListActivated(currentNodeIx);
     ui->currentWorkList->edit(ix);
 }
 
@@ -296,6 +316,7 @@ void MainWindow::onCurrentWorkListActivated(const QModelIndex &index)
     } else {
         ui->resumeButton->setEnabled(false);
         ui->doneButton->setEnabled(false);
+        ui->suspendButton->setEnabled(false);
     }
 }
 
@@ -349,6 +370,12 @@ void MainWindow::onSummaryOptionsClicked()
     auto dlg = new WeekSelectionDialog(this, summaryModel_->getWeekSelection());
     connect(dlg, SIGNAL(selectedDateChanged(const QDate&)), summaryModel_.get(), SLOT(setSelectedWeek(const QDate&)));
     dlg->exec();
+}
+
+void MainWindow::onCurrentWorkModelChanged()
+{
+    const auto active = ui->currentWorkList->selectionModel()->currentIndex();
+    onCurrentWorkListActivated(active);
 }
 
 void MainWindow::selectNode(const QModelIndex &index)

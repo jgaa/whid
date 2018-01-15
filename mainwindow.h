@@ -45,6 +45,7 @@ private slots:
     void nodeModelReset();
     void onSummarySelectionChanged(int index);
     void onSummaryOptionsClicked();
+    void onCurrentWorkModelChanged();
 
 private:
     template <typename T>

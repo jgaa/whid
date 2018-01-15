@@ -98,6 +98,16 @@ Node::ptr_t NodeModel::getNodeFromId(const int id)
     return node;
 }
 
+void NodeModel::onDataChanged(const QModelIndex &ix, const QModelIndex &, const QVector<int> &)
+{
+    if (ix.isValid()) {
+        if (auto node = static_cast<Node *>(ix.internalPointer())) {
+            flushNode(*node);
+            emit dataChanged(ix, ix);
+        }
+    }
+}
+
 Node::ptr_t NodeModel::getNodeFromId(Node &node, const int id)
 {
     for(size_t i = 0; i < node.getNumChildren(); ++i) {
@@ -310,19 +320,22 @@ void NodeModel::loadData()
         switch(nt) {
             case static_cast<int>(Node::Type::FOLDER):
                 node = make_shared<Folder>(parents.top());
-            break;
+                break;
 
             case static_cast<int>(Node::Type::CUSTOMER):
                 node = make_shared<Customer>(parents.top());
-            break;
+                break;
 
             case static_cast<int>(Node::Type::PROJECT):
                 node = make_shared<Project>(parents.top());
-            break;
+                break;
 
             case static_cast<int>(Node::Type::TASK):
                 node = make_shared<Task>(parents.top());
-            break;
+                break;
+
+            case static_cast<int>(Node::Type::ROOT):
+                continue; // Pass
 
             default:
                 qWarning() << "Ignoring unknown node type " << nt << "from database";
@@ -398,16 +411,8 @@ void NodeModel::fetchChildren(Node &parent)
 }
 */
 
-void Node::addCustomer()
-{
-    auto node = std::make_shared<Customer>(shared_from_this());
-    node->name = "New Customer";
 
-    // Always add at end
-    addChild(move(node));
-}
-
-QVariant Node::getNodeIcon(QString name, QSize size) const
+QPixmap Node::getNodeIcon(QString name, QSize size) const
 {
     QString path(":/res/icons/");
     path += name;

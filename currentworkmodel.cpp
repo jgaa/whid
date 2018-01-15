@@ -31,6 +31,7 @@ bool CurrentWorkModel::removeRows(int row, int count, const QModelIndex &parent)
     }
 
     endRemoveRows();
+    emit dataChanged({}, {});
     return true;
 }
 
@@ -169,7 +170,7 @@ bool CurrentWorkModel::setData(const QModelIndex &index, const QVariant &value, 
 CurrentWork *CurrentWorkModel::getCurrentWork(const QModelIndex &index) const
 {
     if (index.isValid()) try {
-        return work_[static_cast<size_t>(index.row())].get();
+        return work_.at(static_cast<size_t>(index.row())).get();
     } catch(std::exception&) {
         ;
     }
@@ -248,6 +249,8 @@ void CurrentWorkModel::done(const QModelIndex &ix)
             work_[0]->endPause();
             const auto chix = index(0, HN_FROM, {});
             emit dataChanged(chix, chix);
+        } else {
+            emit dataChanged({}, {});
         }
     }
 }

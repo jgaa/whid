@@ -51,7 +51,7 @@ public:
         return nullptr;
     }
 
-    virtual QVariant getIcon(QSize size) const = 0;
+    virtual QPixmap getIcon(QSize size) const = 0;
 
     int getRow(const Node *node) const {
         for(size_t i = 0; i < children_.size(); ++i) {
@@ -112,10 +112,8 @@ public:
         children_.clear();
     }
 
-    void addCustomer();
-
 protected:
-    QVariant getNodeIcon(QString name, QSize size) const;
+    QPixmap getNodeIcon(QString name, QSize size) const;
 
 private:
     std::vector<std::shared_ptr<Node>> children_;
@@ -130,7 +128,7 @@ public:
         return Type::ROOT;
     }
 
-    QVariant getIcon(QSize) const override {
+    QPixmap getIcon(QSize) const override {
         return {};
     }
 };
@@ -146,7 +144,7 @@ public:
         return Type::FOLDER;
     }
 
-    QVariant getIcon(QSize size) const override {
+    QPixmap getIcon(QSize size) const override {
         return getNodeIcon("folder.svg", size);
     }
 };
@@ -162,7 +160,7 @@ public:
         return Type::CUSTOMER;
     }
 
-    QVariant getIcon(QSize size) const override {
+    QPixmap getIcon(QSize size) const override {
         return getNodeIcon("customer.svg", size);
     }
 };
@@ -178,7 +176,7 @@ public:
         return Type::PROJECT;
     }
 
-    QVariant getIcon(QSize size) const override {
+    QPixmap getIcon(QSize size) const override {
         return getNodeIcon("project.svg", size);
     }
 };
@@ -194,13 +192,15 @@ public:
         return Type::TASK;
     }
 
-    QVariant getIcon(QSize size) const override {
+    QPixmap getIcon(QSize size) const override {
         return getNodeIcon("task.svg", size);
     }
 };
 
 class NodeModel : public QStandardItemModel
 {
+    Q_OBJECT
+
 public:
     NodeModel();
 
@@ -212,6 +212,11 @@ public:
     }
 
     Node::ptr_t getNodeFromId(const int id);
+
+public slots:
+    // Notification that someone changed a node directly
+    // We need to save it
+    void onDataChanged(const QModelIndex &ix, const QModelIndex &, const QVector<int> &);
 
     // QAbstractItemModel interface
 public:
