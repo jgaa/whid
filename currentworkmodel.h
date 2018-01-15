@@ -102,7 +102,7 @@ public:
 public slots:
     // Suspend the active item and add the new one at the top of the list
     QModelIndex addWork(Work::ptr_t work);
-
+    void updateWork(const QModelIndex& ix, const Work::ptr_t& work);
     void suspend(const QModelIndex &index);
     void resume(const QModelIndex &index);
     void done(const QModelIndex &ix);

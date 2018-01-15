@@ -1,6 +1,7 @@
 #include "workmodel.h"
 #include "nodemodel.h"
 #include "utility.h"
+#include "workdialog.h"
 
 #include <QSqlRecord>
 #include <QSqlField>
@@ -21,6 +22,38 @@ WorkModel::WorkModel(NodeModel& nm)
     setEditStrategy(QSqlTableModel::OnFieldChange);
 }
 
+Work::ptr_t WorkModel::getWork(const QModelIndex &ix) const
+{
+    static const int idCol = fieldIndex("id");
+    static const int statusCol = fieldIndex("status");
+    static const int startCol = fieldIndex("start");
+    static const int endCol = fieldIndex("end");
+    static const int pausedCol = fieldIndex("paused");
+    static const int nameCol = fieldIndex("name");
+    static const int noteCol = fieldIndex("note");
+    static const int nodeCol = fieldIndex("node");
+
+    if (!ix.isValid()) {
+        return {};
+    }
+
+    auto work = make_shared<Work>();
+    auto r = ix.row();
+
+    allIsWritable = true;
+    work->id = index(r, idCol, {}).data(Qt::EditRole).toInt();
+    work->setStatus(index(r, statusCol, {}).data(Qt::EditRole).toInt());
+    work->start = QDateTime::fromTime_t(index(r, startCol, {}).data(Qt::EditRole).toUInt());
+    work->end = QDateTime::fromTime_t(index(r, endCol, {}).data(Qt::EditRole).toUInt());
+    work->paused = index(r, pausedCol, {}).data(Qt::EditRole).toInt();
+    work->name = index(r, nameCol, {}).data(Qt::EditRole).toString();
+    work->note = index(r, noteCol, {}).data(Qt::EditRole).toString();
+    work->node = nodeModel_.getNodeFromId(index(r, nodeCol, {}).data(Qt::EditRole).toInt());
+    allIsWritable = false;
+
+    return work;
+}
+
 void WorkModel::addWork(Work::ptr_t work)
 {
     auto node = work->node.lock();
@@ -38,7 +71,7 @@ void WorkModel::addWork(Work::ptr_t work)
     query.bindValue(":status", work->getStatusId());
     query.bindValue(":start", work->start.toTime_t());
     query.bindValue(":end", work->end.toTime_t());
-    query.bindValue(":used", (work->start.msecsTo(work->end) / 1000) - work->paused);
+    query.bindValue(":used", work->getUsed());
     query.bindValue(":paused", work->paused);
     query.bindValue(":name", work->name);
     query.bindValue(":node", node->id);
@@ -78,6 +111,49 @@ void WorkModel::addWork(Work::ptr_t work)
     //    }
 }
 
+void WorkModel::updateWork(const QModelIndex &ix, const Work::ptr_t &work)
+{
+    static const int idCol = fieldIndex("id");
+    static const int statusCol = fieldIndex("status");
+    static const int startCol = fieldIndex("start");
+    static const int endCol = fieldIndex("end");
+    static const int pausedCol = fieldIndex("paused");
+    static const int nameCol = fieldIndex("name");
+    static const int noteCol = fieldIndex("note");
+    static const int usedCol = fieldIndex("used");
+
+    const auto r = ix.row();
+    const auto startIx = index(r, 0, {});
+    const auto endIx = index(r, this->columnCount() -1, {});
+
+    const auto id = index(r, idCol, {}).data().toInt();
+    if (id != work->id) {
+        qWarning() << "Cannot update work-item: id of index (row="
+                   << r << ") is " << id
+                   << " and id of the work-item is " << work->id;
+        return;
+    }
+
+    allIsWritable = true;
+    //setEditStrategy(QSqlTableModel::OnManualSubmit);
+    setData(index(r, statusCol, {}), work->getStatusId());
+    setData(index(r, startCol, {}), work->start.toTime_t());
+    setData(index(r, endCol, {}), work->end.toTime_t());
+    setData(index(r, pausedCol, {}), work->paused);
+    setData(index(r, nameCol, {}), work->name);
+    setData(index(r, noteCol, {}), work->note);
+    setData(index(r, usedCol, {}), work->getUsed());
+    // NOTE: We don'ts set the node id here, as it's not changeable in the ui yet.
+
+    allIsWritable = false;
+    //setEditStrategy(QSqlTableModel::OnFieldChange);
+//    if (!submitAll()) {
+//        qWarning() << "Failed to commit status changes: " << lastError();
+//    }
+
+    emit dataChanged(startIx, endIx);
+}
+
 void WorkModel::setStatus(QModelIndexList indexes, Work::Status status)
 {
     static const int statusCol = fieldIndex("status");
@@ -94,9 +170,9 @@ void WorkModel::setStatus(QModelIndexList indexes, Work::Status status)
         if (current_status > static_cast<int>(status)) {
             ++downgrade_count;
         }
-        statusIsWritable = true;
+        allIsWritable = true;
         setData(ix, static_cast<int>(status));
-        statusIsWritable = false;
+        allIsWritable = false;
     }
 
     if (downgrade_count) {
@@ -171,11 +247,8 @@ QVariant WorkModel::data(const QModelIndex &ix, int role) const
 Qt::ItemFlags WorkModel::flags(const QModelIndex &ix) const
 {
     static const int nameCol = fieldIndex("name");
-    static const int statusCol = fieldIndex("status");
-
     if (ix.isValid()) {
-        if ((ix.column() != nameCol)
-                && !((ix.column() == statusCol) && statusIsWritable)) {
+        if ((ix.column() != nameCol) && !allIsWritable) {
             return QSqlTableModel::flags(ix) & ~Qt::EditRole;
         }
     }

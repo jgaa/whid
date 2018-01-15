@@ -5,6 +5,8 @@
 #include "ui_mainwindow.h"
 #include "weekselectiondialog.h"
 #include "nodedialog.h"
+#include "workdialog.h"
+#include "utility.h"
 
 using namespace std;
 
@@ -194,8 +196,19 @@ void MainWindow::currentWorkListContextMenu(const QPoint &point)
         return;
     }
 
-    if (/*auto cw = */currentWorkModel_->getCurrentWork(index)) {
+    if (auto cw = currentWorkModel_->getCurrentWork(index)) {
         QMenu *menu = new QMenu;
+
+        if (isOneRow(ui->currentWorkList->selectionModel()->selectedIndexes())) {
+            menu->addAction("Edit", [this, index, cw] {
+                auto dlg = new WorkDialog(this, index, cw->work, true);
+                connect(dlg, SIGNAL(dataChanged(const QModelIndex&, const Work::ptr_t&)),
+                        workModel_.get(), SLOT(updateWork(const QModelIndex&, const Work::ptr_t&)));
+                dlg->exec();
+
+            });
+        }
+
         menu->addAction("Delete", [this, index] {
             currentWorkModel_->removeRows(index.row(), 1, {}); });
 
@@ -214,6 +227,18 @@ void MainWindow::workListContextMenu(const QPoint &point)
     menu->addAction("Delete", [this, index] {
         deleteFromWorkList(ui->workList->selectionModel()->selection());
     });
+
+    // Only show Edit menu if only one row is selected
+    if (isOneRow(ui->workList->selectionModel()->selectedIndexes())) {
+        menu->addAction("Edit", [this, index] {
+            if (auto work = workModel_->getWork(index)) {
+                auto dlg = new WorkDialog(this, index, work);
+                connect(dlg, SIGNAL(dataChanged(const QModelIndex&, const Work::ptr_t&)),
+                        workModel_.get(), SLOT(updateWork(const QModelIndex&, const Work::ptr_t&)));
+                dlg->exec();
+            }
+        });
+    }
 
     menu->addSection("Status");
     menu->addAction("Set as Done", [this, index] {

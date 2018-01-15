@@ -117,6 +117,17 @@ QModelIndex CurrentWorkModel::addWork(Work::ptr_t work)
     return createIndex(0, 0, cw.get());
 }
 
+void CurrentWorkModel::updateWork(const QModelIndex &ix, const Work::ptr_t &work)
+{
+    const auto r = ix.row();
+    const auto startIx = index(r, 0, {});
+    const auto endIx = index(r, columnCount({}) -1, {});
+
+    work_.at(static_cast<size_t>(r))->work = work;
+
+    emit dataChanged(startIx, endIx);
+}
+
 void CurrentWorkModel::suspendActive()
 {
     if (!work_.empty()) {
@@ -241,7 +252,9 @@ void CurrentWorkModel::done(const QModelIndex &ix)
 
         if (do_save) {
             work->end = QDateTime::currentDateTime();
-            work->status = Work::Status::DONE;
+            if (work->status == Work::Status::OPEN) {
+                work->status = Work::Status::DONE;
+            }
             emit workDone(move(work));
         }
 

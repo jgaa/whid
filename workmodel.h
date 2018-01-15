@@ -8,6 +8,7 @@
 
 class Node;
 class NodeModel;
+class WorkDialog;
 
 class Work {
 public:
@@ -25,6 +26,10 @@ public:
 
     int getStatusId() const {
         return static_cast<int>(status);
+    }
+
+    int getUsed() const {
+         return static_cast<int>((start.msecsTo(end) / 1000) - paused);
     }
 
     QVariant getStatusIcon() const;
@@ -53,9 +58,11 @@ class WorkModel : public QSqlTableModel
 public:
 
     WorkModel(NodeModel& nm);
+    Work::ptr_t getWork(const QModelIndex& ix) const;
 
 public slots:
     void addWork(Work::ptr_t work);
+    void updateWork(const QModelIndex& ix, const Work::ptr_t& work);
 
 public:
     void setStatus(QModelIndexList indexes, Work::Status status);
@@ -67,10 +74,9 @@ public:
 
 private:
     std::shared_ptr<Node> getNode(const QModelIndex& id) const;
-
     std::vector<int> columnMapping_; // Own to data-model
     NodeModel& nodeModel_;
-    bool statusIsWritable = false;
+    mutable bool allIsWritable = false;
 };
 
 #endif // WORKMODEL_H

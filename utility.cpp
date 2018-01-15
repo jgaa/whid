@@ -33,3 +33,19 @@ int parseDuration(const QString &value)
 
     return (minutes * 60) + hours;
 }
+
+bool isOneRow(const QModelIndexList &list)
+{
+    int row = -1;
+    for(const auto& r: list) {
+        if (row == -1) {
+            row = r.row();
+        } else {
+            if (row != r.row()) {
+                return false;
+            }
+        }
+    }
+
+    return row >= 0;
+}
