@@ -2,20 +2,25 @@
 #include "ui_workdialog.h"
 #include "utility.h"
 
+using namespace std;
+
 WorkDialog::WorkDialog(QWidget *parent, const QModelIndex& ix,
                        const Work::ptr_t& work, bool isCurrent) :
     QDialog(parent),
     ui(new Ui::WorkDialog),
     ix_{ix},
     work_{work},
-    isCurrent_{isCurrent}
+    isCurrent_{isCurrent},
+    ownWork_{make_shared<Work>(*work)}
 {
     ui->setupUi(this);
 
-    ui->nameEdit->setText(work->name);
-    ui->fromDateTime->setDateTime(work->start);
-    ui->toDateTime->setDateTime(work->end);
-    ui->noteEdit->setPlainText(work->note);
+    setWindowTitle("Edit Work");
+
+    ui->nameEdit->setText(ownWork_->name);
+    ui->fromDateTime->setDateTime(ownWork_->start);
+    ui->toDateTime->setDateTime(ownWork_->end);
+    ui->noteEdit->setPlainText(ownWork_->note);
 
     ui->openBtn->setProperty("v", static_cast<int>(Work::Status::OPEN));
     ui->doneBtn->setProperty("v", static_cast<int>(Work::Status::DONE));
@@ -28,7 +33,7 @@ WorkDialog::WorkDialog(QWidget *parent, const QModelIndex& ix,
     ui->openBtn->setEnabled(isCurrent_);
     ui->toDateTime->setEnabled(!isCurrent_);
 
-    switch(work->status) {
+    switch(ownWork_->status) {
         case Work::Status::OPEN:
             ui->openBtn->setChecked(true);
             break;
@@ -51,7 +56,12 @@ WorkDialog::WorkDialog(QWidget *parent, const QModelIndex& ix,
             ui->invoicedBtn->setChecked(true);
             break;
     }
-    ui->pauseEdit->setText(toHourMin(work->paused));
+    ui->pauseEdit->setText(toHourMin(ownWork_->paused));
+    ui->usedEdit->setText(toHourMin(ownWork_->getUsed()));
+
+    connect(ui->pauseEdit, SIGNAL(textEdited(const QString &)), this, SLOT(updateUsed()));
+    connect(ui->fromDateTime, SIGNAL(dateTimeChanged(const QDateTime &)), this, SLOT(updateUsed()));
+    connect(ui->toDateTime, SIGNAL(dateTimeChanged(const QDateTime &)), this, SLOT(updateUsed()));
 }
 
 WorkDialog::~WorkDialog()
@@ -61,14 +71,27 @@ WorkDialog::~WorkDialog()
 
 void WorkDialog::accept()
 {
-    work_->name = ui->nameEdit->text();
-    work_->start = ui->fromDateTime->dateTime();
-    work_->end = ui->toDateTime->dateTime();
-    work_->note = ui->noteEdit->toPlainText();
-    work_->setStatus(ui->statusGroup->checkedButton()->property("v").toInt());
-    work_->paused = parseDuration(ui->pauseEdit->text());
+    flushToWork();
 
+    // Emit the original instance
+    *work_ = *ownWork_;
     emit dataChanged(ix_, work_);
 
     QDialog::accept();
+}
+
+void WorkDialog::updateUsed()
+{
+    flushToWork();
+    ui->usedEdit->setText(toHourMin(ownWork_->getUsed()));
+}
+
+void WorkDialog::flushToWork()
+{
+    ownWork_->name = ui->nameEdit->text();
+    ownWork_->start = ui->fromDateTime->dateTime();
+    ownWork_->end = ui->toDateTime->dateTime();
+    ownWork_->note = ui->noteEdit->toPlainText();
+    ownWork_->setStatus(ui->statusGroup->checkedButton()->property("v").toInt());
+    ownWork_->paused = parseDuration(ui->pauseEdit->text());
 }

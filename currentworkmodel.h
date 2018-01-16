@@ -99,6 +99,8 @@ public:
 
     CurrentWork *getCurrentWork(const QModelIndex &index) const;
 
+    int getUsed() const;
+
 public slots:
     // Suspend the active item and add the new one at the top of the list
     QModelIndex addWork(Work::ptr_t work);

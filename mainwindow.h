@@ -5,6 +5,7 @@
 #include <set>
 
 #include <QItemSelection>
+#include <QLabel>
 #include <QMainWindow>
 #include <QTableView>
 
@@ -32,7 +33,6 @@ private slots:
     void nodeTreeContextMenu(const QPoint &point);
     void currentWorkListContextMenu(const QPoint &point);
     void workListContextMenu(const QPoint &point);
-    void onTreeNodeActivated(const QModelIndex &index);
     void onTreeSelectionChanged(const QItemSelection& selected,
                                 const QItemSelection & deselected);
     void onWorkListSelectionChanged(const QItemSelection& selected,
@@ -45,7 +45,8 @@ private slots:
     void nodeModelReset();
     void onSummarySelectionChanged(int index);
     void onSummaryOptionsClicked();
-    void onCurrentWorkModelChanged();
+    void validateStartBtn();
+    void setTimeUsedToday(int seconds);
 
 private:
     template <typename T>
@@ -77,7 +78,6 @@ private:
     }
 
     void selectNode(const QModelIndex& index);
-
     void deleteFromWorkList(const QItemSelection& selection);
 
     Ui::MainWindow *ui;
@@ -86,6 +86,10 @@ private:
     std::unique_ptr<CurrentWorkModel> currentWorkModel_;
     std::unique_ptr<WorkModel> workModel_;
     std::unique_ptr<SummaryModel> summaryModel_;
+
+    QLabel *statusLabel_ = {};
+    QLineEdit *statusTimeUsedToday_ = {};
+
     QTableView *workList_ = {};
 };
 

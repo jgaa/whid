@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QLineEdit>
 #include <QMessageBox>
 
 #include "mainwindow.h"
@@ -85,14 +86,23 @@ void MainWindow::initialize()
     ui->summarySelectionCombo->setCurrentIndex(0);
     ui->summarySelectionLabel->setText("");
 
+    statusLabel_ = new QLabel(this);
+    statusLabel_->setText("Worked Today: ");
+    statusTimeUsedToday_ = new QLineEdit(this);
+    statusTimeUsedToday_->setMaximumWidth(60);
+    statusTimeUsedToday_->setMinimumWidth(60);
+    statusTimeUsedToday_->setReadOnly(true);
+    statusTimeUsedToday_->setFrame(false);
+    ui->statusBar->addPermanentWidget(statusLabel_);
+    ui->statusBar->addPermanentWidget(statusTimeUsedToday_, 0);
+
     connect(ui->nodeTree, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(nodeTreeContextMenu(const QPoint &)));
     connect(ui->currentWorkList, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(currentWorkListContextMenu(const QPoint &)));
     connect(ui->workList, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(workListContextMenu(const QPoint &)));
-    connect(ui->nodeTree, SIGNAL(activated(const QModelIndex &)),
-            this, SLOT(onTreeNodeActivated(const QModelIndex &)));
+    connect(ui->nodeTree, SIGNAL(activated(const QModelIndex &)), this, SLOT(validateStartBtn()));
     connect(ui->startNewButton, SIGNAL(released()), this, SLOT(onStartNewButtonClicked()));
     connect(ui->suspendButton, SIGNAL(released()), this, SLOT(onSuspendButtonClicked()));
     connect(ui->resumeButton, SIGNAL(released()), this, SLOT(onResumeButtonClicked()));
@@ -100,11 +110,11 @@ void MainWindow::initialize()
     connect(ui->currentWorkList, SIGNAL(activated(const QModelIndex &)),
             this, SLOT(onCurrentWorkListActivated(const QModelIndex &)));
     connect(currentWorkModel_.get(), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
-            this, SLOT(onCurrentWorkModelChanged()));
+            this, SLOT(validateStartBtn()));
     connect(currentWorkModel_.get(), SIGNAL(columnsRemoved(const QModelIndex&, int, int)),
-            this, SLOT(onCurrentWorkModelChanged()));
+            this, SLOT(validateStartBtn()));
     connect(currentWorkModel_.get(), SIGNAL(modelReset()),
-            this, SLOT(onCurrentWorkModelChanged()));
+            this, SLOT(validateStartBtn()));
     connect(ui->nodeTree->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)),
             this, SLOT(onTreeSelectionChanged(const QItemSelection&, const QItemSelection&)));
     connect(ui->workList->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)),
@@ -119,6 +129,11 @@ void MainWindow::initialize()
     connect(ui->summarySelectionCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(onSummarySelectionChanged(int)));
     connect(summaryModel_.get(), SIGNAL(selectionTextChanged(const QString &)), ui->summarySelectionLabel, SLOT(setText(const QString &)));
     connect(ui->summarySelectionOptionsButton, SIGNAL(clicked(bool)), this, SLOT(onSummaryOptionsClicked()));
+    connect(workModel_.get(), SIGNAL(workedToday(int)), this, SLOT(setTimeUsedToday(int)));
+    connect(currentWorkModel_.get(), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
+            workModel_.get(), SLOT(recalculateWorkToday()));
+
+    workModel_->recalculateWorkToday();
 }
 
 MainWindow::~MainWindow()
@@ -204,6 +219,7 @@ void MainWindow::currentWorkListContextMenu(const QPoint &point)
                 auto dlg = new WorkDialog(this, index, cw->work, true);
                 connect(dlg, SIGNAL(dataChanged(const QModelIndex&, const Work::ptr_t&)),
                         workModel_.get(), SLOT(updateWork(const QModelIndex&, const Work::ptr_t&)));
+                dlg->setAttribute( Qt::WA_DeleteOnClose );
                 dlg->exec();
 
             });
@@ -235,6 +251,7 @@ void MainWindow::workListContextMenu(const QPoint &point)
                 auto dlg = new WorkDialog(this, index, work);
                 connect(dlg, SIGNAL(dataChanged(const QModelIndex&, const Work::ptr_t&)),
                         workModel_.get(), SLOT(updateWork(const QModelIndex&, const Work::ptr_t&)));
+                dlg->setAttribute( Qt::WA_DeleteOnClose );
                 dlg->exec();
             }
         });
@@ -265,25 +282,6 @@ void MainWindow::workListContextMenu(const QPoint &point)
     menu->exec(ui->workList->mapToGlobal(point));
 }
 
-void MainWindow::onTreeNodeActivated(const QModelIndex &index)
-{
-    if (index.isValid()) {
-        Node *node = static_cast<Node *>(index.internalPointer());
-        if (node->getType() == Node::Type::TASK) {
-
-            // TODO: Handle stop / pause
-
-            ui->startNewButton->setEnabled(true);
-            ui->startNewButton->setProperty("selected",
-                QVariant::fromValue(Node::wptr_t(node->shared_from_this())));
-            return;
-        }
-    }
-
-    ui->startNewButton->setEnabled(false);
-    ui->startNewButton->setProperty("selected", {});
-}
-
 void MainWindow::onTreeSelectionChanged(const QItemSelection &, const QItemSelection &)
 {
     auto selection =  ui->nodeTree->selectionModel()->selectedIndexes();
@@ -294,6 +292,7 @@ void MainWindow::onTreeSelectionChanged(const QItemSelection &, const QItemSelec
             selection, "node"));
     }
     workModel_->select();
+    validateStartBtn();
 }
 
 void MainWindow::onWorkListSelectionChanged(const QItemSelection &,
@@ -394,13 +393,8 @@ void MainWindow::onSummaryOptionsClicked()
 {
     auto dlg = new WeekSelectionDialog(this, summaryModel_->getWeekSelection());
     connect(dlg, SIGNAL(selectedDateChanged(const QDate&)), summaryModel_.get(), SLOT(setSelectedWeek(const QDate&)));
+    dlg->setAttribute( Qt::WA_DeleteOnClose );
     dlg->exec();
-}
-
-void MainWindow::onCurrentWorkModelChanged()
-{
-    const auto active = ui->currentWorkList->selectionModel()->currentIndex();
-    onCurrentWorkListActivated(active);
 }
 
 void MainWindow::selectNode(const QModelIndex &index)
@@ -448,6 +442,28 @@ void MainWindow::deleteFromWorkList(const QItemSelection& selection)
     workModel_->submitAll();
     workModel_->select();
     workModel_->setEditStrategy(QSqlTableModel::OnFieldChange);
+}
+
+void MainWindow::validateStartBtn()
+{
+    if (ui->nodeTree->selectionModel()->selectedIndexes().size() == 1) {
+        const auto selected = ui->nodeTree->selectionModel()->currentIndex();
+        if (selected.isValid()) {
+            Node *node = static_cast<Node *>(selected.internalPointer());
+            if (node->getType() == Node::Type::TASK) {
+                ui->startNewButton->setEnabled(true);
+                return;
+            }
+        }
+    }
+
+    ui->startNewButton->setEnabled(false);
+}
+
+void MainWindow::setTimeUsedToday(int seconds)
+{
+    seconds += currentWorkModel_->getUsed();
+    statusTimeUsedToday_->setText(toHourMin(seconds));
 }
 
 

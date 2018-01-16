@@ -63,6 +63,10 @@ public:
 public slots:
     void addWork(Work::ptr_t work);
     void updateWork(const QModelIndex& ix, const Work::ptr_t& work);
+    void recalculateWorkToday();
+
+signals:
+    void workedToday(int seconds);
 
 public:
     void setStatus(QModelIndexList indexes, Work::Status status);

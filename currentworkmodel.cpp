@@ -189,6 +189,16 @@ CurrentWork *CurrentWorkModel::getCurrentWork(const QModelIndex &index) const
     return {};
 }
 
+int CurrentWorkModel::getUsed() const
+{
+    int seconds = {};
+    for(const auto& w : work_) {
+        seconds += w->getWorkedDuration();
+    }
+
+    return seconds;
+}
+
 void CurrentWorkModel::suspend(const QModelIndex &ix)
 {
     if (auto cw = getCurrentWork(ix)) {
@@ -258,7 +268,7 @@ void CurrentWorkModel::done(const QModelIndex &ix)
             emit workDone(move(work));
         }
 
-        if (!work_.empty()) {
+        if (!work_.empty() && (work_[0]->current_state == CurrentWork::PAUSED)) {
             work_[0]->endPause();
             const auto chix = index(0, HN_FROM, {});
             emit dataChanged(chix, chix);

@@ -20,6 +20,13 @@ WorkModel::WorkModel(NodeModel& nm)
     setTable("work");
     setSort(fieldIndex("start"), Qt::AscendingOrder);
     setEditStrategy(QSqlTableModel::OnFieldChange);
+
+    connect(this, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
+                         this, SLOT(recalculateWorkToday()));
+    connect(this, SIGNAL(columnsRemoved(const QModelIndex&, int, int)),
+                         this, SLOT(recalculateWorkToday()));
+    connect(this, SIGNAL(modelReset()),
+                         this, SLOT(recalculateWorkToday()));
 }
 
 Work::ptr_t WorkModel::getWork(const QModelIndex &ix) const
@@ -152,6 +159,19 @@ void WorkModel::updateWork(const QModelIndex &ix, const Work::ptr_t &work)
 //    }
 
     emit dataChanged(startIx, endIx);
+}
+
+void WorkModel::recalculateWorkToday()
+{
+    QVariant seconds;
+    QSqlQuery query;
+    if (!query.exec("SELECT SUM(used) FROM work WHERE date(start, 'unixepoch') == DATE('now')")) {
+        qWarning() << "Failed to query work for used time today" << query.lastError().text();
+    } else if (query.next()) {
+        seconds = query.value(0);
+    }
+
+    emit workedToday(seconds.toInt());
 }
 
 void WorkModel::setStatus(QModelIndexList indexes, Work::Status status)

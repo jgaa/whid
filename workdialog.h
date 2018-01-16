@@ -23,15 +23,20 @@ public:
 signals:
     void dataChanged(const QModelIndex& ix, const Work::ptr_t& work);
 
+public slots:
+    void accept() override;
+
+private slots:
+    void updateUsed();
+
 private:
+    void flushToWork();
+
     Ui::WorkDialog *ui;
     QModelIndex ix_;
     const Work::ptr_t& work_;
     const bool isCurrent_;
-
-    // QDialog interface
-public slots:
-    void accept() override;
+    Work::ptr_t ownWork_;
 };
 
 #endif // WORKDIALOG_H
