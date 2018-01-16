@@ -1,7 +1,7 @@
 #include <QDebug>
 #include <QLineEdit>
 #include <QMessageBox>
-
+#include <memory>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "weekselectiondialog.h"
