@@ -46,6 +46,7 @@ private slots:
     void validateResumeDoneSuspendBtn();
     void setTimeUsedToday(int seconds);
     void onPaused(bool paused);
+    void onSettings();
 
 private:
     template <typename T>

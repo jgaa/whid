@@ -8,6 +8,7 @@
 #include "nodedialog.h"
 #include "workdialog.h"
 #include "utility.h"
+#include "settingsdialog.h"
 
 using namespace std;
 
@@ -25,6 +26,8 @@ void MainWindow::initialize()
     QIcon appicon(":res/icons/whid.svg");
     setWindowIcon(appicon);
     onPaused(false);
+
+    ui->mainToolBar->setVisible(false);
 
     db_ = make_unique<Database>();
     nodeModel_ = make_unique<NodeModel>();
@@ -132,6 +135,7 @@ void MainWindow::initialize()
             workModel_.get(), SLOT(recalculateWorkToday()));
     connect(ui->refreshSummaryButton, SIGNAL(clicked()), summaryModel_.get(), SLOT(dataChanged()));
     connect(currentWorkModel_.get(), SIGNAL(paused(bool)), this, SLOT(onPaused(bool)));
+    connect(ui->action_Settings, SIGNAL(triggered()), this, SLOT(onSettings()));
 
     workModel_->recalculateWorkToday();
 }
@@ -462,15 +466,15 @@ void MainWindow::setTimeUsedToday(int seconds)
 
 void MainWindow::onPaused(bool paused)
 {
-#ifdef QT_DEBUG
-    static const QString captionStr{"Whid (debug)"};
-#else
-    static const QString captionStr{"Whid"};
-#endif
-
     static const QString pausedStr{" PAUSED"};
 
-    setWindowTitle(captionStr + (paused ? pausedStr : QString{}));
+    setWindowTitle(QCoreApplication::applicationName() + (paused ? pausedStr : QString{}));
+}
+
+void MainWindow::onSettings()
+{
+    auto dlg = new SettingsDialog(this);
+    dlg->exec();
 }
 
 

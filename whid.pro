@@ -34,7 +34,8 @@ SOURCES += \
     summarymodel.cpp \
     weekselectiondialog.cpp \
     nodedialog.cpp \
-    workdialog.cpp
+    workdialog.cpp \
+    settingsdialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -46,13 +47,15 @@ HEADERS += \
     summarymodel.h \
     weekselectiondialog.h \
     nodedialog.h \
-    workdialog.h
+    workdialog.h \
+    settingsdialog.h
 
 FORMS += \
         mainwindow.ui \
     weekselectiondialog.ui \
     nodedialog.ui \
-    workdialog.ui
+    workdialog.ui \
+    settingsdialog.ui
 
 RESOURCES += \
     resources.qrc

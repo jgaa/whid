@@ -3,36 +3,32 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QDebug>
+#include <QSettings>
 
 #include "database.h"
 
 Database::Database()
 {
     const QString DRIVER("QSQLITE");
-    auto data_path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QSettings settings;
 
-    if (!QDir(data_path).exists()) {
-        QDir().mkdir(data_path);
-    }
-#ifdef QT_DEBUG
-    data_path += "/whid-debug.db";
-#else
-    data_path += "/whid.db";
-#endif
-    const bool new_database = QFileInfo(data_path).isFile() == false;
+    const auto dbpath = settings.value("dbpath").toString();
+    const bool new_database = !QFileInfo(dbpath).isFile();
 
     if(!QSqlDatabase::isDriverAvailable(DRIVER)) {
         throw std::runtime_error("Missing sqlite3 support");
     }
 
     db_ = QSqlDatabase::addDatabase(DRIVER);
-    db_.setDatabaseName(data_path);
+    db_.setDatabaseName(dbpath);
 
     if (!db_.open()) {
+        qWarning() << "Failed to open database: " << dbpath;
         throw std::runtime_error("Failed to open database");
     }
 
     if (new_database) {
+        qInfo() << "Creating new database at location: " << dbpath;
         createDatabase();
     }
 
