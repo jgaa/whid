@@ -35,10 +35,7 @@ private slots:
     void workListContextMenu(const QPoint &point);
     void onTreeSelectionChanged(const QItemSelection& selected,
                                 const QItemSelection & deselected);
-    void onWorkListSelectionChanged(const QItemSelection& selected,
-                                    const QItemSelection & deselected);
     void onStartNewButtonClicked();
-    void onCurrentWorkListActivated(const QModelIndex &index);
     void onDoneButtonClicked();
     void onSuspendButtonClicked();
     void onResumeButtonClicked();
@@ -46,6 +43,7 @@ private slots:
     void onSummarySelectionChanged(int index);
     void onSummaryOptionsClicked();
     void validateStartBtn();
+    void validateResumeDoneSuspendBtn();
     void setTimeUsedToday(int seconds);
 
 private:

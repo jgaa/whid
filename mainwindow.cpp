@@ -108,17 +108,19 @@ void MainWindow::initialize()
     connect(ui->resumeButton, SIGNAL(released()), this, SLOT(onResumeButtonClicked()));
     connect(ui->doneButton, SIGNAL(released()), this, SLOT(onDoneButtonClicked()));
     connect(ui->currentWorkList, SIGNAL(activated(const QModelIndex &)),
-            this, SLOT(onCurrentWorkListActivated(const QModelIndex &)));
+            this, SLOT(validateResumeDoneSuspendBtn()));
     connect(currentWorkModel_.get(), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
             this, SLOT(validateStartBtn()));
-    connect(currentWorkModel_.get(), SIGNAL(columnsRemoved(const QModelIndex&, int, int)),
-            this, SLOT(validateStartBtn()));
-    connect(currentWorkModel_.get(), SIGNAL(modelReset()),
-            this, SLOT(validateStartBtn()));
+    connect(currentWorkModel_.get(), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
+            this, SLOT(validateResumeDoneSuspendBtn()));
+    connect(currentWorkModel_.get(), SIGNAL(rowsRemoved(const QModelIndex&, int, int)), this, SLOT(validateStartBtn()));
+    connect(currentWorkModel_.get(), SIGNAL(rowsRemoved(const QModelIndex&, int, int)), this, SLOT(validateResumeDoneSuspendBtn()));
+    connect(currentWorkModel_.get(), SIGNAL(modelReset()), this, SLOT(validateStartBtn()));
+    connect(currentWorkModel_.get(), SIGNAL(modelReset()), this, SLOT(validateResumeDoneSuspendBtn()));
     connect(ui->nodeTree->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)),
             this, SLOT(onTreeSelectionChanged(const QItemSelection&, const QItemSelection&)));
     connect(ui->workList->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)),
-            this, SLOT(onWorkListSelectionChanged(const QItemSelection&, const QItemSelection&)));
+            this, SLOT(validateResumeDoneSuspendBtn()));
     connect(currentWorkModel_.get(), SIGNAL(workDone(Work::ptr_t)),
             workModel_.get(), SLOT(addWork(Work::ptr_t)));
     connect(nodeModel_.get(), SIGNAL(modelReset()), this, SLOT(nodeModelReset()));
@@ -293,13 +295,6 @@ void MainWindow::onTreeSelectionChanged(const QItemSelection &, const QItemSelec
     validateStartBtn();
 }
 
-void MainWindow::onWorkListSelectionChanged(const QItemSelection &,
-                                            const QItemSelection &)
-{
-    const auto active = ui->currentWorkList->selectionModel()->currentIndex();
-    onCurrentWorkListActivated(active);
-}
-
 void MainWindow::onStartNewButtonClicked()
 {
     auto work = make_shared<Work>();
@@ -317,29 +312,8 @@ void MainWindow::onStartNewButtonClicked()
     ui->currentWorkList->selectRow(createdIx.row());
 
     auto ix = currentWorkModel_->index(createdIx.row(), CurrentWorkModel::HN_NAME, {});
-    onCurrentWorkListActivated(currentNodeIx);
     ui->currentWorkList->edit(ix);
-}
-
-void MainWindow::onCurrentWorkListActivated(const QModelIndex &index)
-{
-    const auto cw = currentWorkModel_->getCurrentWork(index);
-
-    if (cw) {
-        ui->doneButton->setEnabled(true);
-
-        if (cw->current_state == CurrentWork::ACTIVE) {
-            ui->resumeButton->setEnabled(false);
-            ui->suspendButton->setEnabled(true);
-        } else {
-            ui->resumeButton->setEnabled(true);
-            ui->suspendButton->setEnabled(false);
-        }
-    } else {
-        ui->resumeButton->setEnabled(false);
-        ui->doneButton->setEnabled(false);
-        ui->suspendButton->setEnabled(false);
-    }
+    validateResumeDoneSuspendBtn();
 }
 
 void MainWindow::onDoneButtonClicked()
@@ -456,6 +430,27 @@ void MainWindow::validateStartBtn()
     }
 
     ui->startNewButton->setEnabled(false);
+}
+
+void MainWindow::validateResumeDoneSuspendBtn()
+{
+    const auto cw = currentWorkModel_->getCurrentWork(ui->currentWorkList->selectionModel()->currentIndex());
+
+    if (cw && ui->currentWorkList->selectionModel()->selectedIndexes().size()) {
+        ui->doneButton->setEnabled(true);
+
+        if (cw->current_state == CurrentWork::ACTIVE) {
+            ui->resumeButton->setEnabled(false);
+            ui->suspendButton->setEnabled(true);
+        } else {
+            ui->resumeButton->setEnabled(true);
+            ui->suspendButton->setEnabled(false);
+        }
+    } else {
+        ui->resumeButton->setEnabled(false);
+        ui->doneButton->setEnabled(false);
+        ui->suspendButton->setEnabled(false);
+    }
 }
 
 void MainWindow::setTimeUsedToday(int seconds)
