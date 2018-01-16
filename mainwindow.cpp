@@ -373,7 +373,10 @@ void MainWindow::selectNode(const QModelIndex &index)
         ui->nodeTree->expand(index.parent());
         ui->nodeTree->selectionModel()->select(index,
             QItemSelectionModel::ClearAndSelect);
+        ui->nodeTree->setCurrentIndex(index);
+        ui->nodeTree->scrollTo(index);
         ui->nodeTree->edit(index);
+        validateStartBtn();
     }
 }
 
