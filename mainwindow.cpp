@@ -217,8 +217,6 @@ void MainWindow::currentWorkListContextMenu(const QPoint &point)
         if (isOneRow(ui->currentWorkList->selectionModel()->selectedIndexes())) {
             menu->addAction("Edit", [this, index, cw] {
                 auto dlg = new WorkDialog(this, index, cw->work, true);
-                connect(dlg, SIGNAL(dataChanged(const QModelIndex&, const Work::ptr_t&)),
-                        workModel_.get(), SLOT(updateWork(const QModelIndex&, const Work::ptr_t&)));
                 dlg->setAttribute( Qt::WA_DeleteOnClose );
                 dlg->exec();
 
