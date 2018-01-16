@@ -45,6 +45,7 @@ private slots:
     void validateStartBtn();
     void validateResumeDoneSuspendBtn();
     void setTimeUsedToday(int seconds);
+    void onPaused(bool paused);
 
 private:
     template <typename T>

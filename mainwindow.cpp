@@ -22,13 +22,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::initialize()
 {
-#ifdef QT_DEBUG
-    setWindowTitle("Whid (debug)");
-#else
-    setWindowTitle("Whid");
-#endif
     QIcon appicon(":res/icons/whid.svg");
     setWindowIcon(appicon);
+    onPaused(false);
 
     db_ = make_unique<Database>();
     nodeModel_ = make_unique<NodeModel>();
@@ -134,6 +130,8 @@ void MainWindow::initialize()
     connect(workModel_.get(), SIGNAL(workedToday(int)), this, SLOT(setTimeUsedToday(int)));
     connect(currentWorkModel_.get(), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
             workModel_.get(), SLOT(recalculateWorkToday()));
+    connect(ui->refreshSummaryButton, SIGNAL(clicked()), summaryModel_.get(), SLOT(dataChanged()));
+    connect(currentWorkModel_.get(), SIGNAL(paused(bool)), this, SLOT(onPaused(bool)));
 
     workModel_->recalculateWorkToday();
 }
@@ -457,6 +455,19 @@ void MainWindow::setTimeUsedToday(int seconds)
 {
     seconds += currentWorkModel_->getUsed();
     statusTimeUsedToday_->setText(toHourMin(seconds));
+}
+
+void MainWindow::onPaused(bool paused)
+{
+#ifdef QT_DEBUG
+    static const QString captionStr{"Whid (debug)"};
+#else
+    static const QString captionStr{"Whid"};
+#endif
+
+    static const QString pausedStr{" PAUSED"};
+
+    setWindowTitle(captionStr + (paused ? pausedStr : QString{}));
 }
 
 

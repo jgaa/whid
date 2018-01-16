@@ -32,6 +32,7 @@ bool CurrentWorkModel::removeRows(int row, int count, const QModelIndex &parent)
 
     endRemoveRows();
     emit dataChanged({}, {});
+    validatePaused();
     return true;
 }
 
@@ -114,6 +115,7 @@ QModelIndex CurrentWorkModel::addWork(Work::ptr_t work)
     beginInsertRows({}, 0, 0);
     work_.insert(work_.begin(), cw);
     endInsertRows();
+    validatePaused();
     return createIndex(0, 0, cw.get());
 }
 
@@ -126,17 +128,32 @@ void CurrentWorkModel::updateWork(const QModelIndex &ix, const Work::ptr_t &work
     work_.at(static_cast<size_t>(r))->work = work;
 
     emit dataChanged(startIx, endIx);
+    validatePaused();
 }
 
 void CurrentWorkModel::suspendActive()
 {
     if (!work_.empty()) {
-        if (work_[0]->current_state == CurrentWork::ACTIVE) {
+        if (!work_[0]->isPaused()) {
             work_[0]->startPause();
 
             const auto ix = createIndex(0,0);
             emit dataChanged(ix, ix);
         }
+        validatePaused();
+    }
+}
+
+bool CurrentWorkModel::isPaused() const
+{
+    return !work_.empty() && work_.at(0)->isPaused();
+}
+
+void CurrentWorkModel::validatePaused()
+{
+    if (paused_ != isPaused()) {
+        paused_ = !paused_;
+        emit paused(paused_);
     }
 }
 
@@ -170,6 +187,7 @@ bool CurrentWorkModel::setData(const QModelIndex &index, const QVariant &value, 
 
         if (result) {
             emit dataChanged(index, index);
+            validatePaused();
         }
 
         return result;
@@ -202,10 +220,11 @@ int CurrentWorkModel::getUsed() const
 void CurrentWorkModel::suspend(const QModelIndex &ix)
 {
     if (auto cw = getCurrentWork(ix)) {
-        if (cw->current_state == CurrentWork::ACTIVE) {
+        if (!cw->isPaused()) {
             cw->startPause();
             const auto chix = index(ix.row(), HN_FROM, {});
             emit dataChanged(chix, chix, {});
+            validatePaused();
         }
     }
 }
@@ -226,6 +245,7 @@ void CurrentWorkModel::resume(const QModelIndex &ix)
             }
             const auto chix = index(0, HN_FROM, {});
             emit dataChanged(chix, chix);
+            validatePaused();
         }
     }
 }
@@ -275,5 +295,7 @@ void CurrentWorkModel::done(const QModelIndex &ix)
         } else {
             emit dataChanged({}, {});
         }
+
+        validatePaused();
     }
 }

@@ -56,6 +56,10 @@ public:
     void setStartTime(const QDateTime& when) {
         work->start = when;
     }
+
+    bool isPaused() const {
+        return current_state == PAUSED;
+    }
 };
 
 
@@ -108,17 +112,20 @@ public slots:
     void suspend(const QModelIndex &index);
     void resume(const QModelIndex &index);
     void done(const QModelIndex &ix);
-
     void updateTime();
 
 signals:
     void workDone(Work::ptr_t);
+    void paused(bool);
 
 private:
     void suspendActive();
+    bool isPaused() const; // check the real state
+    void validatePaused();
 
     std::vector<std::shared_ptr<CurrentWork>> work_;    
     std::unique_ptr<QTimer> timer_;
+    bool paused_ = false;
 };
 
 #endif // CURRENTWORKMODEL_H
