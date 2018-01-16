@@ -425,6 +425,8 @@ void NodeModel::flushNode(Node &node)
     QSqlQuery query;
     QString sql, fields;
 
+    assert(node.getType() != Node::Type::ROOT);
+
     const bool do_update = node.id != 0;
 
     if (do_update) {
@@ -437,8 +439,7 @@ void NodeModel::flushNode(Node &node)
     }
 
     int parent_id = 0;
-    auto parent = node.getParent();
-    if (parent && (parent->getType() != Node::Type::ROOT)) {
+    if (auto parent = node.getParent()) {
         parent_id = parent->id;
     }
 
@@ -448,12 +449,7 @@ void NodeModel::flushNode(Node &node)
     query.bindValue(":descr", node.descr);
     query.bindValue(":active", node.active);
     query.bindValue(":charge", node.charge > 0 ? QVariant{node.charge} : QVariant::Int);
-
-    if (parent_id) {
-        query.bindValue(":parent", parent_id);
-    } else {
-        query.bindValue(":parent", QVariant::Int);
-    }
+    query.bindValue(":parent", parent_id);
 
     if (do_update) {
         query.bindValue(":id", node.id);
