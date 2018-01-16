@@ -51,6 +51,8 @@ private:
     void loadData();
     void loadWeek();
     void getDateSpan(QDate& firstday, QDate& lastday);
+    void atMidnight();
+    void schedulaAtMidnight();
 
     std::vector<QString> headers_;
     std::deque<std::vector<QVariant>> rows_;

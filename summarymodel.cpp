@@ -2,6 +2,7 @@
 #include "nodemodel.h"
 #include "utility.h"
 #include "assert.h"
+#include <functional>
 
 #include <QSqlQuery>
 #include <QDebug>
@@ -14,6 +15,7 @@ SummaryModel::SummaryModel(NodeModel &nm)
     : node_model_{nm}
 {
     loadData();
+    schedulaAtMidnight();
 }
 
 void SummaryModel::modeChanged(const SummaryModel::Mode mode)
@@ -209,4 +211,17 @@ void SummaryModel::getDateSpan(QDate &firstday, QDate &lastday)
         firstday = weekSelection;
         lastday = firstday.addDays(6);
     }
+}
+
+void SummaryModel::atMidnight()
+{
+    dataChanged();
+    schedulaAtMidnight();
+}
+
+void SummaryModel::schedulaAtMidnight()
+{
+    ::scheduleAtMidnight([this](){
+        atMidnight();
+    });
 }

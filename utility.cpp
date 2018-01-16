@@ -1,6 +1,11 @@
 
 #include "utility.h"
 
+#include <QAbstractEventDispatcher>
+#include <QDate>
+#include <QTimer>
+#include <QDebug>
+
 QString toHourMin(const int duration)
 {
     auto minutes = duration / 60;
@@ -48,4 +53,20 @@ bool isOneRow(const QModelIndexList &list)
     }
 
     return row >= 0;
+}
+
+void scheduleAtMidnight(std::function<void ()> func)
+{
+    const auto ms_one_day{24 * 60 * 60 * 1000};
+    const auto duration = ms_one_day - QTime::currentTime().msecsSinceStartOfDay();
+
+    auto timer = new QTimer(QAbstractEventDispatcher::instance());
+    timer->start(duration);
+    qDebug() << QDateTime::currentDateTime().toString()
+             << "scheduleAtMidnight: Scheduled in " << duration << "milliseconds";
+    QObject::connect(timer, &QTimer::timeout, [func{move(func)}, &timer]{
+        func();
+        timer->deleteLater();
+        qDebug() << QDateTime::currentDateTime().toString() << "scheduleAtMidnight: Processed event";
+    });
 }
