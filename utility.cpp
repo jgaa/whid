@@ -64,7 +64,7 @@ void scheduleAtMidnight(std::function<void ()> func)
     timer->start(duration);
     qDebug() << QDateTime::currentDateTime().toString()
              << "scheduleAtMidnight: Scheduled in " << duration << "milliseconds";
-    QObject::connect(timer, &QTimer::timeout, [func{move(func)}, &timer]{
+    QObject::connect(timer, &QTimer::timeout, [func{move(func)}, timer]{
         func();
         timer->deleteLater();
         qDebug() << QDateTime::currentDateTime().toString() << "scheduleAtMidnight: Processed event";

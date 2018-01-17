@@ -89,6 +89,8 @@ QVariant SummaryModel::headerData(int section, Qt::Orientation orientation, int 
 
 void SummaryModel::loadData()
 {
+    qDebug() << "SummaryModel::loadData()";
+
     headers_.clear();
     rows_.clear();
 
