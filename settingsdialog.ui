@@ -20,12 +20,12 @@
       <enum>QTabWidget::Triangular</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="tabsClosable">
       <bool>false</bool>
      </property>
-     <widget class="QWidget" name="generalPage" native="true">
+     <widget class="QWidget" name="generalPage">
       <attribute name="title">
        <string>General</string>
       </attribute>
@@ -49,39 +49,39 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QRadioButton" name="radioButton">
+         <widget class="QRadioButton" name="onQuitJustQuitOtion">
           <property name="text">
            <string>Just quit, forget current work</string>
           </property>
           <attribute name="buttonGroup">
-           <string notr="true">buttonGroup</string>
+           <string notr="true">onQuitStrategyGroup</string>
           </attribute>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radioButton_2">
+         <widget class="QRadioButton" name="onQuitkAskOption">
           <property name="text">
            <string>Ask if the user wants to save</string>
           </property>
           <attribute name="buttonGroup">
-           <string notr="true">buttonGroup</string>
+           <string notr="true">onQuitStrategyGroup</string>
           </attribute>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radioButton_3">
+         <widget class="QRadioButton" name="onQuitCommitOPtion">
           <property name="text">
            <string>Commit the open work-items</string>
           </property>
           <attribute name="buttonGroup">
-           <string notr="true">buttonGroup</string>
+           <string notr="true">onQuitStrategyGroup</string>
           </attribute>
          </widget>
         </item>
        </layout>
       </widget>
      </widget>
-     <widget class="QWidget" name="databasePage" native="true">
+     <widget class="QWidget" name="databasePage">
       <attribute name="title">
        <string>Database</string>
       </attribute>
@@ -131,7 +131,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QCheckBox" name="moveDatabase">
          <property name="text">
           <string>Move the existing database to the new path</string>
          </property>
@@ -205,6 +205,6 @@
   </connection>
  </connections>
  <buttongroups>
-  <buttongroup name="buttonGroup"/>
+  <buttongroup name="onQuitStrategyGroup"/>
  </buttongroups>
 </ui>

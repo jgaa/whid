@@ -1,22 +1,80 @@
 
+#include <assert.h>
+
 #include <QStandardPaths>
 #include <QFileInfo>
 #include <QDir>
 #include <QDebug>
 #include <QSettings>
+#include <QDir>
+#include <QMessageBox>
 
 #include "database.h"
+
+using namespace std;
 
 Database::Database()
 {
     const QString DRIVER("QSQLITE");
     QSettings settings;
 
+    const auto new_dbpath = settings.value("new-dbpath").toString();
+    if (!new_dbpath.isEmpty()) {
+        if (settings.value("new-dbpath-copy").toBool()) {
+            const auto old_dbpath = settings.value("dbpath").toString();
+
+            bool do_copy = true;
+            bool do_use_new = true;
+
+            if (QFileInfo::exists(new_dbpath)) {
+                QMessageBox msgBox;
+                msgBox.setIcon(QMessageBox::Warning);
+                msgBox.setText("I am about to change the database location from "
+                               + old_dbpath
+                               + " to " + new_dbpath
+                               + ". The new database does however already exist!");
+                msgBox.setInformativeText("Press YES to overwrite the existing database at the new location, "
+                                          "NO to change to the new location and use the existing database that is already there, "
+                                          "DISCARD to continue to use the old database at it's old location or "
+                                          "Cancel to exit the program without any changes.");
+                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No | QMessageBox::Discard | QMessageBox::Cancel);
+                msgBox.setDefaultButton(QMessageBox::Cancel);
+                switch(msgBox.exec()) {
+                    case QMessageBox::Yes:
+                        break;
+                    case QMessageBox::No:
+                        do_copy = false;
+                        break;
+                    case QMessageBox::Discard:
+                        do_copy = false;
+                        do_use_new = false;
+                        break;
+                    default:
+                        throw runtime_error("Database change aborted by user");
+                }
+            }
+
+            if (do_copy) {
+                assert(do_use_new);
+                qInfo() << "Copying database from " << old_dbpath << " to " << new_dbpath;
+                if (!QFile::copy(old_dbpath, new_dbpath)) {
+                    qWarning() << "Failed to the database from " << old_dbpath << " to " << new_dbpath;
+                }
+            }
+
+            if (do_use_new) {
+                settings.setValue("dbpath", new_dbpath);
+            }
+
+            settings.remove("new-dbpath");
+        }
+    }
+
     const auto dbpath = settings.value("dbpath").toString();
     const bool new_database = !QFileInfo(dbpath).isFile();
 
     if(!QSqlDatabase::isDriverAvailable(DRIVER)) {
-        throw std::runtime_error("Missing sqlite3 support");
+        throw runtime_error("Missing sqlite3 support");
     }
 
     db_ = QSqlDatabase::addDatabase(DRIVER);
@@ -24,7 +82,7 @@ Database::Database()
 
     if (!db_.open()) {
         qWarning() << "Failed to open database: " << dbpath;
-        throw std::runtime_error("Failed to open database");
+        throw runtime_error("Failed to open database");
     }
 
     if (new_database) {
@@ -34,7 +92,7 @@ Database::Database()
 
     QSqlQuery query("SELECT * FROM whid");
     if (!query.next()) {
-        throw std::runtime_error("Missing configuration record in database");
+        throw runtime_error("Missing configuration record in database");
     }
 
     const auto dbver = query.value(WT_VERSION).toInt();
@@ -66,10 +124,10 @@ void Database::createDatabase()
         query.prepare("INSERT INTO whid (version) VALUES (:version)");
         query.bindValue(":version", currentVersion);
         if(!query.exec()) {
-            throw std::runtime_error("Failed to initialize database");
+            throw runtime_error("Failed to initialize database");
         }
 
-    } catch(const std::exception&) {
+    } catch(const exception&) {
         db_.rollback();
         throw;
     }
@@ -82,7 +140,7 @@ void Database::exec(const char *sql)
     QSqlQuery query(db_);
     query.exec(sql);
     if (query.lastError().type() != QSqlError::NoError) {
-        throw std::runtime_error(std::string("SQL query failed: ") + query.lastError().text().toStdString());
+        throw runtime_error(string("SQL query failed: ") + query.lastError().text().toStdString());
     }
 }
 

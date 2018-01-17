@@ -17,6 +17,10 @@ public:
 
 private:
     Ui::SettingsDialog *ui;
+
+    // QDialog interface
+public slots:
+    void accept() override;
 };
 
 #endif // SETTINGSDIALOG_H
