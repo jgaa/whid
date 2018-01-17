@@ -21,6 +21,7 @@ private:
     // QDialog interface
 public slots:
     void accept() override;
+    void selectDbFile();
 };
 
 #endif // SETTINGSDIALOG_H

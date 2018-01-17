@@ -20,12 +20,10 @@ Database::Database()
 
     const auto new_dbpath = settings.value("new-dbpath").toString();
     if (!new_dbpath.isEmpty()) {
+        bool do_use_new = true;
         if (settings.value("new-dbpath-copy").toBool()) {
             const auto old_dbpath = settings.value("dbpath").toString();
-
             bool do_copy = true;
-            bool do_use_new = true;
-
             if (QFileInfo::exists(new_dbpath)) {
                 QMessageBox msgBox;
                 msgBox.setIcon(QMessageBox::Warning);
@@ -61,13 +59,13 @@ Database::Database()
                     qWarning() << "Failed to the database from " << old_dbpath << " to " << new_dbpath;
                 }
             }
-
-            if (do_use_new) {
-                settings.setValue("dbpath", new_dbpath);
-            }
-
-            settings.remove("new-dbpath");
         }
+
+        if (do_use_new) {
+            settings.setValue("dbpath", new_dbpath);
+        }
+
+        settings.remove("new-dbpath");
     }
 
     const auto dbpath = settings.value("dbpath").toString();

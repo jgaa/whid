@@ -4,6 +4,7 @@
 #include <QSettings>
 #include <QDebug>
 #include <QMessageBox>
+#include <QFileDialog>
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
     QDialog(parent),
@@ -27,6 +28,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     } else {
         ui->onQuitCommitOPtion->setChecked(true);
     }
+
+    connect(ui->dbSelectPathBtn, SIGNAL(clicked()), this, SLOT(selectDbFile()));
 }
 
 SettingsDialog::~SettingsDialog()
@@ -72,4 +75,18 @@ void SettingsDialog::accept()
     }
 
     QDialog::accept();
+}
+
+void SettingsDialog::selectDbFile()
+{
+    auto path = QFileDialog::getOpenFileName(this,
+                                             "Select Datatabase",
+                                             ui->dbPathEdit->text(),
+                                             "SQLite Files (*.db)",
+                                             Q_NULLPTR,
+                                             QFileDialog::DontConfirmOverwrite);
+
+    if (!path.isNull() && !path.isEmpty()) {
+        ui->dbPathEdit->setText(path);
+    }
 }
