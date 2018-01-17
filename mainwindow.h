@@ -51,6 +51,7 @@ private slots:
     void setTimeUsedToday(int seconds);
     void onPaused(bool paused);
     void onSettings();
+    void onAbout();
 
 private:
     template <typename T>

@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "version.h"
 #include <QApplication>
 #include <QDebug>
 #include <QDir>
@@ -47,6 +48,7 @@ int main(int argc, char *argv[])
 
 #ifdef QT_DEBUG
     a.setApplicationName("Whid-debug");
+    a.setApplicationVersion(WHID_VERSION);
 #else
     a.setApplicationName("Whid");
 #endif

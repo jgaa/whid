@@ -289,6 +289,7 @@
     </property>
     <addaction name="action_Settings"/>
     <addaction name="action_Quit"/>
+    <addaction name="action_About"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -312,6 +313,11 @@
   <action name="action_Quit">
    <property name="text">
     <string>&amp;Quit</string>
+   </property>
+  </action>
+  <action name="action_About">
+   <property name="text">
+    <string>&amp;About</string>
    </property>
   </action>
  </widget>

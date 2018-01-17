@@ -11,6 +11,7 @@
 #include "workdialog.h"
 #include "utility.h"
 #include "settingsdialog.h"
+#include "aboutdialog.h"
 
 using namespace std;
 
@@ -147,6 +148,7 @@ void MainWindow::initialize()
     connect(ui->action_Settings, SIGNAL(triggered()), this, SLOT(onSettings()));
     connect(this, SIGNAL(commitAllWork()), currentWorkModel_.get(), SLOT(commitAll()));
     connect(this, SIGNAL(workDone(const QModelIndex&, bool)), currentWorkModel_.get(), SLOT(done(const QModelIndex&, bool)));
+    connect(ui->action_About, SIGNAL(triggered()), this, SLOT(onAbout()));
 
     workModel_->recalculateWorkToday();
 }
@@ -494,7 +496,16 @@ void MainWindow::onPaused(bool paused)
 void MainWindow::onSettings()
 {
     auto dlg = new SettingsDialog(this);
+    dlg->setAttribute( Qt::WA_DeleteOnClose );
     dlg->exec();
+}
+
+void MainWindow::onAbout()
+{
+    auto dlg = new AboutDialog(this);
+    dlg->setAttribute( Qt::WA_DeleteOnClose );
+    dlg->exec();
+
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
