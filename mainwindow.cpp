@@ -1,6 +1,8 @@
 #include <QDebug>
 #include <QLineEdit>
 #include <QMessageBox>
+#include <QSettings>
+#include <QCloseEvent>
 #include <memory>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -136,6 +138,8 @@ void MainWindow::initialize()
     connect(ui->refreshSummaryButton, SIGNAL(clicked()), summaryModel_.get(), SLOT(dataChanged()));
     connect(currentWorkModel_.get(), SIGNAL(paused(bool)), this, SLOT(onPaused(bool)));
     connect(ui->action_Settings, SIGNAL(triggered()), this, SLOT(onSettings()));
+    connect(this, SIGNAL(commitAllWork()), currentWorkModel_.get(), SLOT(commitAll()));
+    connect(this, SIGNAL(workDone(const QModelIndex&, bool)), currentWorkModel_.get(), SLOT(done(const QModelIndex&, bool)));
 
     workModel_->recalculateWorkToday();
 }
@@ -320,7 +324,7 @@ void MainWindow::onStartNewButtonClicked()
 
 void MainWindow::onDoneButtonClicked()
 {
-    currentWorkModel_->done(ui->currentWorkList->currentIndex());
+    emit workDone(ui->currentWorkList->currentIndex());
 }
 
 void MainWindow::onSuspendButtonClicked()
@@ -421,6 +425,15 @@ void MainWindow::deleteFromWorkList(const QItemSelection& selection)
     workModel_->setEditStrategy(QSqlTableModel::OnFieldChange);
 }
 
+void MainWindow::commitAllWork()
+{
+    int items = currentWorkModel_->rowCount({});
+
+    while(--items >= 0) {
+        emit workDone(currentWorkModel_->index(items, 0, {}), false);
+    }
+}
+
 void MainWindow::validateStartBtn()
 {
     if (ui->nodeTree->selectionModel()->selectedIndexes().size() == 1) {
@@ -477,4 +490,35 @@ void MainWindow::onSettings()
     dlg->exec();
 }
 
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    if (currentWorkModel_->rowCount({}) == 0) {
+        return; // No active work
+    }
+
+    QSettings settings;
+    const auto quit_strategy = settings.value("quit-strategy", "commit").toString();
+
+    if (quit_strategy == "quit") {
+        qWarning() << "Quitting withiout saving active work items";
+    } else if (quit_strategy == "ask") {
+        switch(QMessageBox::question(this,
+            "Unsaved work",
+            "You have active work-item(s), please choose what to do",
+            QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel)) {
+
+            case QMessageBox::Save:
+                commitAllWork();
+                break;
+            case QMessageBox::Cancel:
+                event->ignore();
+                break;
+            default:
+                qWarning() << "Quitting withiout saving active work items";
+        }
+
+    } else {
+        commitAllWork();
+    }
+}
 

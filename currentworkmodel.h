@@ -111,7 +111,7 @@ public slots:
     void updateWork(const QModelIndex& ix, const Work::ptr_t& work);
     void suspend(const QModelIndex &index);
     void resume(const QModelIndex &index);
-    void done(const QModelIndex &ix);
+    void done(const QModelIndex &ix, bool askIfNoWorkDone = true);
     void updateTime();
 
 signals:

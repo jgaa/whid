@@ -29,6 +29,10 @@ public:
     void initialize();
     ~MainWindow();
 
+signals:
+    void workDone(const QModelIndex& ix, bool askIfNoTimeUsed = true);
+
+
 private slots:
     void nodeTreeContextMenu(const QPoint &point);
     void currentWorkListContextMenu(const QPoint &point);
@@ -79,6 +83,7 @@ private:
 
     void selectNode(const QModelIndex& index);
     void deleteFromWorkList(const QItemSelection& selection);
+    void commitAllWork();
 
     Ui::MainWindow *ui;
     std::unique_ptr<Database> db_ = nullptr;
@@ -91,6 +96,10 @@ private:
     QLineEdit *statusTimeUsedToday_ = {};
 
     QTableView *workList_ = {};
+
+    // QWidget interface
+protected:
+    void closeEvent(QCloseEvent *event) override;
 };
 
 #endif // MAINWINDOW_H

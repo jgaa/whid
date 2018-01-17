@@ -250,12 +250,12 @@ void CurrentWorkModel::resume(const QModelIndex &ix)
     }
 }
 
-void CurrentWorkModel::done(const QModelIndex &ix)
+void CurrentWorkModel::done(const QModelIndex &ix, bool askIfNoWorkDone)
 {
     if (auto cw =  getCurrentWork(ix)) {
         bool do_save = true;
 
-        if (cw->getWorkedDuration() < 60) {
+        if (askIfNoWorkDone && (cw->getWorkedDuration() < 60)) {
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Question);
             msgBox.setText("The work-item contains less than 1 minute work-time.");

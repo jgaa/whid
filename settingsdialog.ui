@@ -16,11 +16,14 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QTabWidget" name="tabWidget">
+     <property name="tabPosition">
+      <enum>QTabWidget::North</enum>
+     </property>
      <property name="tabShape">
-      <enum>QTabWidget::Triangular</enum>
+      <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="tabsClosable">
       <bool>false</bool>
@@ -89,7 +92,9 @@
        <item>
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>Changes to the database-path will take effect when the program is re-started.</string>
+          <string>WHID use a database-engine called SQLite. The database is contained in a single file. You can specify where whid will keep this file.
+
+Changes to the database-path will take effect when the program is re-started.</string>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
