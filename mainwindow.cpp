@@ -29,6 +29,13 @@ void MainWindow::initialize()
     setWindowIcon(appicon);
     onPaused(false);
 
+    QSettings settings;
+
+    if (settings.value("restore-window-state", true).toBool()) {
+        restoreGeometry(settings.value("windowGeometry").toByteArray());
+        restoreState(settings.value("windowState").toByteArray());
+    }
+
     ui->mainToolBar->setVisible(false);
 
     db_ = make_unique<Database>();
@@ -492,33 +499,34 @@ void MainWindow::onSettings()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    if (currentWorkModel_->rowCount({}) == 0) {
-        return; // No active work
-    }
-
     QSettings settings;
-    const auto quit_strategy = settings.value("quit-strategy", "commit").toString();
+    if (currentWorkModel_->rowCount({}) > 0) {
+        const auto quit_strategy = settings.value("quit-strategy", "commit").toString();
 
-    if (quit_strategy == "quit") {
-        qWarning() << "Quitting withiout saving active work items";
-    } else if (quit_strategy == "ask") {
-        switch(QMessageBox::question(this,
-            "Unsaved work",
-            "You have active work-item(s), please choose what to do",
-            QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel)) {
+        if (quit_strategy == "quit") {
+            qWarning() << "Quitting withiout saving active work items";
+        } else if (quit_strategy == "ask") {
+            switch(QMessageBox::question(this,
+                "Unsaved work",
+                "You have active work-item(s), please choose what to do",
+                QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel)) {
 
-            case QMessageBox::Save:
-                commitAllWork();
-                break;
-            case QMessageBox::Cancel:
-                event->ignore();
-                break;
-            default:
-                qWarning() << "Quitting withiout saving active work items";
+                case QMessageBox::Save:
+                    commitAllWork();
+                    break;
+                case QMessageBox::Cancel:
+                    event->ignore();
+                    return;
+                default:
+                    qWarning() << "Quitting withiout saving active work items";
+            }
+
+        } else {
+            commitAllWork();
         }
-
-    } else {
-        commitAllWork();
     }
+
+    settings.setValue("windowGeometry", saveGeometry());
+    settings.setValue("windowState", saveState());
 }
 

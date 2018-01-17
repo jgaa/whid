@@ -30,6 +30,10 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     }
 
     connect(ui->dbSelectPathBtn, SIGNAL(clicked()), this, SLOT(selectDbFile()));
+
+    ui->saveWindowState->setCheckState(
+                settings.value("restore-window-state", true).toBool()
+                ? Qt::Checked : Qt::Unchecked);
 }
 
 SettingsDialog::~SettingsDialog()
@@ -64,6 +68,8 @@ void SettingsDialog::accept()
     }
 
     settings.setValue("quit-strategy", quit_strategy);
+    settings.setValue("restore-window-state",
+                      ui->saveWindowState->checkState() == Qt::Checked);
 
     if (must_restart) {
         QMessageBox msgBox(this);
