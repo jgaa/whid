@@ -12,12 +12,18 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = whid
 TEMPLATE = app
-VERSION = 2.0.0.1
+
+QMAKE_TARGET_COMPANY = The Last Viking LTD
+QMAKE_TARGET_PRODUCT = whid
+QMAKE_TARGET_DESCRIPTION = Time Tracker for Independent Contractors and Freelancers
+QMAKE_TARGET_COPYRIGHT = Copyright (c) 2007 - 2018 by Jarle (jgaa) Aase
+
+VERSION = 2.0.0.10
 
 macx {
     ICON = res/icons/whid.icns
 } win32 {
-    ICON = res/icons/whid.ico
+    RC_ICONS = res/icons/whid.ico
 } unix:!macx {
     ICON = res/icons/whid.svg
 }
@@ -76,4 +82,6 @@ RESOURCES += \
     resources.qrc
 
 DISTFILES += \
-    scripts/package-macos.sh
+    scripts/package-macos.sh \
+    scripts/package-macos.sh \
+    scripts/package-windows.bat

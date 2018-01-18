@@ -41,14 +41,12 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
 
-    a.setApplicationVersion(WHID_VERSION);
-
     a.setOrganizationName("TheLastViking");
     a.setOrganizationDomain("lastviking.eu");
 
 #ifdef QT_DEBUG
     a.setApplicationName("Whid-debug");
-    a.setApplicationVersion(WHID_VERSION);
+    //a.setApplicationVersion(WHID_VERSION);
 #else
     a.setApplicationName("Whid");
 #endif
