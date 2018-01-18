@@ -26,42 +26,42 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-    database.cpp \
-    nodemodel.cpp \
-    currentworkmodel.cpp \
-    workmodel.cpp \
-    utility.cpp \
-    summarymodel.cpp \
-    weekselectiondialog.cpp \
-    nodedialog.cpp \
-    workdialog.cpp \
-    settingsdialog.cpp \
-    aboutdialog.cpp
+        src/main.cpp \
+        src/mainwindow.cpp \
+        src/database.cpp \
+        src/nodemodel.cpp \
+        src/currentworkmodel.cpp \
+        src/workmodel.cpp \
+        src/utility.cpp \
+        src/summarymodel.cpp \
+        src/weekselectiondialog.cpp \
+        src/nodedialog.cpp \
+        src/workdialog.cpp \
+        src/settingsdialog.cpp \
+        src/aboutdialog.cpp
 
 HEADERS += \
-        mainwindow.h \
-    database.h \
-    nodemodel.h \
-    currentworkmodel.h \
-    workmodel.h \
-    utility.h \
-    summarymodel.h \
-    weekselectiondialog.h \
-    nodedialog.h \
-    workdialog.h \
-    settingsdialog.h \
-    aboutdialog.h \
-    version.h
+        src/mainwindow.h \
+        src/database.h \
+        src/nodemodel.h \
+        src/currentworkmodel.h \
+        src/workmodel.h \
+        src/utility.h \
+        src/summarymodel.h \
+        src/weekselectiondialog.h \
+        src/nodedialog.h \
+        src/workdialog.h \
+        src/settingsdialog.h \
+        src/aboutdialog.h \
+        src/version.h
 
 FORMS += \
-        mainwindow.ui \
-    weekselectiondialog.ui \
-    nodedialog.ui \
-    workdialog.ui \
-    settingsdialog.ui \
-    aboutdialog.ui
+        ui/mainwindow.ui \
+        ui/weekselectiondialog.ui \
+        ui/nodedialog.ui \
+        ui/workdialog.ui \
+        ui/settingsdialog.ui \
+        ui/aboutdialog.ui
 
 RESOURCES += \
     resources.qrc
