@@ -1,2 +1,4 @@
 *.user
 .directory
+.DS_Store
+

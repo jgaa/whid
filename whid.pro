@@ -12,6 +12,15 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = whid
 TEMPLATE = app
+VERSION = 2.0.0.1
+
+macx {
+    ICON = res/icons/whid.icns
+} win32 {
+    ICON = res/icons/whid.ico
+} unix:!macx {
+    ICON = res/icons/whid.svg
+}
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -65,3 +74,6 @@ FORMS += \
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES += \
+    scripts/package-macos.sh
