@@ -146,7 +146,6 @@ void MainWindow::initialize()
     connect(ui->refreshSummaryButton, SIGNAL(clicked()), summaryModel_.get(), SLOT(dataChanged()));
     connect(currentWorkModel_.get(), SIGNAL(paused(bool)), this, SLOT(onPaused(bool)));
     connect(ui->action_Settings, SIGNAL(triggered()), this, SLOT(onSettings()));
-    connect(this, SIGNAL(commitAllWork()), currentWorkModel_.get(), SLOT(commitAll()));
     connect(this, SIGNAL(workDone(const QModelIndex&, bool)), currentWorkModel_.get(), SLOT(done(const QModelIndex&, bool)));
     connect(ui->action_About, SIGNAL(triggered()), this, SLOT(onAbout()));
 

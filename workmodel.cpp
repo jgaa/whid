@@ -27,6 +27,8 @@ WorkModel::WorkModel(NodeModel& nm)
                          this, SLOT(recalculateWorkToday()));
     connect(this, SIGNAL(modelReset()),
                          this, SLOT(recalculateWorkToday()));
+
+    schedulaAtMidnight();
 }
 
 Work::ptr_t WorkModel::getWork(const QModelIndex &ix) const
@@ -359,4 +361,17 @@ std::shared_ptr<Node> WorkModel::getNode(const QModelIndex &ix) const
     auto nix = index(ix.row(), nodeCol, {});
     const auto node_id = QSqlTableModel::data(nix, Qt::DisplayRole).toInt();
     return nodeModel_.getNodeFromId(node_id);
+}
+
+void WorkModel::atMidnight()
+{
+    recalculateWorkToday();
+    schedulaAtMidnight();
+}
+
+void WorkModel::schedulaAtMidnight()
+{
+    ::scheduleAtMidnight([this](){
+        atMidnight();
+    });
 }

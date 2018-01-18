@@ -77,6 +77,9 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
 private:
+    void atMidnight();
+    void schedulaAtMidnight();
+
     std::shared_ptr<Node> getNode(const QModelIndex& id) const;
     std::vector<int> columnMapping_; // Own to data-model
     NodeModel& nodeModel_;
