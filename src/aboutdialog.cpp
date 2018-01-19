@@ -7,7 +7,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui(new Ui::AboutDialog)
 {
     ui->setupUi(this);
-    ui->version->setText(QString("Version ") + QCoreApplication::applicationVersion());
+    ui->version->setText(QString("Version ") + WHID_VERSION);
     ui->icon->setPixmap(QIcon(":res/icons/whid.svg").pixmap({ui->icon->width(), ui->icon->height()}));
 
     connect(ui->okButton, SIGNAL(clicked()), this, SLOT(close()));
