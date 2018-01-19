@@ -73,6 +73,7 @@ void MainWindow::initialize()
 
     ui->summaryView->setModel(summaryModel_.get());
     ui->summaryView->setColumnWidth(0, 180);
+    ui->summaryView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
 
     // Prevent resize of the main window to resize the node-tree horizontally.
     ui->topHorizontalSplitter->setStretchFactor(0,0);
@@ -481,6 +482,7 @@ void MainWindow::validateResumeDoneSuspendBtn()
 
 void MainWindow::setTimeUsedToday(int seconds)
 {
+    qDebug() << "Updated used today";
     seconds += currentWorkModel_->getUsed();
     statusTimeUsedToday_->setText(toHourMin(seconds));
 }

@@ -93,6 +93,12 @@ public:
         return false;
     }
 
+    QString getPath() const {
+        QString path;
+        getPath(path);
+        return path;
+    }
+
     void getPath(QString& path) const {
         if (auto parent = parent_.lock()) {
             parent->getPath(path);

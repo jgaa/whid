@@ -59,11 +59,26 @@ QVariant SummaryModel::data(const QModelIndex &index, int role) const
 {
     if (index.isValid()) {
         if (role == Qt::DisplayRole) {
-            const auto value = rows_.at(static_cast<size_t>(index.row())).at(static_cast<size_t>(index.column()));
-            if (value.type() == QVariant::Int) {
-                return toHourMin(value.toInt());
+            auto& row = rows_.at(static_cast<size_t>(index.row()));
+            if (index.column() == 0) {
+                if (auto node = row->node.lock()) {
+                    return node->getPath();
+                }
+                return row->name;
+            } else {
+                const auto value = row->cols.at(static_cast<size_t>(index.column() -1));
+                if (value.type() == QVariant::Int) {
+                    return toHourMin(value.toInt());
+                }
+                return value;
             }
-            return value;
+        }
+
+        if (role == Qt::DecorationRole && index.column() == 0) {
+            auto& row = rows_.at(static_cast<size_t>(index.row()));
+            if (auto node = row->node.lock()) {
+                return node->getIcon({16, 16});
+            }
         }
 
         if (role == Qt::FontRole) {
@@ -109,7 +124,7 @@ void SummaryModel::loadWeek()
         F_MINUTES,
         F_DAY
     };
-    headers_ = {"Task", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Sum"};
+    headers_ = {"What", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Sum"};
 
     array<int, 8> summary{};
 
@@ -142,7 +157,7 @@ void SummaryModel::loadWeek()
         return;
     }
 
-    map<int, vector<QVariant>> nodes;
+    map<int, std::unique_ptr<Row>> nodes;
 
     while(query.next()) {
 
@@ -155,36 +170,38 @@ void SummaryModel::loadWeek()
 
         // Make sure the row contains one entry for each day.
         auto& row = nodes[node_id];
-        if (row.size() < headers_.size()) {
-            // new node
-            row.resize(headers_.size());
-            row[0] = query.value(F_ORIGIN).toString();
+        if (!row) {
+            if (auto node = node_model_.getNodeFromId(query.value(F_NODE).toInt())) {
+                row = make_unique<Row>();
+                row->name = node->getPath();
+                row->cols.resize(summary.size());
+                row->node = node;
+            } else {
+                qWarning() << "Failed to resolve node# " << query.value(F_NODE).toInt();
+                continue;
+            }
         }
 
         const auto minutes = query.value(F_MINUTES).toInt();
-        row[day + 1] = minutes;
-        row[headers_.size() -1] = row[headers_.size() -1].toInt() + minutes;
+        row->cols[day] = minutes;
+        row->cols[summary.size() -1] = row->cols[summary.size() -1].toInt() + minutes;
         summary[day] += minutes;
         summary[headers_.size() -2] += minutes;
     }
 
-    for(auto it: nodes) {
+    for(auto& it: nodes) {
         rows_.push_back(move(it.second));
     }
 
     std::sort(rows_.begin(), rows_.end(), [](const auto &left, const auto& right) {
-       return left[0] < right[1];
+       return left->name < right->name;
     });
 
     // Insert summary at the end
-    rows_.push_back({});
-    rows_.back().push_back({}); // node name col
-    for(const auto v : summary) {
-        if (v) {
-            rows_.back().push_back(v);
-        } else {
-            rows_.back().push_back({});
-        }
+    rows_.push_back(make_unique<Row>());
+    rows_.back()->name = "Total";
+    for(const auto& v : summary) {
+        rows_.back()->cols.push_back(v ? QVariant{v} : QVariant{});
     }
 }
 
