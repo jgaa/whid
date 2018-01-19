@@ -216,7 +216,7 @@ void MainWindow::nodeTreeContextMenu(const QPoint &point)
 //    }
 
     menu->addAction(ui->actionNodeTreeNew_Folder);
-    menu->addAction(ui->actionNodeTreeViewNew_Customer);
+    menu->addAction(ui->actionNodeTreeNew_Customer);
     menu->addAction(ui->actionNodeTreeNew_Project);
     menu->addAction(ui->actionNodeTreeNew_Task);
 
@@ -541,7 +541,7 @@ void MainWindow::setActionStatesForTree()
         && (!node || node->getType() != Node::Type::TASK);
 
     ui->actionNodeTreeNew_Folder->setEnabled(enable_fcp);
-    ui->actionNodeTreeViewNew_Customer->setEnabled(enable_fcp);
+    ui->actionNodeTreeNew_Customer->setEnabled(enable_fcp);
     ui->actionNodeTreeNew_Project->setEnabled(enable_fcp);
     ui->actionNodeTreeNew_Task->setEnabled(enable_task);
 
@@ -591,15 +591,6 @@ void MainWindow::on_actionNodeTreeNew_Folder_triggered()
     }
 }
 
-void MainWindow::on_actionNodeTreeViewNew_Customer_triggered()
-{
-    int count = {};
-    auto ix = getCurrentSelectedNode(&count);
-    if (count <= 1) {
-        selectNode(addCustomer(ix));
-    }
-}
-
 void MainWindow::on_actionNodeTreeNew_Project_triggered()
 {
     int count = {};
@@ -614,5 +605,14 @@ void MainWindow::on_actionNodeTreeNew_Task_triggered()
     auto ix = getCurrentSelectedNode();
     if (ix.isValid()) {
         selectNode(addTask(ix));
+    }
+}
+
+void MainWindow::on_actionNodeTreeNew_Customer_triggered()
+{
+    int count = {};
+    auto ix = getCurrentSelectedNode(&count);
+    if (count <= 1) {
+        selectNode(addCustomer(ix));
     }
 }

@@ -53,12 +53,9 @@ private slots:
     void setActionStatesForTree();
 
     void on_actionNodeTreeNew_Folder_triggered();
-
-    void on_actionNodeTreeViewNew_Customer_triggered();
-
     void on_actionNodeTreeNew_Project_triggered();
-
     void on_actionNodeTreeNew_Task_triggered();
+    void on_actionNodeTreeNew_Customer_triggered();
 
 private:
     template <typename T>

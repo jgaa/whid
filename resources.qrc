@@ -19,5 +19,9 @@
         <file>res/icons/invoiced.svg</file>
         <file>res/icons/whid.svg</file>
         <file>res/icons/refresh.svg</file>
+        <file>res/icons/new_task.svg</file>
+        <file>res/icons/new_project.svg</file>
+        <file>res/icons/new_folder.svg</file>
+        <file>res/icons/new_customer.svg</file>
     </qresource>
 </RCC>

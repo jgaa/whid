@@ -296,7 +296,7 @@
      <string>&amp;Nodes</string>
     </property>
     <addaction name="actionNodeTreeNew_Folder"/>
-    <addaction name="actionNodeTreeViewNew_Customer"/>
+    <addaction name="actionNodeTreeNew_Customer"/>
     <addaction name="actionNodeTreeNew_Project"/>
     <addaction name="actionNodeTreeNew_Task"/>
    </widget>
@@ -320,7 +320,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionNodeTreeNew_Folder"/>
-   <addaction name="actionNodeTreeViewNew_Customer"/>
+   <addaction name="actionNodeTreeNew_Customer"/>
    <addaction name="actionNodeTreeNew_Project"/>
    <addaction name="actionNodeTreeNew_Task"/>
    <addaction name="separator"/>
@@ -343,9 +343,9 @@
   </action>
   <action name="actionNodeTreeNew_Folder">
    <property name="icon">
-    <iconset>
-     <normalon>:/res/icons/folder.svg</normalon>
-    </iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/icons/new_folder.svg</normaloff>
+     <normalon>:/res/icons/folder.svg</normalon>:/res/icons/new_folder.svg</iconset>
    </property>
    <property name="text">
     <string>New Folder</string>
@@ -354,11 +354,11 @@
     <string>Create a new Folder</string>
    </property>
   </action>
-  <action name="actionNodeTreeViewNew_Customer">
+  <action name="actionNodeTreeNew_Customer">
    <property name="icon">
-    <iconset>
-     <normalon>:/res/icons/customer.svg</normalon>
-    </iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/icons/new_customer.svg</normaloff>
+     <normalon>:/res/icons/customer.svg</normalon>:/res/icons/new_customer.svg</iconset>
    </property>
    <property name="text">
     <string>New Customer</string>
@@ -369,19 +369,22 @@
   </action>
   <action name="actionNodeTreeNew_Project">
    <property name="icon">
-    <iconset>
-     <normalon>:/res/icons/project.svg</normalon>
-    </iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/icons/new_project.svg</normaloff>
+     <normalon>:/res/icons/project.svg</normalon>:/res/icons/new_project.svg</iconset>
    </property>
    <property name="text">
     <string>New Project</string>
    </property>
+   <property name="toolTip">
+    <string>Create a new Project</string>
+   </property>
   </action>
   <action name="actionNodeTreeNew_Task">
    <property name="icon">
-    <iconset>
-     <normalon>:/res/icons/task.svg</normalon>
-    </iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/icons/new_task.svg</normaloff>
+     <normalon>:/res/icons/task.svg</normalon>:/res/icons/new_task.svg</iconset>
    </property>
    <property name="text">
     <string>New Task</string>

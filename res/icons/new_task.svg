@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="2"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   class="feather feather-edit"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="new_task.svg"
+   inkscape:version="0.92.1 r15371">
+  <metadata
+     id="metadata12">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="923"
+     inkscape:window-height="613"
+     id="namedview8"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:zoom="9.8333333"
+     inkscape:cx="12.762712"
+     inkscape:cy="12"
+     inkscape:window-x="2030"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg6">
+    <sodipodi:guide
+       position="16.677966,6"
+       orientation="0,1"
+       id="guide4493"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <g
+     id="g4491"
+     transform="matrix(0.77811977,0,0,0.77811977,0.22188023,0.22188942)">
+    <path
+       id="path2"
+       d="M 20,14.66 V 20 a 2,2 0 0 1 -2,2 H 4 A 2,2 0 0 1 2,20 V 6 A 2,2 0 0 1 4,4 h 5.34"
+       inkscape:connector-curvature="0" />
+    <polygon
+       id="polygon4"
+       points="8,16 8,12 18,2 22,6 12,16 " />
+  </g>
+  <g
+     style="display:inline;fill:#00ff00;stroke:#008000"
+     id="g4523"
+     transform="translate(-28.79156,38.733864)">
+    <line
+       id="line4499"
+       y2="-16.005051"
+       x2="48.520374"
+       y1="-22.005051"
+       x1="48.520374"
+       style="fill:#00ff00;stroke:#008000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" />
+    <line
+       id="line4501"
+       y2="-19.005051"
+       x2="51.520374"
+       y1="-19.005051"
+       x1="45.520374"
+       style="fill:#00ff00;stroke:#008000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" />
+  </g>
+</svg>

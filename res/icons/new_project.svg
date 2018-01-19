@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="2"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   class="feather feather-folder"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="new_project.svg"
+   inkscape:version="0.92.1 r15371">
+  <metadata
+     id="metadata10">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="925"
+     inkscape:window-height="744"
+     id="namedview6"
+     showgrid="false"
+     inkscape:zoom="9.8333333"
+     inkscape:cx="12.561943"
+     inkscape:cy="12"
+     inkscape:window-x="2450"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <sodipodi:guide
+       position="1.9322034,6"
+       orientation="0,1"
+       id="guide4487"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="folder"
+     style="display:inline" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="clock"
+     style="display:inline">
+    <g
+       id="g4495"
+       transform="matrix(0.73955773,0,0,0.73955773,-0.11035702,0.86519806)">
+      <g
+         transform="translate(-0.10169495,1.3220339)"
+         id="g3711"
+         style="display:inline;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round">
+        <path
+           inkscape:connector-curvature="0"
+           d="m 22,19 a 2,2 0 0 1 -2,2 H 4 A 2,2 0 0 1 2,19 V 5 A 2,2 0 0 1 4,3 h 5 l 2,3 h 9 a 2,2 0 0 1 2,2 z"
+           id="path3700" />
+      </g>
+      <circle
+         id="circle3713"
+         r="6.8567028"
+         cy="16.474575"
+         cx="7.1186438"
+         style="fill:#ffffff;stroke:#000000;stroke-width:1.37134051;stroke-linecap:round;stroke-linejoin:round" />
+      <polyline
+         transform="matrix(0.68567026,0,0,0.68567026,-1.1093992,8.2465327)"
+         id="polyline3715"
+         points="12 6 12 12 15 15"
+         style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" />
+    </g>
+    <g
+       style="display:inline;fill:#00ff00;stroke:#008000"
+       id="g4523"
+       transform="translate(-28.689866,38.733865)">
+      <line
+         id="line4499"
+         y2="-16.005051"
+         x2="48.520374"
+         y1="-22.005051"
+         x1="48.520374"
+         style="fill:#00ff00;stroke:#008000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" />
+      <line
+         id="line4501"
+         y2="-19.005051"
+         x2="51.520374"
+         y1="-19.005051"
+         x1="45.520374"
+         style="fill:#00ff00;stroke:#008000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" />
+    </g>
+  </g>
+</svg>
