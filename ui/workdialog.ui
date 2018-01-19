@@ -52,7 +52,7 @@
             <string>Open</string>
            </property>
            <property name="icon">
-            <iconset resource="resources.qrc">
+            <iconset resource="../resources.qrc">
              <normaloff>:/res/icons/active.svg</normaloff>:/res/icons/active.svg</iconset>
            </property>
            <attribute name="buttonGroup">
@@ -66,7 +66,7 @@
             <string>Done</string>
            </property>
            <property name="icon">
-            <iconset resource="resources.qrc">
+            <iconset resource="../resources.qrc">
              <normaloff>:/res/icons/done.svg</normaloff>:/res/icons/done.svg</iconset>
            </property>
            <attribute name="buttonGroup">
@@ -80,7 +80,7 @@
             <string>Interrupted</string>
            </property>
            <property name="icon">
-            <iconset resource="resources.qrc">
+            <iconset resource="../resources.qrc">
              <normaloff>:/res/icons/interrupted.svg</normaloff>:/res/icons/interrupted.svg</iconset>
            </property>
            <attribute name="buttonGroup">
@@ -94,7 +94,7 @@
             <string>Held Back</string>
            </property>
            <property name="icon">
-            <iconset resource="resources.qrc">
+            <iconset resource="../resources.qrc">
              <normaloff>:/res/icons/heldback.svg</normaloff>:/res/icons/heldback.svg</iconset>
            </property>
            <attribute name="buttonGroup">
@@ -108,7 +108,7 @@
             <string>Free</string>
            </property>
            <property name="icon">
-            <iconset resource="resources.qrc">
+            <iconset resource="../resources.qrc">
              <normaloff>:/res/icons/free.svg</normaloff>:/res/icons/free.svg</iconset>
            </property>
            <attribute name="buttonGroup">
@@ -122,7 +122,7 @@
             <string>Approved</string>
            </property>
            <property name="icon">
-            <iconset resource="resources.qrc">
+            <iconset resource="../resources.qrc">
              <normaloff>:/res/icons/approved.svg</normaloff>:/res/icons/approved.svg</iconset>
            </property>
            <attribute name="buttonGroup">
@@ -136,7 +136,7 @@
             <string>Invoiced</string>
            </property>
            <property name="icon">
-            <iconset resource="resources.qrc">
+            <iconset resource="../resources.qrc">
              <normaloff>:/res/icons/invoiced.svg</normaloff>:/res/icons/invoiced.svg</iconset>
            </property>
            <attribute name="buttonGroup">
@@ -264,7 +264,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections>
   <connection>

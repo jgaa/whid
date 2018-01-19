@@ -22,7 +22,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="resources.qrc">:/res/icons/folder.svg</pixmap>
+        <pixmap resource="../resources.qrc">:/res/icons/folder.svg</pixmap>
        </property>
        <property name="scaledContents">
         <bool>false</bool>
@@ -81,7 +81,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections>
   <connection>

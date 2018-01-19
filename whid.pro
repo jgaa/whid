@@ -16,7 +16,7 @@ TEMPLATE = app
 QMAKE_TARGET_COMPANY = The Last Viking LTD
 QMAKE_TARGET_PRODUCT = whid
 QMAKE_TARGET_DESCRIPTION = Time Tracker for Independent Contractors and Freelancers
-QMAKE_TARGET_COPYRIGHT = Copyright (c) 2007 - 2018 by Jarle (jgaa) Aase
+QMAKE_TARGET_COPYRIGHT = Copyright (c) 1998 - 2018 by Jarle (jgaa) Aase
 
 VERSION = 2.0.0.10
 
