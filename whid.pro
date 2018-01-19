@@ -83,5 +83,4 @@ RESOURCES += \
 
 DISTFILES += \
     scripts/package-macos.sh \
-    scripts/package-macos.sh \
     scripts/package-windows.bat

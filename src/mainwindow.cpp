@@ -37,8 +37,6 @@ void MainWindow::initialize()
         restoreState(settings.value("windowState").toByteArray());
     }
 
-    ui->mainToolBar->setVisible(false);
-
     db_ = make_unique<Database>();
     nodeModel_ = make_unique<NodeModel>();
     currentWorkModel_ = make_unique<CurrentWorkModel>();
@@ -151,6 +149,7 @@ void MainWindow::initialize()
     connect(ui->action_About, SIGNAL(triggered()), this, SLOT(onAbout()));
 
     workModel_->recalculateWorkToday();
+    setActionStatesForTree();
 }
 
 MainWindow::~MainWindow()
@@ -174,9 +173,7 @@ void MainWindow::nodeTreeContextMenu(const QPoint &point)
         node = nodeModel_->getRootNode();
     }
 
-    QMenu *menu = new QMenu;
-
-    const auto type = node->getType();
+    QMenu *menu = new QMenu(this);
 
     if (node->getType() != Node::Type::ROOT) {
         menu->addAction("Edit", [this, index] {
@@ -196,27 +193,33 @@ void MainWindow::nodeTreeContextMenu(const QPoint &point)
         menu->addSeparator();
     }
 
-    if (type != Node::Type::TASK) {
-        menu->addAction("Add Folder", [this, index] {
-            selectNode(addFolder(index));
-        });
+//    if (type != Node::Type::TASK) {
+//        menu->addAction("Add Folder", [this, index] {
+//            selectNode(addFolder(index));
+//        });
 
-        menu->addAction("Add Project", [this, index] {
-            selectNode(addProject(index));
-        });
+//        menu->addAction("Add Project", [this, index] {
+//            selectNode(addProject(index));
+//        });
 
-        if (!node->hasType(Node::Type::CUSTOMER)) {
-            menu->addAction("Add Customer", [this, index] {
-                selectNode(addCustomer(index));
-            });
-        }
+//        if (!node->hasType(Node::Type::CUSTOMER)) {
+//            menu->addAction("Add Customer", [this, index] {
+//                selectNode(addCustomer(index));
+//            });
+//        }
 
-        if (type != Node::Type::ROOT) {
-            menu->addAction("Add Task", [this, index] {
-                selectNode(addTask(index));
-            });
-        }
-    }
+//        if (type != Node::Type::ROOT) {
+//            menu->addAction("Add Task", [this, index] {
+//                selectNode(addTask(index));
+//            });
+//        }
+//    }
+
+    menu->addAction(ui->actionNodeTreeNew_Folder);
+    menu->addAction(ui->actionNodeTreeViewNew_Customer);
+    menu->addAction(ui->actionNodeTreeNew_Project);
+    menu->addAction(ui->actionNodeTreeNew_Task);
+
 
     menu->exec(ui->nodeTree->mapToGlobal(point));
 }
@@ -308,6 +311,7 @@ void MainWindow::onTreeSelectionChanged(const QItemSelection &, const QItemSelec
     }
     workModel_->select();
     validateStartBtn();
+    setActionStatesForTree();
 }
 
 void MainWindow::onStartNewButtonClicked()
@@ -443,6 +447,21 @@ void MainWindow::commitAllWork()
     }
 }
 
+QModelIndex MainWindow::getCurrentSelectedNode(int *selectionCount) const
+{
+    auto selection = ui->nodeTree->selectionModel()->selectedIndexes();
+
+    if (selectionCount) {
+        *selectionCount = selection.size();
+    }
+
+    if (selection.size() == 1) {
+        return selection.first();
+    }
+
+    return {};
+}
+
 void MainWindow::validateStartBtn()
 {
     if (ui->nodeTree->selectionModel()->selectedIndexes().size() == 1) {
@@ -509,6 +528,26 @@ void MainWindow::onAbout()
 
 }
 
+void MainWindow::setActionStatesForTree()
+{
+    auto selection =  ui->nodeTree->selectionModel()->selectedIndexes();
+    const Node *node = nullptr;
+    if (selection.size() == 1) {
+        node = static_cast<const Node *>(selection.first().internalPointer());
+    }
+
+    bool enable_task = (node && node->getType() != Node::Type::TASK);
+    bool enable_fcp = (selection.size() <= 1)
+        && (!node || node->getType() != Node::Type::TASK);
+
+    ui->actionNodeTreeNew_Folder->setEnabled(enable_fcp);
+    ui->actionNodeTreeViewNew_Customer->setEnabled(enable_fcp);
+    ui->actionNodeTreeNew_Project->setEnabled(enable_fcp);
+    ui->actionNodeTreeNew_Task->setEnabled(enable_task);
+
+    // disable
+}
+
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     QSettings settings;
@@ -542,3 +581,38 @@ void MainWindow::closeEvent(QCloseEvent *event)
     settings.setValue("windowState", saveState());
 }
 
+
+void MainWindow::on_actionNodeTreeNew_Folder_triggered()
+{
+    int count = {};
+    auto ix = getCurrentSelectedNode(&count);
+    if (count <= 1) {
+        selectNode(addFolder(ix));
+    }
+}
+
+void MainWindow::on_actionNodeTreeViewNew_Customer_triggered()
+{
+    int count = {};
+    auto ix = getCurrentSelectedNode(&count);
+    if (count <= 1) {
+        selectNode(addCustomer(ix));
+    }
+}
+
+void MainWindow::on_actionNodeTreeNew_Project_triggered()
+{
+    int count = {};
+    auto ix = getCurrentSelectedNode(&count);
+    if (count <= 1) {
+        selectNode(addProject(ix));
+    }
+}
+
+void MainWindow::on_actionNodeTreeNew_Task_triggered()
+{
+    auto ix = getCurrentSelectedNode();
+    if (ix.isValid()) {
+        selectNode(addTask(ix));
+    }
+}

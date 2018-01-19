@@ -291,10 +291,26 @@
     <addaction name="action_Quit"/>
     <addaction name="action_About"/>
    </widget>
+   <widget class="QMenu" name="menuNodes">
+    <property name="title">
+     <string>&amp;Nodes</string>
+    </property>
+    <addaction name="actionNodeTreeNew_Folder"/>
+    <addaction name="actionNodeTreeViewNew_Customer"/>
+    <addaction name="actionNodeTreeNew_Project"/>
+    <addaction name="actionNodeTreeNew_Task"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuNodes"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="floatable">
     <bool>false</bool>
    </property>
    <attribute name="toolBarArea">
@@ -303,6 +319,11 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionNodeTreeNew_Folder"/>
+   <addaction name="actionNodeTreeViewNew_Customer"/>
+   <addaction name="actionNodeTreeNew_Project"/>
+   <addaction name="actionNodeTreeNew_Task"/>
+   <addaction name="separator"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="action_Settings">
@@ -318,6 +339,55 @@
   <action name="action_About">
    <property name="text">
     <string>&amp;About</string>
+   </property>
+  </action>
+  <action name="actionNodeTreeNew_Folder">
+   <property name="icon">
+    <iconset>
+     <normalon>:/res/icons/folder.svg</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>New Folder</string>
+   </property>
+   <property name="toolTip">
+    <string>Create a new Folder</string>
+   </property>
+  </action>
+  <action name="actionNodeTreeViewNew_Customer">
+   <property name="icon">
+    <iconset>
+     <normalon>:/res/icons/customer.svg</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>New Customer</string>
+   </property>
+   <property name="toolTip">
+    <string>Create a new Customer</string>
+   </property>
+  </action>
+  <action name="actionNodeTreeNew_Project">
+   <property name="icon">
+    <iconset>
+     <normalon>:/res/icons/project.svg</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>New Project</string>
+   </property>
+  </action>
+  <action name="actionNodeTreeNew_Task">
+   <property name="icon">
+    <iconset>
+     <normalon>:/res/icons/task.svg</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>New Task</string>
+   </property>
+   <property name="toolTip">
+    <string>Create a new Task</string>
    </property>
   </action>
  </widget>

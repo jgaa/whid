@@ -50,6 +50,15 @@ private slots:
     void onPaused(bool paused);
     void onSettings();
     void onAbout();
+    void setActionStatesForTree();
+
+    void on_actionNodeTreeNew_Folder_triggered();
+
+    void on_actionNodeTreeViewNew_Customer_triggered();
+
+    void on_actionNodeTreeNew_Project_triggered();
+
+    void on_actionNodeTreeNew_Task_triggered();
 
 private:
     template <typename T>
@@ -83,6 +92,9 @@ private:
     void selectNode(const QModelIndex& index);
     void deleteFromWorkList(const QItemSelection& selection);
     void commitAllWork();
+
+    // Returns the current selcted ode, only if there is wxactely one node actually selecetd.
+    QModelIndex getCurrentSelectedNode(int *selectionCount = nullptr) const;
 
     Ui::MainWindow *ui;
     std::unique_ptr<Database> db_ = nullptr;
