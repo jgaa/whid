@@ -34,6 +34,11 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     ui->saveWindowState->setCheckState(
                 settings.value("restore-window-state", true).toBool()
                 ? Qt::Checked : Qt::Unchecked);
+
+    ui->enableLoggingCheck->setCheckState(
+                settings.value("log-enabled", false).toBool()
+                ? Qt::Checked : Qt::Unchecked);
+    ui->logPathEdit->setText(settings.value("log-path", "whid.log").toString());
 }
 
 SettingsDialog::~SettingsDialog()
@@ -80,6 +85,14 @@ void SettingsDialog::accept()
             msgBox.exec();
     }
 
+    settings.setValue("restore-window-state",
+                      ui->saveWindowState->checkState() == Qt::Checked);
+
+    settings.setValue("log-enabled",
+                      ui->enableLoggingCheck->checkState() == Qt::Checked);
+
+    settings.value("log-path") = ui->logPathEdit->text();
+
     QDialog::accept();
 }
 
@@ -96,3 +109,18 @@ void SettingsDialog::selectDbFile()
         ui->dbPathEdit->setText(path);
     }
 }
+
+void SettingsDialog::on_actionSelect_Path_triggered()
+{
+    auto path = QFileDialog::getOpenFileName(this,
+                                             "Select Datatabase",
+                                             ui->logPathEdit->text(),
+                                             "SQLite Files (*.db)",
+                                             Q_NULLPTR,
+                                             QFileDialog::DontConfirmOverwrite);
+
+    if (!path.isNull() && !path.isEmpty()) {
+        ui->logPathEdit->setText(path);
+    }
+}
+

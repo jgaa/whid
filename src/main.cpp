@@ -21,18 +21,29 @@ void initSettings() {
 
             qInfo() << "First use - initializing settings.";
             settings.setValue("version", 1);
-
-            QString dbpath = data_path;
-#ifdef QT_DEBUG
-            dbpath += "/whid-debug.db";
-#else
-            dbpath += "/whid.db";
-#endif
-            settings.setValue("dbpath", dbpath);
-
         } break;
     default:
         qDebug() << "Settings are OK at version " << version;
+    }
+
+    if (settings.value("dbpath", "").toString().isEmpty()) {
+        QString dbpath = data_path;
+#ifdef QT_DEBUG
+        dbpath += "/whid-debug.db";
+#else
+        dbpath += "/whid.db";
+#endif
+        settings.setValue("dbpath", dbpath);
+    }
+
+    if (settings.value("log-path", "").toString().isEmpty()) {
+        QString logpath = data_path;
+#ifdef QT_DEBUG
+        logpath += "/whid-debug.log";
+#else
+        logpath += "/whid.log";
+#endif
+        settings.setValue("log-path", logpath);
     }
 }
 

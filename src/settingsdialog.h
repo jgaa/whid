@@ -22,6 +22,9 @@ private:
 public slots:
     void accept() override;
     void selectDbFile();
+private slots:
+    void on_actionSelect_Path_triggered();
+    void on_actionlogEnabled_triggered();
 };
 
 #endif // SETTINGSDIALOG_H
