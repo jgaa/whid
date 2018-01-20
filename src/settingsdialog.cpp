@@ -98,7 +98,7 @@ void SettingsDialog::accept()
 
 void SettingsDialog::selectDbFile()
 {
-    auto path = QFileDialog::getOpenFileName(this,
+    auto path = QFileDialog::getSaveFileName(this,
                                              "Select Datatabase",
                                              ui->dbPathEdit->text(),
                                              "SQLite Files (*.db)",
@@ -112,7 +112,7 @@ void SettingsDialog::selectDbFile()
 
 void SettingsDialog::on_actionSelect_Path_triggered()
 {
-    auto path = QFileDialog::getOpenFileName(this,
+    auto path = QFileDialog::getSaveFileName(this,
                                              "Select Datatabase",
                                              ui->logPathEdit->text(),
                                              "SQLite Files (*.db)",
