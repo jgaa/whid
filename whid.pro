@@ -53,7 +53,8 @@ SOURCES += \
         src/nodedialog.cpp \
         src/workdialog.cpp \
         src/settingsdialog.cpp \
-        src/aboutdialog.cpp
+        src/aboutdialog.cpp \
+        src/logging.cpp
 
 HEADERS += \
         src/mainwindow.h \
@@ -68,7 +69,8 @@ HEADERS += \
         src/workdialog.h \
         src/settingsdialog.h \
         src/aboutdialog.h \
-        src/version.h
+        src/version.h \
+        src/logging.h
 
 FORMS += \
         ui/mainwindow.ui \

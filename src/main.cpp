@@ -1,3 +1,5 @@
+
+#include "logging.h"
 #include "mainwindow.h"
 #include "version.h"
 #include <QApplication>
@@ -5,6 +7,8 @@
 #include <QDir>
 #include <QSettings>
 #include <QStandardPaths>
+
+using namespace std;
 
 void initSettings() {
 
@@ -47,6 +51,7 @@ void initSettings() {
     }
 }
 
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -57,12 +62,13 @@ int main(int argc, char *argv[])
 
 #ifdef QT_DEBUG
     a.setApplicationName("Whid-debug");
-    //a.setApplicationVersion(WHID_VERSION);
 #else
     a.setApplicationName("Whid");
 #endif
 
     initSettings();
+    Logging logger;
+    qInstallMessageHandler(Logging::logMessageHandler);
 
     try {
         w.initialize();

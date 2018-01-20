@@ -38,6 +38,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     ui->enableLoggingCheck->setCheckState(
                 settings.value("log-enabled", false).toBool()
                 ? Qt::Checked : Qt::Unchecked);
+    ui->logAppendCheck->setCheckState(
+                settings.value("log-append", false).toBool()
+                ? Qt::Checked : Qt::Unchecked);
     ui->logPathEdit->setText(settings.value("log-path", "whid.log").toString());
 }
 
@@ -90,6 +93,9 @@ void SettingsDialog::accept()
 
     settings.setValue("log-enabled",
                       ui->enableLoggingCheck->checkState() == Qt::Checked);
+
+    settings.setValue("log-append",
+                      ui->logAppendCheck->checkState() == Qt::Checked);
 
     settings.value("log-path") = ui->logPathEdit->text();
 
