@@ -40,6 +40,7 @@ and more useful than ever.
  - Reports time spent on selected items in the tree structure of tasks
  - Stores the data in SQLite
  - Based on 20 years of experience and two previous iterations desigbning and implementing time tracking applications
+ - It's free, contains no ads, does not track you, and stores your data on your local computer. (There is no cloud you know, it's just someone else's computer).
 
 ## Supported platforms
  - Linux (tested on Debian Stretch)
