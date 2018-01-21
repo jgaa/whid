@@ -23,5 +23,6 @@
         <file>res/icons/new_project.svg</file>
         <file>res/icons/new_folder.svg</file>
         <file>res/icons/new_customer.svg</file>
+        <file>res/icons/filter.svg</file>
     </qresource>
 </RCC>

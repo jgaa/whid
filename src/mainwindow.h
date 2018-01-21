@@ -29,6 +29,7 @@ public:
 
 signals:
     void workDone(const QModelIndex& ix, bool askIfNoTimeUsed = true);
+    void summaryNeedUpdate();
 
 
 private slots:
@@ -56,6 +57,8 @@ private slots:
     void on_actionNodeTreeNew_Project_triggered();
     void on_actionNodeTreeNew_Task_triggered();
     void on_actionNodeTreeNew_Customer_triggered();
+
+    void on_actionFilter_and_Group_on_Summary_triggered();
 
 private:
     template <typename T>

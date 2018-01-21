@@ -54,7 +54,8 @@ SOURCES += \
         src/workdialog.cpp \
         src/settingsdialog.cpp \
         src/aboutdialog.cpp \
-        src/logging.cpp
+        src/logging.cpp \
+    src/summaryfilterdialog.cpp
 
 HEADERS += \
         src/mainwindow.h \
@@ -70,7 +71,8 @@ HEADERS += \
         src/settingsdialog.h \
         src/aboutdialog.h \
         src/version.h \
-        src/logging.h
+        src/logging.h \
+    src/summaryfilterdialog.h
 
 FORMS += \
         ui/mainwindow.ui \
@@ -78,7 +80,8 @@ FORMS += \
         ui/nodedialog.ui \
         ui/workdialog.ui \
         ui/settingsdialog.ui \
-        ui/aboutdialog.ui
+        ui/aboutdialog.ui \
+    ui/summaryfilterdialog.ui
 
 RESOURCES += \
     resources.qrc

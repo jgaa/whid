@@ -12,6 +12,7 @@
 #include "utility.h"
 #include "settingsdialog.h"
 #include "aboutdialog.h"
+#include "summaryfilterdialog.h"
 
 using namespace std;
 
@@ -36,6 +37,10 @@ void MainWindow::initialize()
         restoreGeometry(settings.value("windowGeometry").toByteArray());
         restoreState(settings.value("windowState").toByteArray());
     }
+
+#ifndef QT_DEBUG
+    ui->refreshSummaryButton->setVisible(false);
+#endif
 
     db_ = make_unique<Database>();
     nodeModel_ = make_unique<NodeModel>();
@@ -147,6 +152,7 @@ void MainWindow::initialize()
     connect(ui->action_Settings, SIGNAL(triggered()), this, SLOT(onSettings()));
     connect(this, SIGNAL(workDone(const QModelIndex&, bool)), currentWorkModel_.get(), SLOT(done(const QModelIndex&, bool)));
     connect(ui->action_About, SIGNAL(triggered()), this, SLOT(onAbout()));
+    connect(this, SIGNAL(summaryNeedUpdate()), summaryModel_.get(), SLOT(dataChanged()));
 
     workModel_->recalculateWorkToday();
     setActionStatesForTree();
@@ -615,4 +621,12 @@ void MainWindow::on_actionNodeTreeNew_Customer_triggered()
     if (count <= 1) {
         selectNode(addCustomer(ix));
     }
+}
+
+void MainWindow::on_actionFilter_and_Group_on_Summary_triggered()
+{
+    auto dlg = new SummaryFilterDialog(this);
+    dlg->setAttribute( Qt::WA_DeleteOnClose );
+    dlg->exec();
+    emit summaryNeedUpdate();
 }

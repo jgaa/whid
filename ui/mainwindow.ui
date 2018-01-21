@@ -49,7 +49,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="workListTab">
          <attribute name="title">
@@ -107,6 +107,9 @@
                 <property name="enabled">
                  <bool>false</bool>
                 </property>
+                <property name="toolTip">
+                 <string>Select week</string>
+                </property>
                 <property name="text">
                  <string>...</string>
                 </property>
@@ -130,6 +133,21 @@
                 </property>
                 <property name="scaledContents">
                  <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="summaryFilterBtn">
+                <property name="toolTip">
+                 <string>Apply filter</string>
+                </property>
+                <property name="text">
+                 <string>...</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/res/icons/filter.svg</normalon>
+                 </iconset>
                 </property>
                </widget>
               </item>
@@ -393,6 +411,19 @@
     <string>Create a new Task</string>
    </property>
   </action>
+  <action name="actionFilter_and_Group_on_Summary">
+   <property name="icon">
+    <iconset>
+     <normalon>:/res/icons/filter.svg</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Filter and Group on Summary</string>
+   </property>
+   <property name="toolTip">
+    <string>Apply rules for the summary</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -412,6 +443,22 @@
     <hint type="destinationlabel">
      <x>349</x>
      <y>250</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>summaryFilterBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>actionFilter_and_Group_on_Summary</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>540</x>
+     <y>115</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
     </hint>
    </hints>
   </connection>

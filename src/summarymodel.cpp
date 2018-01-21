@@ -7,6 +7,7 @@
 #include <QSqlQuery>
 #include <QDebug>
 #include <QSqlError>
+#include <QSettings>
 
 using namespace std;
 
@@ -158,20 +159,32 @@ void SummaryModel::loadWeek()
     }
 
     map<int, std::unique_ptr<Row>> nodes;
+    map<int, Node::ptr_t> node_cache;
+
+    QSettings settings;
+    const bool hide_tasks = settings.value("summary-hide-tasks", true).toBool();
 
     while(query.next()) {
 
         // Calculate column
         const auto date = query.value(F_DAY).toDate();
-        const auto node_id = query.value(F_NODE).toInt();
+        auto node_id = query.value(F_NODE).toInt();
         const auto day = static_cast<size_t>(date.toJulianDay()
                                              - weekSelection.toJulianDay());
         assert(day < summary.size());
 
+        Node::ptr_t node = node_model_.getNodeFromId(node_id);
+
+        if (hide_tasks && node->getType() == Node::Type::TASK) {
+            node = node->getParent()->shared_from_this();
+            assert(node);
+            node_id = node->id;
+        }
+
         // Make sure the row contains one entry for each day.
         auto& row = nodes[node_id];
         if (!row) {
-            if (auto node = node_model_.getNodeFromId(query.value(F_NODE).toInt())) {
+            if (node) {
                 row = make_unique<Row>();
                 row->name = node->getPath();
                 row->cols.resize(summary.size());
@@ -183,7 +196,7 @@ void SummaryModel::loadWeek()
         }
 
         const auto minutes = query.value(F_MINUTES).toInt();
-        row->cols[day] = minutes;
+        row->cols[day] = row->cols[day].toInt() + minutes;
         row->cols[summary.size() -1] = row->cols[summary.size() -1].toInt() + minutes;
         summary[day] += minutes;
         summary[headers_.size() -2] += minutes;
