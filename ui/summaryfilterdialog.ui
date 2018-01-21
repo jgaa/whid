@@ -42,6 +42,19 @@
     <string>Hide tasks</string>
    </property>
   </widget>
+  <widget class="QCheckBox" name="onlyCustomersCheck">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>211</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Show only work for customers</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections>

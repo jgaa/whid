@@ -163,6 +163,7 @@ void SummaryModel::loadWeek()
 
     QSettings settings;
     const bool hide_tasks = settings.value("summary-hide-tasks", true).toBool();
+    const bool only_customers = settings.value("summary-only-customers", false).toBool();
 
     while(query.next()) {
 
@@ -174,6 +175,12 @@ void SummaryModel::loadWeek()
         assert(day < summary.size());
 
         Node::ptr_t node = node_model_.getNodeFromId(node_id);
+
+        if (only_customers) {
+            if (!node->hasType(Node::Type::CUSTOMER)) {
+                continue;
+            }
+        }
 
         if (hide_tasks && node->getType() == Node::Type::TASK) {
             node = node->getParent()->shared_from_this();

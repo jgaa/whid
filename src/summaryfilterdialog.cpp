@@ -13,6 +13,9 @@ SummaryFilterDialog::SummaryFilterDialog(QWidget *parent) :
     ui->hideTasksBtn->setCheckState(
                 settings.value("summary-hide-tasks", true).toBool()
                 ? Qt::Checked : Qt::Unchecked);
+    ui->onlyCustomersCheck->setCheckState(
+                settings.value("summary-only-customers", false).toBool()
+                ? Qt::Checked : Qt::Unchecked);
 }
 
 SummaryFilterDialog::~SummaryFilterDialog()
@@ -26,6 +29,9 @@ void SummaryFilterDialog::accept()
     QSettings settings;
     settings.setValue("summary-hide-tasks",
                       ui->hideTasksBtn->checkState() == Qt::Checked);
+
+    settings.setValue("summary-only-customers",
+                      ui->onlyCustomersCheck->checkState() == Qt::Checked);
 
     QDialog::accept();
 }
