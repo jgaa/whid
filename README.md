@@ -3,7 +3,7 @@
 **What Have I Done** - Time Tracker for Freelancers and Individual Contractors
 
 ![Whid on Linux](doc/images/whid-linux.jpg)
-Screenshot from Debian Linux
+<br>Screenshot from Debian Linux
 
 ## Backstory
 
