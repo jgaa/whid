@@ -7,7 +7,7 @@
 
 ## Backstory
 
-This project started in In 1998, when I felt that I totally lost control with time.
+This project started in 1998, when I felt that I totally lost control with my time.
 I wrote a Windows application to help me, and used it for many years. In 2006, I
 read a great book, *User Interface Design* by Soren Lauese, and got an idea for a new
 iteration of my application. I released the first Open Source version of my time-tracker
@@ -39,7 +39,7 @@ and more useful than ever.
  - Reports time spent, breakdowns for each day in a week
  - Reports time spent on selected items in the tree structure of tasks
  - Stores the data in SQLite
- - Based on 20 years of experience and two previous iterations desigbning and implementing time tracking applications
+ - Based on 20 years of experience and two previous iterations designing and implementing time tracking applications
  - It's free, contains no ads, does not track you, and stores your data on your local computer. (There is no cloud you know, it's just someone else's computer).
 
 ## Supported platforms
