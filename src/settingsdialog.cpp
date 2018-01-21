@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QFileDialog>
+#include "logging.h"
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
     QDialog(parent),
@@ -41,7 +42,12 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     ui->logAppendCheck->setCheckState(
                 settings.value("log-append", false).toBool()
                 ? Qt::Checked : Qt::Unchecked);
+    ui->logPerformanceCheck->setCheckState(
+                settings.value("log-performance", false).toBool()
+                ? Qt::Checked : Qt::Unchecked);
     ui->logPathEdit->setText(settings.value("log-path", "whid.log").toString());
+
+    connect(this, SIGNAL(logSettingsChanged()), Logging::instance(), SLOT(changed()));
 }
 
 SettingsDialog::~SettingsDialog()
@@ -91,13 +97,30 @@ void SettingsDialog::accept()
     settings.setValue("restore-window-state",
                       ui->saveWindowState->checkState() == Qt::Checked);
 
+    bool log_changed = false;
+
+    if (settings.value("log-enabled",false)
+            != (ui->enableLoggingCheck->checkState() == Qt::Checked)) {
+        log_changed = true;
+    }
+
     settings.setValue("log-enabled",
                       ui->enableLoggingCheck->checkState() == Qt::Checked);
 
     settings.setValue("log-append",
                       ui->logAppendCheck->checkState() == Qt::Checked);
 
-    settings.value("log-path") = ui->logPathEdit->text();
+    settings.setValue("log-performance",
+                      ui->logPerformanceCheck->checkState() == Qt::Checked);
+
+    if (settings.value("log-path") != ui->logPathEdit->text()) {
+        log_changed = true;
+    }
+    settings.setValue("log-path", ui->logPathEdit->text());
+
+    if (log_changed) {
+        emit logSettingsChanged();
+    }
 
     QDialog::accept();
 }
@@ -116,12 +139,12 @@ void SettingsDialog::selectDbFile()
     }
 }
 
-void SettingsDialog::on_actionSelect_Path_triggered()
+void SettingsDialog::on_actionSelect_Log_File_triggered()
 {
     auto path = QFileDialog::getSaveFileName(this,
-                                             "Select Datatabase",
+                                             "Select log file",
                                              ui->logPathEdit->text(),
-                                             "SQLite Files (*.db)",
+                                             "Log files (*.log)",
                                              Q_NULLPTR,
                                              QFileDialog::DontConfirmOverwrite);
 
@@ -129,4 +152,3 @@ void SettingsDialog::on_actionSelect_Path_triggered()
         ui->logPathEdit->setText(path);
     }
 }
-

@@ -2,7 +2,6 @@
 #include <iostream>
 #include <assert.h>
 #include <array>
-#include <QSettings>
 #include <QTextStream>
 #include <QDateTime>
 #include <QDebug>
@@ -40,10 +39,9 @@ void Logging::onLogMessageHandler(QtMsgType type,
         "debug", "warn", "error", "fatal", "info", "system"
     }};
 
-    const auto now = QDateTime::currentDateTime().toString(Qt::ISODateWithMs);
-    QSettings settings;
+    const auto now = QDateTime::currentDateTime().toString("yyyy-HH-mm HH:mm.zzz");
 
-    if (settings.value("log-enabled", false).toBool()) {
+    if (settings_.value("log-enabled", false).toBool()) {
 
         if (!logFile_) {
             open();
@@ -58,7 +56,8 @@ void Logging::onLogMessageHandler(QtMsgType type,
             << ' '
             << context.function
             << ' '
-            << msg;
+            << msg
+            << '\n';
     }
 
     clog << now.toStdString()
@@ -71,14 +70,24 @@ void Logging::onLogMessageHandler(QtMsgType type,
          << endl;
 }
 
+void Logging::changed()
+{
+    if (settings_.value("log-enabled", false).toBool()) {
+        open();
+    } else if (logFile_){
+
+        qDebug() << "Closing the log-file";
+        logFile_->reset();
+    }
+
+}
+
 void Logging::open()
 {
-    QSettings settings;
-
-    const auto path = settings.value("log-path", "whid.log").toString();
+    const auto path = settings_.value("log-path", "whid.log").toString();
     QIODevice::OpenMode options = QIODevice::WriteOnly;
     QString mode = "truncate";
-    if (settings.value("log-append", false).toBool()) {
+    if (settings_.value("log-append", false).toBool()) {
         options |= QIODevice::Append;
         mode = "append";
     } else {

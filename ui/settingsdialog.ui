@@ -123,6 +123,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="logPerformanceCheck">
+         <property name="text">
+          <string>Show performance messages</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer_4">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -288,6 +295,11 @@ Changes to the database-path will take effect when the program is re-started.</s
     <string>Select where to log</string>
    </property>
   </action>
+  <action name="actionSelect_Log_File">
+   <property name="text">
+    <string>Select Log File</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
@@ -326,12 +338,12 @@ Changes to the database-path will take effect when the program is re-started.</s
   <connection>
    <sender>selectLogPathTool</sender>
    <signal>clicked()</signal>
-   <receiver>actionSelect_Path</receiver>
+   <receiver>actionSelect_Log_File</receiver>
    <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>409</x>
-     <y>132</y>
+     <y>145</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>

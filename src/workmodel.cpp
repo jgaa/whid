@@ -10,6 +10,7 @@
 #include <array>
 #include <QSqlQuery>
 #include <QMessageBox>
+#include <QSettings>
 
 using namespace std;
 
@@ -167,10 +168,18 @@ void WorkModel::recalculateWorkToday()
 {
     QVariant seconds;
     QSqlQuery query;
+
+    QTime timer;
+    timer.start();
     if (!query.exec("SELECT SUM(used) FROM work WHERE date(start, 'unixepoch') == DATE('now')")) {
         qWarning() << "Failed to query work for used time today" << query.lastError().text();
     } else if (query.next()) {
         seconds = query.value(0);
+    }
+
+    QSettings settings;
+    if (settings.value("log-performance", false).toBool()) {
+        qDebug() << "Recalclated todays work in " << timer.elapsed() << " ms";
     }
 
     emit workedToday(seconds.toInt());
@@ -226,6 +235,26 @@ QVariant WorkModel::data(const QModelIndex &ix, int role) const
     static const int pausedCol = fieldIndex("paused");
 
     if (ix.isValid()) {
+        if (ix.row() == rowCount({}) -1) {
+            // Summary column
+            if (ix.column() == usedCol) {
+                if (role == Qt::DisplayRole) {
+                    return toHourMin(summary());
+                }
+
+                if (role == Qt::FontRole) {
+                    QFont font;
+                    font.setBold(true);
+                    return font;
+                }
+            }
+
+            if (role == Qt::DisplayRole && ix.column() == statusCol) {
+                return "Summary";
+            }
+
+            return {};
+        }
         if (ix.column() == statusCol) {
             if (role == Qt::DisplayRole) {
                 if (auto node = getNode(ix)) {
@@ -374,4 +403,35 @@ void WorkModel::schedulaAtMidnight()
     ::scheduleAtMidnight([this](){
         atMidnight();
     });
+}
+
+int WorkModel::summary() const
+{
+    static const int usedCol = fieldIndex("used");
+
+    int sum = {};
+
+    QTime timer;
+    timer.start();
+    for(int i = 0; i < (rowCount({}) -1); ++i) {
+        const auto ix = index(i, usedCol);
+        sum += QSqlTableModel::data(ix, Qt::DisplayRole).toInt();
+    }
+
+    QSettings settings;
+    if (settings.value("log-performance", false).toBool()) {
+        qDebug() << "Summary in " << timer.elapsed() << " ms";
+    }
+
+    return sum;
+}
+
+
+int WorkModel::rowCount(const QModelIndex &parent) const
+{
+    const auto num = QSqlTableModel::rowCount(parent);
+    if (num > 0) {
+        return num +1;
+    }
+    return 0;
 }

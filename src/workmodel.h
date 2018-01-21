@@ -79,11 +79,16 @@ public:
 private:
     void atMidnight();
     void schedulaAtMidnight();
+    int summary() const;
 
     std::shared_ptr<Node> getNode(const QModelIndex& id) const;
     std::vector<int> columnMapping_; // Own to data-model
     NodeModel& nodeModel_;
     mutable bool allIsWritable = false;
+
+    // QAbstractItemModel interface
+public:
+    int rowCount(const QModelIndex &parent) const override;
 };
 
 #endif // WORKMODEL_H

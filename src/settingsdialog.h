@@ -15,6 +15,9 @@ public:
     explicit SettingsDialog(QWidget *parent = 0);
     ~SettingsDialog();
 
+signals:
+    void logSettingsChanged();
+
 private:
     Ui::SettingsDialog *ui;
 
@@ -23,8 +26,7 @@ public slots:
     void accept() override;
     void selectDbFile();
 private slots:
-    void on_actionSelect_Path_triggered();
-    void on_actionlogEnabled_triggered();
+    void on_actionSelect_Log_File_triggered();
 };
 
 #endif // SETTINGSDIALOG_H
