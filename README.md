@@ -47,5 +47,9 @@ and more useful than ever.
  - macOS
  - Windows (Windows Vista and up, 64 bit builds)
 
+## How to build
+I use QT Creator for this project. There are [scripts](scripts) for building and packaging it
+from the command-line on Windows and macOS.
+
 ## More info
 - [Blog](https://lastviking.eu/_tags/whid.html)
