@@ -317,6 +317,9 @@
     <addaction name="actionNodeTreeNew_Customer"/>
     <addaction name="actionNodeTreeNew_Project"/>
     <addaction name="actionNodeTreeNew_Task"/>
+    <addaction name="separator"/>
+    <addaction name="actionTreeViewEdit_a_node"/>
+    <addaction name="actionNodeTreeDelete_a_Node"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuNodes"/>
@@ -341,6 +344,8 @@
    <addaction name="actionNodeTreeNew_Customer"/>
    <addaction name="actionNodeTreeNew_Project"/>
    <addaction name="actionNodeTreeNew_Task"/>
+   <addaction name="actionTreeViewEdit_a_node"/>
+   <addaction name="actionNodeTreeDelete_a_Node"/>
    <addaction name="separator"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -422,6 +427,132 @@
    </property>
    <property name="toolTip">
     <string>Apply rules for the summary</string>
+   </property>
+  </action>
+  <action name="actionNodeTreeDelete_a_Node">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/icons/delete.svg</normaloff>:/res/icons/delete.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Delete a Node</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete a node</string>
+   </property>
+  </action>
+  <action name="actionTreeViewEdit_a_node">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/icons/edit.svg</normaloff>:/res/icons/edit.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Edit a node</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit a node</string>
+   </property>
+  </action>
+  <action name="actionEdit_a_Current_Work_Item">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/icons/edit.svg</normaloff>:/res/icons/edit.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Edit a Current Work Item</string>
+   </property>
+  </action>
+  <action name="actionDelete_a_Current_Work_Item">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/icons/delete.svg</normaloff>:/res/icons/delete.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Delete a Current Work Item</string>
+   </property>
+  </action>
+  <action name="actionWorkList_Edit_Item">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/icons/edit.svg</normaloff>:/res/icons/edit.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Edit Item</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit Item</string>
+   </property>
+  </action>
+  <action name="actionWorkList_Delete_Item">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/icons/delete.svg</normaloff>:/res/icons/delete.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Delete Item</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete Item</string>
+   </property>
+  </action>
+  <action name="actionWorkList_Set_as_Done">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/icons/done.svg</normaloff>:/res/icons/done.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Set as Done</string>
+   </property>
+   <property name="toolTip">
+    <string>Mark all selected items as done</string>
+   </property>
+  </action>
+  <action name="actionWorkList_Set_as_Free">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/icons/free.svg</normaloff>:/res/icons/free.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Set as Free</string>
+   </property>
+   <property name="toolTip">
+    <string>Set as Free</string>
+   </property>
+  </action>
+  <action name="actionWorkList_Set_as_Held_Back">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/icons/heldback.svg</normaloff>:/res/icons/heldback.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Set as Held Back</string>
+   </property>
+   <property name="toolTip">
+    <string>Set as Held Back</string>
+   </property>
+  </action>
+  <action name="actionWorkList_Set_as_Approved">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/icons/approved.svg</normaloff>:/res/icons/approved.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Set as Approved</string>
+   </property>
+   <property name="toolTip">
+    <string>Set as Approved</string>
+   </property>
+  </action>
+  <action name="actionWorkList_Set_as_Invoiced">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/icons/invoiced.svg</normaloff>:/res/icons/invoiced.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Set as Invoiced</string>
+   </property>
+   <property name="toolTip">
+    <string>Set as Invoiced</string>
    </property>
   </action>
  </widget>

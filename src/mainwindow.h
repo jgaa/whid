@@ -52,13 +52,25 @@ private slots:
     void onSettings();
     void onAbout();
     void setActionStatesForTree();
+    void setActionStatesForWorkList();
+    void setActionStatesForCurrentWorkList();
 
     void on_actionNodeTreeNew_Folder_triggered();
     void on_actionNodeTreeNew_Project_triggered();
     void on_actionNodeTreeNew_Task_triggered();
     void on_actionNodeTreeNew_Customer_triggered();
-
     void on_actionFilter_and_Group_on_Summary_triggered();
+    void on_actionNodeTreeDelete_a_Node_triggered();
+    void on_actionTreeViewEdit_a_node_triggered();
+    void on_actionEdit_a_Current_Work_Item_triggered();
+    void on_actionDelete_a_Current_Work_Item_triggered();
+    void on_actionWorkList_Edit_Item_triggered();
+    void on_actionWorkList_Delete_Item_triggered();
+    void on_actionWorkList_Set_as_Free_triggered();
+    void on_actionWorkList_Set_as_Approved_triggered();
+    void on_actionWorkList_Set_as_Invoiced_triggered();
+    void on_actionWorkList_Set_as_Done_triggered();
+    void on_actionWorkList_Set_as_Held_Back_triggered();
 
 private:
     template <typename T>
@@ -92,6 +104,9 @@ private:
     void selectNode(const QModelIndex& index);
     void deleteFromWorkList(const QItemSelection& selection);
     void commitAllWork();
+
+    // Filter out the summary column as it holds no data
+    QModelIndexList getWorkListSelectionIndexes() const;
 
     // Returns the current selcted ode, only if there is wxactely one node actually selecetd.
     QModelIndex getCurrentSelectedNode(int *selectionCount = nullptr) const;

@@ -28,6 +28,16 @@ macx {
     ICON = res/icons/whid.svg
 }
 
+linux {
+    DIST_DIR = $$(DIST_DIR)
+    isEmpty(DIST_DIR) {
+        DIST_DIR = $$_PRO_FILE_PWD_/../dist/desktop-linux
+    }
+    target.path = $${DIST_DIR}/root/usr/bin
+    INSTALLS += target
+}
+
+
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -89,4 +99,8 @@ RESOURCES += \
 DISTFILES += \
     scripts/package-macos.sh \
     scripts/package-windows.bat \
-    README.md
+    README.md \
+    ci/jenkins/Jenkinsfile \
+    ci/jenkins/Dockefille.debian-stretch \
+    scripts/package-deb.sh \
+    ci/jenkins/Dockefile.ubuntu-xenial
