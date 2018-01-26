@@ -19,20 +19,19 @@ mkdir "%OUT_DIR%"
 
 pushd "%BUILD_DIR%"
 
-cd
-
 %QTDIR%\bin\qmake.exe ^
   -spec win32-msvc ^
   "CONFIG += release" ^
   "%SRC_DIR%\whid.pro"
 
 nmake
+
+%QTDIR%\bin\qmake.exe -spec win32-msvc "CONFIG += release" "%SRC_DIR%\whid.pro"
+
 popd
 
 copy "%BUILD_DIR%\release\whid.exe" "%OUT_DIR%"
-%QTDIR%\bin\windeployqt "%OUT_DIR%\whid.exe"
+copy "%SRC_DIR%\res\icons\whid.ico" "%OUT_DIR%"
+%QTDIR%\bin\windeployqt --no-compiler-runtime --no-webkit2 --release "%OUT_DIR%\whid.exe"
 
 echo "The prepared package is in: "%OUT_DIR%"
-
-popd
-

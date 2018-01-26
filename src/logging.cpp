@@ -59,7 +59,7 @@ void Logging::onLogMessageHandler(QtMsgType type,
             << msg
             << '\n';
     }
-
+#ifdef QT_DEBUG
     clog << now.toStdString()
          << ' '
          << message_types.at(type).toStdString()
@@ -68,6 +68,7 @@ void Logging::onLogMessageHandler(QtMsgType type,
          << ' '
          << msg.toStdString()
          << endl;
+#endif
 }
 
 void Logging::changed()
