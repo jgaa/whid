@@ -49,7 +49,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="workListTab">
          <attribute name="title">
@@ -321,8 +321,17 @@
     <addaction name="actionTreeViewEdit_a_node"/>
     <addaction name="actionNodeTreeDelete_a_Node"/>
    </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="actionscreen_size_1024x768"/>
+    <addaction name="actionScreen_Size_1280x720"/>
+    <addaction name="actionScreen_Size_1920x1080"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuNodes"/>
+   <addaction name="menuView"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <property name="enabled">
@@ -553,6 +562,21 @@
    </property>
    <property name="toolTip">
     <string>Set as Invoiced</string>
+   </property>
+  </action>
+  <action name="actionscreen_size_1024x768">
+   <property name="text">
+    <string>Screen Size 1024x768</string>
+   </property>
+  </action>
+  <action name="actionScreen_Size_1280x720">
+   <property name="text">
+    <string>Screen Size 1280x720</string>
+   </property>
+  </action>
+  <action name="actionScreen_Size_1920x1080">
+   <property name="text">
+    <string>Screen Size 1920x1080</string>
    </property>
   </action>
  </widget>

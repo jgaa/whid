@@ -787,3 +787,18 @@ void MainWindow::on_actionWorkList_Set_as_Held_Back_triggered()
     workModel_->setStatus(getWorkListSelectionIndexes(),
                           Work::Status::HELD_BACK);
 }
+
+void MainWindow::on_actionscreen_size_1024x768_triggered()
+{
+    setFixedSize(1024, 768);
+}
+
+void MainWindow::on_actionScreen_Size_1280x720_triggered()
+{
+    setFixedSize(1280, 720);
+}
+
+void MainWindow::on_actionScreen_Size_1920x1080_triggered()
+{
+    setFixedSize(1920, 1080);
+}

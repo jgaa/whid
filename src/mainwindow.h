@@ -72,6 +72,12 @@ private slots:
     void on_actionWorkList_Set_as_Done_triggered();
     void on_actionWorkList_Set_as_Held_Back_triggered();
 
+    void on_actionscreen_size_1024x768_triggered();
+
+    void on_actionScreen_Size_1280x720_triggered();
+
+    void on_actionScreen_Size_1920x1080_triggered();
+
 private:
     template <typename T>
     QModelIndex addNode(const QModelIndex &index)
