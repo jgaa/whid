@@ -18,12 +18,15 @@ QMAKE_TARGET_PRODUCT = whid
 QMAKE_TARGET_DESCRIPTION = Time Tracker for Independent Contractors and Freelancers
 QMAKE_TARGET_COPYRIGHT = Copyright (c) 1998 - 2018 by Jarle (jgaa) Aase
 
-VERSION = 2.0.0.10
-
 macx {
     ICON = res/icons/whid.icns
 } win32 {
     RC_ICONS = res/icons/whid.ico
+    W_VERSION = $$(WHID_VERSION)
+    isEmpty(W_VERSION) {
+        W_VERSION = 2.0.0
+    }
+    VERSION = $${W_VERSION}.0
 } unix:!macx {
     ICON = res/icons/whid.svg
 }
