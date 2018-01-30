@@ -22,11 +22,10 @@ macx {
     ICON = res/icons/whid.icns
 } win32 {
     RC_ICONS = res/icons/whid.ico
-    W_VERSION = $$(WHID_VERSION)
-    isEmpty(W_VERSION) {
-        W_VERSION = 2.0.0
+    !isEmpty($$(WHID_VERSION)) {
+        VERSION = $$(WHID_VERSION).0
+        message("Version is $${VERSION}")
     }
-    VERSION = $${W_VERSION}.0
 } unix:!macx {
     ICON = res/icons/whid.svg
 }
