@@ -7,10 +7,12 @@ rem PATH=%PATH%;C:\Program Files (x86)\Windows Kits\10\bin\10.0.16299.0\x64
 rem cd "C:\Users\Jarle Aase\src\whid\scripts"
 rem call .\package-windows
 
-set DIST_DIR=%cd%\dist\windows
-set BUILD_DIR=%DIST_DIR%\build
-set SRC_DIR=%cd%\..
-set OUT_DIR=%DIST_DIR%\whid
+echo on
+
+IF NOT DEFINED DIST_DIR (set DIST_DIR=%cd%\dist\windows)
+IF NOT DEFINED BUILD_DIR (set BUILD_DIR=%DIST_DIR%\build)
+IF NOT DEFINED SRC_DIR (set SRC_DIR=%cd%\..)
+IF NOT DEFINED OUT_DIR (set OUT_DIR=%DIST_DIR%\whid)
 
 rmdir /S /Q "%DIST_DIR%"
 mkdir "%DIST_DIR%"
@@ -30,8 +32,10 @@ nmake
 
 popd
 
+echo "Copying: %BUILD_DIR%\release\whid.exe" "%OUT_DIR%"
 copy "%BUILD_DIR%\release\whid.exe" "%OUT_DIR%"
 copy "%SRC_DIR%\res\icons\whid.ico" "%OUT_DIR%"
-%QTDIR%\bin\windeployqt --no-compiler-runtime --no-webkit2 --release "%OUT_DIR%\whid.exe"
+
+%QTDIR%\bin\windeployqt "%OUT_DIR%\whid.exe"
 
 echo "The prepared package is in: "%OUT_DIR%"

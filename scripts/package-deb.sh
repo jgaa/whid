@@ -11,18 +11,15 @@ if [ -z "$WHID_VERSION" ]; then
     echo "Warning: Missing WHID_VERSION variable!"
 fi
 
-if [ -z ${DIST_DIR:-} ];
-then
+if [ -z ${DIST_DIR:-} ]; then
     DIST_DIR=`pwd`/dist/linux
 fi
 
-if [ -z ${BUILD_DIR:-} ];
-then
+if [ -z ${BUILD_DIR:-} ]; then
     BUILD_DIR=`pwd`/build
 fi
 
-if [ -z ${SRC_DIR:-} ];
-then
+if [ -z ${SRC_DIR:-} ]; then
 # Just assume we are run from the scipts directory
     SRC_DIR=`pwd`/..
 fi
@@ -36,7 +33,7 @@ pushd $DIST_DIR &&\
 mkdir -p $BUILD_DIR &&\
 pushd $BUILD_DIR &&\
 qmake $SRC_DIR/whid.pro &&\
-make -j8 && make install &&\
+make && make install &&\
 popd &&\
 fpm --input-type dir \
     --output-type deb \
@@ -47,6 +44,6 @@ fpm --input-type dir \
     --description "Time Tracking for Freelancers and Independenet Contractors" \
     --depends qt5-default --depends libsqqlite3 \
     --chdir ${DIST_DIR}/root/ \
-    --package whid-VERSION_ARCH.deb &&\
+    --package ${DIST_NAME}whid-VERSION_ARCH.deb &&\
 echo "Debian package is available in $PWD" &&\
 popd
