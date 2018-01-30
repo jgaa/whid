@@ -4,7 +4,7 @@ pipeline {
     agent { label 'master' }
 
     environment {
-        WHID_VERSION = "2.0.1"
+        WHID_VERSION = "2.0.2"
     }
 
     stages {
