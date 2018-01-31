@@ -28,8 +28,6 @@ pushd "%BUILD_DIR%"
 
 nmake
 
-%QTDIR%\bin\qmake.exe -spec win32-msvc "CONFIG += release" "%SRC_DIR%\whid.pro"
-
 popd
 
 echo "Copying: %BUILD_DIR%\release\whid.exe" "%OUT_DIR%"
