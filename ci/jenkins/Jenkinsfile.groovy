@@ -153,7 +153,7 @@ pipeline {
                         if %errorlevel% neq 0 exit /b %errorlevel%
                         copy "%SRC_DIR%\\res\\icons\\whid.ico" "%DIST_DIR%\\whid"
                         cd %MSI_TARGET_DIR%
-                        rm whid.msi
+                        del whid.msi
                         C:\\devel\\mkmsi\\mkmsi.py --auto-create qt --source-dir "%DIST_DIR%\\whid" --wix-root "C:\\Program Files (x86)\\WiX Toolset v3.11" --license C:\\devel\\mkmsi\\licenses\\GPL3.rtf --merge-module "C:\\Program Files (x86)\\Common Files\\Merge Modules\\Microsoft_VC140_CRT_x64.msm" --add-desktop-shortcut --project-version %WHID_VERSION% --description "Time Tracking for Freelancers and Independent Contractors" --manufacturer "The Last Viking LTD" whid
                         if %errorlevel% neq 0 exit /b %errorlevel%
                         copy whid.msi %DIST_DIR%\\whid-%WHID_VERSION%-x64.msi
