@@ -280,6 +280,7 @@ void MainWindow::nodeModelReset()
     ui->nodeTree->selectionModel()->clear();
     workModel_->setFilter("id=-1");
     workModel_->select();
+    setActionStatesForTree();
 }
 
 void MainWindow::onSummarySelectionChanged(int index)
