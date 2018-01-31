@@ -183,45 +183,6 @@ void MainWindow::nodeTreeContextMenu(const QPoint &point)
 
     QMenu *menu = new QMenu(this);
 
-//    if (node->getType() != Node::Type::ROOT) {
-//        menu->addAction("Edit", [this, index] {
-//            auto ix = ui->nodeTree->selectionModel()->currentIndex();
-//            if (ix.isValid()) {
-//                if (auto node = static_cast<Node *>(ix.internalPointer())) {
-//                    auto dlg = new NodeDialog(this, ix, node->shared_from_this());
-//                    connect(dlg, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
-//                            nodeModel_.get(), SLOT(dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)));
-//                    dlg->exec();
-//                }
-//            }
-//        });
-//        menu->addAction("Delete", [this, index] {
-//            nodeModel_->deleteNodes(ui->nodeTree->selectionModel()->selectedIndexes());
-//        });
-//        menu->addSeparator();
-//    }
-
-//    if (type != Node::Type::TASK) {
-//        menu->addAction("Add Folder", [this, index] {
-//            selectNode(addFolder(index));
-//        });
-
-//        menu->addAction("Add Project", [this, index] {
-//            selectNode(addProject(index));
-//        });
-
-//        if (!node->hasType(Node::Type::CUSTOMER)) {
-//            menu->addAction("Add Customer", [this, index] {
-//                selectNode(addCustomer(index));
-//            });
-//        }
-
-//        if (type != Node::Type::ROOT) {
-//            menu->addAction("Add Task", [this, index] {
-//                selectNode(addTask(index));
-//            });
-//        }
-//    }
 
     menu->addAction(ui->actionNodeTreeNew_Folder);
     menu->addAction(ui->actionNodeTreeNew_Customer);
@@ -237,29 +198,6 @@ void MainWindow::nodeTreeContextMenu(const QPoint &point)
 
 void MainWindow::currentWorkListContextMenu(const QPoint &point)
 {
-//    auto index = ui->currentWorkList->indexAt(point);
-//    if (!index.isValid()) {
-//        return;
-//    }
-
-//    if (auto cw = currentWorkModel_->getCurrentWork(index)) {
-//        QMenu *menu = new QMenu;
-
-//        if (isOneRow(ui->currentWorkList->selectionModel()->selectedIndexes())) {
-//            menu->addAction("Edit", [this, index, cw] {
-//                auto dlg = new WorkDialog(this, index, cw->work, true);
-//                dlg->setAttribute( Qt::WA_DeleteOnClose );
-//                dlg->exec();
-
-//            });
-//        }
-
-//        menu->addAction("Delete", [this, index] {
-//            currentWorkModel_->removeRows(index.row(), 1, {}); });
-
-//        menu->exec(ui->currentWorkList->mapToGlobal(point));
-//    }
-
     QMenu *menu = new QMenu;
     menu->addAction(ui->actionEdit_a_Current_Work_Item);
     menu->addAction(ui->actionDelete_a_Current_Work_Item);
@@ -274,44 +212,6 @@ void MainWindow::workListContextMenu(const QPoint &point)
     }
 
     QMenu *menu = new QMenu;
-//    menu->addAction("Delete", [this, index] {
-//        deleteFromWorkList(ui->workList->selectionModel()->selection());
-//    });
-
-//    // Only show Edit menu if only one row is selected
-//    if (isOneRow(ui->workList->selectionModel()->selectedIndexes())) {
-//        menu->addAction("Edit", [this, index] {
-//            if (auto work = workModel_->getWork(index)) {
-//                auto dlg = new WorkDialog(this, index, work);
-//                connect(dlg, SIGNAL(dataChanged(const QModelIndex&, const Work::ptr_t&)),
-//                        workModel_.get(), SLOT(updateWork(const QModelIndex&, const Work::ptr_t&)));
-//                dlg->setAttribute( Qt::WA_DeleteOnClose );
-//                dlg->exec();
-//            }
-//        });
-//    }
-
-//    menu->addSection("Status");
-//    menu->addAction("Set as Done", [this, index] {
-//        workModel_->setStatus(ui->workList->selectionModel()->selectedIndexes(),
-//                              Work::Status::DONE);
-//    });
-//    menu->addAction("Set as Free", [this, index] {
-//        workModel_->setStatus(ui->workList->selectionModel()->selectedIndexes(),
-//                              Work::Status::FREE);
-//    });
-//    menu->addAction("Set as Held Back", [this, index] {
-//        workModel_->setStatus(ui->workList->selectionModel()->selectedIndexes(),
-//                              Work::Status::HELD_BACK);
-//    });
-//    menu->addAction("Set as Approved", [this, index] {
-//        workModel_->setStatus(ui->workList->selectionModel()->selectedIndexes(),
-//                              Work::Status::APPROVED);
-//    });
-//    menu->addAction("Set as Invoiced", [this, index] {
-//        workModel_->setStatus(ui->workList->selectionModel()->selectedIndexes(),
-//                              Work::Status::INVOICED);
-//    });
 
     menu->addAction(ui->actionWorkList_Edit_Item);
     menu->addAction(ui->actionWorkList_Delete_Item);
