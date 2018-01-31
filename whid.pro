@@ -23,7 +23,7 @@ macx {
 } win32 {
     RC_ICONS = res/icons/whid.ico
     !isEmpty($$(WHID_VERSION)) {
-        VERSION = $$(WHID_VERSION).0
+        VERSION = $$(WHID_VERSION).$$(BUILD_NUMBER)
         message("Version is $${VERSION}")
     }
 } unix:!macx {
