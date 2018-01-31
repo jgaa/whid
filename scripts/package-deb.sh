@@ -42,7 +42,7 @@ fpm --input-type dir \
     --version ${WHID_VERSION} \
     --vendor "The Last Viking LTD" \
     --description "Time Tracking for Freelancers and Independenet Contractors" \
-    --depends qt5-default --depends libsqqlite3 \
+    --depends qt5-default --depends libsqlite3-0 \
     --chdir ${DIST_DIR}/root/ \
     --package ${DIST_NAME}whid-VERSION_ARCH.deb &&\
 echo "Debian package is available in $PWD" &&\
