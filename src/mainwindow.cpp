@@ -123,6 +123,8 @@ void MainWindow::initialize()
     connect(ui->doneButton, SIGNAL(released()), this, SLOT(onDoneButtonClicked()));
     connect(ui->currentWorkList, SIGNAL(activated(const QModelIndex &)),
             this, SLOT(validateResumeDoneSuspendBtn()));
+    connect(ui->currentWorkList->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)),
+            this, SLOT(validateResumeDoneSuspendBtn()));
     connect(currentWorkModel_.get(), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
             this, SLOT(validateStartBtn()));
     connect(currentWorkModel_.get(), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &)),
@@ -133,8 +135,6 @@ void MainWindow::initialize()
     connect(currentWorkModel_.get(), SIGNAL(modelReset()), this, SLOT(validateResumeDoneSuspendBtn()));
     connect(ui->nodeTree->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)),
             this, SLOT(onTreeSelectionChanged(const QItemSelection&, const QItemSelection&)));
-    connect(ui->workList->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)),
-            this, SLOT(validateResumeDoneSuspendBtn()));
     connect(currentWorkModel_.get(), SIGNAL(workDone(Work::ptr_t)),
             workModel_.get(), SLOT(addWork(Work::ptr_t)));
     connect(nodeModel_.get(), SIGNAL(modelReset()), this, SLOT(nodeModelReset()));
@@ -505,6 +505,7 @@ void MainWindow::validateStartBtn()
 
 void MainWindow::validateResumeDoneSuspendBtn()
 {
+    qDebug() << "validateResumeDoneSuspendBtn";
     const auto cw = currentWorkModel_->getCurrentWork(ui->currentWorkList->selectionModel()->currentIndex());
 
     if (cw && ui->currentWorkList->selectionModel()->selectedIndexes().size()) {
