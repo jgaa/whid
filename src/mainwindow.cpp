@@ -116,6 +116,8 @@ void MainWindow::initialize()
             this, SLOT(currentWorkListContextMenu(const QPoint &)));
     connect(ui->workList, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(workListContextMenu(const QPoint &)));
+    connect(ui->workList->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)),
+            this, SLOT(setActionStatesForWorkList()));
     connect(ui->nodeTree, SIGNAL(activated(const QModelIndex &)), this, SLOT(validateStartBtn()));
     connect(ui->startNewButton, SIGNAL(released()), this, SLOT(onStartNewButtonClicked()));
     connect(ui->suspendButton, SIGNAL(released()), this, SLOT(onSuspendButtonClicked()));
