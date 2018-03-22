@@ -54,21 +54,22 @@ void Logging::onLogMessageHandler(QtMsgType type,
             << ' '
             << message_types.at(type)
             << ' '
-            << context.function
+            << (context.function ? context.function : "[no context]")
             << ' '
             << msg
             << '\n';
     }
-#ifdef QT_DEBUG
-    clog << now.toStdString()
-         << ' '
-         << message_types.at(type).toStdString()
-         << ' '
-         << context.function
-         << ' '
-         << msg.toStdString()
-         << endl;
-#endif
+
+    if (cout.good()) {
+        clog << now.toStdString()
+             << ' '
+             << message_types.at(type).toStdString()
+             << ' '
+             << (context.function ? context.function : "[no context]")
+             << ' '
+             << msg.toStdString()
+             << endl;
+    }
 }
 
 void Logging::changed()

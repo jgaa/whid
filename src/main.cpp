@@ -14,6 +14,8 @@ void initSettings() {
 
     QSettings settings;
 
+    qDebug() << "Settings are in " << settings.fileName();
+
     auto data_path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
     if (!QDir(data_path).exists()) {
         qDebug() << "Creating path: " << data_path;

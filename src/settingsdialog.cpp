@@ -47,6 +47,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
                 ? Qt::Checked : Qt::Unchecked);
     ui->logPathEdit->setText(settings.value("log-path", "whid.log").toString());
 
+    ui->tabWidget->setCurrentIndex(0);
+
     connect(this, SIGNAL(logSettingsChanged()), Logging::instance(), SLOT(changed()));
 }
 

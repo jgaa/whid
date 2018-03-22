@@ -6,9 +6,7 @@
 
 CONFIG += c++14
 
-QT       += core gui sql
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT       += core gui sql widgets
 
 TARGET = whid
 TEMPLATE = app
@@ -102,4 +100,7 @@ DISTFILES += \
     ci/jenkins/Jenkinsfile \
     ci/jenkins/Dockefille.debian-stretch \
     scripts/package-deb.sh \
-    ci/jenkins/Dockefile.ubuntu-xenial
+    ci/jenkins/Dockefile.ubuntu-xenial \
+    ci/jenkins/Dockefile.debian-stretch \
+    ci/jenkins/Dockefile.debian-testing \
+    ci/jenkins/Jenkinsfile.groovy
