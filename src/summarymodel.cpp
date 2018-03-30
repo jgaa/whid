@@ -144,10 +144,10 @@ void SummaryModel::loadWeek()
                   "        )"
                   "    select GROUP_CONCAT(parent_of.name,'/') as task  FROM parent_of"
                   "    ) as origin,"
-                  "    work.node as nodeid, SUM(work.used) as seconds, date(work.start, 'unixepoch') as day"
+                  "    work.node as nodeid, SUM(work.used) as seconds, date(work.start, 'unixepoch', 'localtime') as day"
                   "    FROM work "
                   "    LEFT JOIN node on node.id = work.node"
-                  "    where day >= date('" + firstday.toString("yyyy-MM-dd") + "') and day <= date('" + lastday.toString("yyyy-MM-dd") + "')"
+                  "    where day >= date('" + firstday.toString("yyyy-MM-dd") + "', 'localtime') and day <= date('" + lastday.toString("yyyy-MM-dd") + "', 'localtime')"
                   "    group by day, nodeid"
                   "    order by node, day"
 );
