@@ -2,6 +2,7 @@
 #include "utility.h"
 #include "nodemodel.h"
 
+#include <QApplication>
 #include <QDebug>
 #include <QIcon>
 #include <QMessageBox>
@@ -177,8 +178,12 @@ bool CurrentWorkModel::setData(const QModelIndex &index, const QVariant &value, 
                 cw->work->name = value.toString();
                 result = true;
             } else if (index.column() == HN_PAUSE) {
-                cw->setPaused(parseDuration(value.toString()));
-                result = true;
+                try {
+                    cw->setPaused(parseDuration(value.toString()));
+                    result = true;
+                } catch (const runtime_error&) {
+                    QSound::play(":/res/sounds/error.wav");
+                }
             } else if (index.column() == HN_FROM) {
                 cw->setStartTime(value.toDateTime());
                 result = true;

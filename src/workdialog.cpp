@@ -2,6 +2,9 @@
 #include "ui_workdialog.h"
 #include "utility.h"
 
+#include <QMessageBox>
+#include <QSound>
+
 using namespace std;
 
 WorkDialog::WorkDialog(QWidget *parent, const QModelIndex& ix,
@@ -71,7 +74,17 @@ WorkDialog::~WorkDialog()
 
 void WorkDialog::accept()
 {
-    flushToWork();
+    try {
+        flushToWork();
+    } catch (const runtime_error& ) {
+        if (QMessageBox::warning(this, "Whid",
+                "Invalid input.\n"
+                "Do you want to quit the edit anyway?",
+                QMessageBox::Yes | QMessageBox::No,
+                QMessageBox::No) == QMessageBox::No) {
+            return;
+        }
+    }
 
     // Emit the original instance
     *work_ = *ownWork_;
@@ -82,7 +95,11 @@ void WorkDialog::accept()
 
 void WorkDialog::updateUsed()
 {
-    flushToWork();
+    try {
+        flushToWork();
+    } catch (const runtime_error&) {
+        QSound::play(":/res/sounds/error.wav");
+    }
     ui->usedEdit->setText(toHourMin(ownWork_->getUsed()));
 }
 

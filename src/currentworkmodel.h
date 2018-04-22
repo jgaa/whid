@@ -5,6 +5,7 @@
 
 #include <QAbstractTableModel>
 #include <QTimer>
+#include <QSound>
 
 #include "workmodel.h"
 

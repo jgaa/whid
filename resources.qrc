@@ -25,5 +25,6 @@
         <file>res/icons/new_customer.svg</file>
         <file>res/icons/filter.svg</file>
         <file>res/icons/delete.svg</file>
+        <file>res/sounds/error.wav</file>
     </qresource>
 </RCC>

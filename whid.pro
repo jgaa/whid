@@ -6,7 +6,7 @@
 
 CONFIG += c++14
 
-QT       += core gui sql widgets
+QT       += core gui sql widgets multimedia
 
 TARGET = whid
 TEMPLATE = app
