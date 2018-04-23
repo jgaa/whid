@@ -8,7 +8,7 @@ MAINTAINER Jarle Aase <jgaa@jgaa.com>
 RUN apt-get -q update &&\
     apt-get -y -q --no-install-recommends upgrade &&\
     apt-get -y -q --no-install-recommends install openssh-server g++ git make \
-    qtdeclarative5-dev  qt5-default ruby ruby-dev rubygems build-essential \
+    qtdeclarative5-dev  qt5-default ruby ruby-dev qtmultimedia5-dev rubygems build-essential \
     openjdk-8-jdk &&\
     gem install --no-ri --no-rdoc fpm &&\
     apt-get -y -q autoremove &&\
