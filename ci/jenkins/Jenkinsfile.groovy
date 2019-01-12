@@ -106,6 +106,11 @@ pipeline {
                             filename 'Dockefile.debian-testing'
                             dir 'ci/jenkins'
                             label 'master'
+                            
+                            // The build suddenly failed to locate icons.
+                            // I think it's related to the links below.
+                            // https://stackoverflow.com/questions/51195528/rcc-error-in-resource-qrc-cannot-find-file-png
+                            // https://docs.docker.com/engine/security/seccomp/
                             args '--security-opt seccomp=unconfined'
                         }
                     }
