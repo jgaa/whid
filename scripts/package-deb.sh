@@ -22,6 +22,7 @@ fi
 if [ -z ${SRC_DIR:-} ]; then
 # Just assume we are run from the scipts directory
     SRC_DIR=`pwd`/..
+    echo "SRC_DIR was unset. Using: ${SRC_DIR}"
 fi
 
 echo "Building whid for linux into ${DIST_DIR} from ${SRC_DIR}"
