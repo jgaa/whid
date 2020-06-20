@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
-    <height>501</height>
+    <width>849</width>
+    <height>558</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -49,7 +49,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="workListTab">
          <attribute name="title">
@@ -204,6 +204,58 @@
           </item>
          </layout>
         </widget>
+        <widget class="QWidget" name="reportTab">
+         <property name="accessibleName">
+          <string/>
+         </property>
+         <attribute name="title">
+          <string>Report</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <layout class="QVBoxLayout" name="reportVerticalLayout">
+            <item>
+             <layout class="QHBoxLayout" name="reportControlsLayout">
+              <item>
+               <widget class="QPushButton" name="overviewFilter">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="../resources.qrc">
+                  <normaloff>:/res/icons/filter.svg</normaloff>:/res/icons/filter.svg</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="overviewOptions">
+                <property name="text">
+                 <string>...</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QTableView" name="reportView"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
        </widget>
       </widget>
       <widget class="QSplitter" name="bottomHorizontalSplitter">
@@ -297,8 +349,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>700</width>
-     <height>19</height>
+     <width>849</width>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
