@@ -53,6 +53,7 @@ SOURCES += \
         src/database.cpp \
         src/nodemodel.cpp \
         src/currentworkmodel.cpp \
+    src/reportmodel.cpp \
         src/workmodel.cpp \
         src/utility.cpp \
         src/summarymodel.cpp \
@@ -69,6 +70,7 @@ HEADERS += \
         src/database.h \
         src/nodemodel.h \
         src/currentworkmodel.h \
+    src/reportmodel.h \
         src/workmodel.h \
         src/utility.h \
         src/summarymodel.h \

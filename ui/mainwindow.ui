@@ -250,7 +250,11 @@
              </layout>
             </item>
             <item>
-             <widget class="QTableView" name="reportView"/>
+             <widget class="QTableView" name="reportList">
+              <property name="cornerButtonEnabled">
+               <bool>false</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>

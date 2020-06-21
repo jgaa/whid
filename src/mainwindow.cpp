@@ -48,6 +48,7 @@ void MainWindow::initialize()
     currentWorkModel_ = make_unique<CurrentWorkModel>();
     currentWorkModel_->initialize();
     workModel_ = make_unique<WorkModel>(*nodeModel_);
+    reportModel_ = make_unique<ReportModel>();
     summaryModel_ = make_unique<SummaryModel>(*nodeModel_);
     ui->nodeTree->setModel(nodeModel_.get());
     ui->nodeTree->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -74,6 +75,12 @@ void MainWindow::initialize()
     ui->workList->setColumnWidth(workModel_->fieldIndex("end"), 60);
 
     ui->workList->setContextMenuPolicy(Qt::CustomContextMenu);
+
+    ui->reportList->setModel(reportModel_.get());
+    ui->reportList->setColumnWidth(0, 200);
+    ui->reportList->setColumnWidth(1, 80);
+    ui->reportList->setColumnWidth(2, 80);
+    ui->reportList->setColumnWidth(3, 80);
 
     ui->summaryView->setModel(summaryModel_.get());
     ui->summaryView->setColumnWidth(0, 180);
@@ -232,9 +239,11 @@ void MainWindow::onTreeSelectionChanged(const QItemSelection &, const QItemSelec
     auto selection =  ui->nodeTree->selectionModel()->selectedIndexes();
     if (selection.isEmpty()) {
         workModel_->setFilter("id=-1");
+        reportModel_->setFilter("id -1");
     } else {
-        workModel_->setFilter(nodeModel_->createFilter(
-            selection, "node"));
+        const auto filter = nodeModel_->createFilter(selection, "node");
+        workModel_->setFilter(filter);
+        reportModel_->setFilter(filter);
     }
     workModel_->select();
     validateStartBtn();

@@ -13,6 +13,7 @@
 #include "nodemodel.h"
 #include "currentworkmodel.h"
 #include "summarymodel.h"
+#include "reportmodel.h"
 
 namespace Ui {
 class MainWindow;
@@ -123,6 +124,7 @@ private:
     std::unique_ptr<CurrentWorkModel> currentWorkModel_;
     std::unique_ptr<WorkModel> workModel_;
     std::unique_ptr<SummaryModel> summaryModel_;
+    std::unique_ptr<ReportModel> reportModel_;
 
     QLabel *statusLabel_ = {};
     QLineEdit *statusTimeUsedToday_ = {};
